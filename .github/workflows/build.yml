@@ -7,7 +7,7 @@ on: [push, pull_request]
 
 jobs:
   applications:
-    name: Unit Test ${{ matrix.java-version }}
+    name: Build Unit Test on JDK ${{ matrix.java-version }}
     strategy:
       matrix:
         os: [ubuntu-latest]

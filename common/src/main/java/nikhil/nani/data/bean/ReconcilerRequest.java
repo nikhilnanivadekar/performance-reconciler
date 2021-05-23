@@ -5,16 +5,18 @@ public class ReconcilerRequest
     private String pathFile1;
     private String pathFile2;
     private RequestType requestType;
+    private ReconcilerModuleType reconcilerModuleType;
 
     public ReconcilerRequest()
     {
     }
 
-    public ReconcilerRequest(String pathFile1, String pathFile2, RequestType requestType)
+    public ReconcilerRequest(String pathFile1, String pathFile2, RequestType requestType, ReconcilerModuleType reconcilerModuleType)
     {
         this.pathFile1 = pathFile1;
         this.pathFile2 = pathFile2;
         this.requestType = requestType;
+        this.reconcilerModuleType = reconcilerModuleType;
     }
 
     public String getPathFile1()
@@ -47,6 +49,16 @@ public class ReconcilerRequest
         this.requestType = requestType;
     }
 
+    public ReconcilerModuleType getReconcilerModuleType()
+    {
+        return this.reconcilerModuleType;
+    }
+
+    public void setReconcilerModuleType(ReconcilerModuleType reconcilerModuleType)
+    {
+        this.reconcilerModuleType = reconcilerModuleType;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -61,23 +73,28 @@ public class ReconcilerRequest
 
         ReconcilerRequest that = (ReconcilerRequest) o;
 
-        if (this.pathFile1 != null ? !this.pathFile1.equals(that.pathFile1) : that.pathFile1 != null)
+        if (!this.pathFile1.equals(that.pathFile1))
         {
             return false;
         }
-        if (this.pathFile2 != null ? !this.pathFile2.equals(that.pathFile2) : that.pathFile2 != null)
+        if (!this.pathFile2.equals(that.pathFile2))
         {
             return false;
         }
-        return this.requestType == that.requestType;
+        if (this.requestType != that.requestType)
+        {
+            return false;
+        }
+        return this.reconcilerModuleType == that.reconcilerModuleType;
     }
 
     @Override
     public int hashCode()
     {
-        int result = this.pathFile1 != null ? this.pathFile1.hashCode() : 0;
-        result = 31 * result + (this.pathFile2 != null ? this.pathFile2.hashCode() : 0);
-        result = 31 * result + (this.requestType != null ? this.requestType.hashCode() : 0);
+        int result = this.pathFile1.hashCode();
+        result = 31 * result + this.pathFile2.hashCode();
+        result = 31 * result + this.requestType.hashCode();
+        result = 31 * result + this.reconcilerModuleType.hashCode();
         return result;
     }
 }

@@ -1,16 +1,18 @@
 package nikhil.nani.data.creator.bean;
 
+import nikhil.nani.data.bean.RequestType;
+
 public class CreatorRequest
 {
     private String fullyQualifiedFileName;
-    private CreatorRequestType creatorRequestType;
+    private RequestType creatorRequestType;
     private int numRecords;
 
     public CreatorRequest()
     {
     }
 
-    public CreatorRequest(String fullyQualifiedFileName, CreatorRequestType creatorRequestType, int numRecords)
+    public CreatorRequest(String fullyQualifiedFileName, RequestType creatorRequestType, int numRecords)
     {
         this.fullyQualifiedFileName = fullyQualifiedFileName;
         this.creatorRequestType = creatorRequestType;
@@ -27,12 +29,12 @@ public class CreatorRequest
         this.fullyQualifiedFileName = fullyQualifiedFileName;
     }
 
-    public CreatorRequestType getCreatorRequestType()
+    public RequestType getCreatorRequestType()
     {
         return this.creatorRequestType;
     }
 
-    public void setCreatorRequestType(CreatorRequestType creatorRequestType)
+    public void setCreatorRequestType(RequestType creatorRequestType)
     {
         this.creatorRequestType = creatorRequestType;
     }

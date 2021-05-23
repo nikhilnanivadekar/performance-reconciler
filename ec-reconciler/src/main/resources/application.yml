@@ -1,2 +1,4 @@
 server:
   port: 9060
+
+# http://localhost:9060/swagger-ui.html

@@ -73,11 +73,11 @@ public class ReconcilerRequest
 
         ReconcilerRequest that = (ReconcilerRequest) o;
 
-        if (!this.pathFile1.equals(that.pathFile1))
+        if (this.pathFile1 != null ? !this.pathFile1.equals(that.pathFile1) : that.pathFile1 != null)
         {
             return false;
         }
-        if (!this.pathFile2.equals(that.pathFile2))
+        if (this.pathFile2 != null ? !this.pathFile2.equals(that.pathFile2) : that.pathFile2 != null)
         {
             return false;
         }
@@ -91,10 +91,10 @@ public class ReconcilerRequest
     @Override
     public int hashCode()
     {
-        int result = this.pathFile1.hashCode();
-        result = 31 * result + this.pathFile2.hashCode();
-        result = 31 * result + this.requestType.hashCode();
-        result = 31 * result + this.reconcilerModuleType.hashCode();
+        int result = this.pathFile1 != null ? this.pathFile1.hashCode() : 0;
+        result = 31 * result + (this.pathFile2 != null ? this.pathFile2.hashCode() : 0);
+        result = 31 * result + (this.requestType != null ? this.requestType.hashCode() : 0);
+        result = 31 * result + (this.reconcilerModuleType != null ? this.reconcilerModuleType.hashCode() : 0);
         return result;
     }
 }

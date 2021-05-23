@@ -1,6 +1,6 @@
 package nikhil.nani.data.bean;
 
-public class Person
+public class Person implements ReconRecord
 {
     private int id;
     private String firstName;
@@ -115,6 +115,7 @@ public class Person
         return result;
     }
 
+    @Override
     public String getRecordString()
     {
         return String.valueOf(id) + ',' + firstName + ',' + lastName + ',' + age + ',' + city;

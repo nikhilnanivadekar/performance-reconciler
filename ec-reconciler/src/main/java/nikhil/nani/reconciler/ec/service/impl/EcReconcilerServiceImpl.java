@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.Person;
+import nikhil.nani.data.bean.ReconRecord;
 import nikhil.nani.data.bean.ReconcilerRequest;
 import nikhil.nani.data.bean.RequestType;
 import nikhil.nani.data.service.ReconcilerService;
@@ -51,38 +52,39 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         {
             if (request.getRequestType() == RequestType.SMALL)
             {
-                Breaks<Person> personBreaks;
+                Breaks<ReconRecord> breaks;
                 if (request.isIgnoreDuplicates())
                 {
                     // Impl on the left as only Impl implements Pool.
-                    UnifiedSetWithHashingStrategy<Person> personSet1 = new UnifiedSetWithHashingStrategy<>(HashingStrategies.fromFunction(Person::getId));
-                    this.readPersonFile(request.getPathFile1(), personSet1);
+                    UnifiedSetWithHashingStrategy<ReconRecord> set1 = new UnifiedSetWithHashingStrategy<>(HashingStrategies.fromFunction(each -> ((Person) each).getId()));
+                    this.readFile(request.getPathFile1(), set1, request.getRequestType());
 
-                    personBreaks = this.compareWithDuplicatesIgnored(personSet1, request.getPathFile2());
-                    personSet1 = null;
+                    breaks = this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
+                    set1 = null;
                 }
                 else
                 {
-                    MutableListMultimap<Integer, Person> personMultimap1 = this.getRecordMultimap(request.getPathFile1());
-                    MutableListMultimap<Integer, Person> personMultimap2 = this.getRecordMultimap(request.getPathFile2());
+                    MutableListMultimap<Integer, ReconRecord> multimap1 = this.getPersonRecordMultimap(request.getPathFile1(), request.getRequestType());
+                    MutableListMultimap<Integer, ReconRecord> multimap2 = this.getPersonRecordMultimap(request.getPathFile2(), request.getRequestType());
 
-                    personBreaks = this.compareMultimaps(personMultimap1, personMultimap2);
-                    personMultimap1 = null;
-                    personMultimap2 = null;
+                    breaks = this.compareMultimaps(multimap1, multimap2);
+                    multimap1 = null;
+                    multimap2 = null;
                 }
 
-                this.writeBreakFiles(personBreaks);
+                this.writeBreakFiles(breaks);
             }
         }
         catch (Exception e)
         {
+            LOGGER.error("Something went wrong while reconciling", e);
             return "Something went wrong while reconciling:" + e.getMessage();
         }
 
         return "reconciled using EC";
     }
 
-    private void readPersonFile(String filePath, Collection<Person> personCollection)
+    private void readFile(String filePath, Collection<ReconRecord> reconRecordCollection, RequestType requestType)
     {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath)))
         {
@@ -92,14 +94,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
 
-                personCollection.add(
-                        new Person(
-                                Integer.valueOf(split[0]), //id
-                                split[1], //firstName
-                                split[2], //lastName
-                                Integer.valueOf(split[3]), //age
-                                split[4] //city
-                        ));
+                reconRecordCollection.add(this.getSingleParsedRecord(split, requestType));
             }
         }
         catch (IOException e)
@@ -108,102 +103,95 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         }
     }
 
-    private MutableListMultimap<Integer, Person> getRecordMultimap(String path)
+    private MutableListMultimap<Integer, ReconRecord> getPersonRecordMultimap(String path, RequestType requestType)
     {
-        MutableList<Person> personList = Lists.mutable.empty();
-        this.readPersonFile(path, personList);
+        MutableList<ReconRecord> personList = Lists.mutable.empty();
+        this.readFile(path, personList, requestType);
 
-        return personList.groupBy(Person::getId);
+        return personList.groupBy(each -> ((Person) each).getId());
     }
 
-    private Breaks<Person> compareMultimaps(MutableListMultimap<Integer, Person> personMultimapLhs, MutableListMultimap<Integer, Person> personMultimapRhs)
+    private <T> Breaks<ReconRecord> compareMultimaps(MutableListMultimap<T, ReconRecord> multimapLhs, MutableListMultimap<T, ReconRecord> multimapRhs)
     {
-        Breaks<Person> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
+        Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        personMultimapLhs.forEachKeyMultiValues(
-                (id, personIterable1) ->
+        multimapLhs.forEachKeyMultiValues(
+                (id, reconRecordIterable) ->
                 {
-                    MutableList<Person> personListLhs = (MutableList<Person>) personIterable1;
-                    MutableList<Person> personListRhs = personMultimapRhs.removeAll(id);
+                    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
+                    MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
 
-                    if (Iterate.notEmpty(personListRhs))
+                    if (Iterate.notEmpty(listRhs))
                     {
                         MutableIntSet visitedIndexes = IntSets.mutable.empty();
-                        personListLhs.forEachWithIndex((personLhs, index) ->
+                        listLhs.forEachWithIndex((lhs, index) ->
                         {
-                            if (index < personListRhs.size())
+                            if (index < listRhs.size())
                             {
-                                Person personRhs = personListRhs.get(index);
+                                ReconRecord rhs = listRhs.get(index);
 
-                                if (!personRhs.equals(personLhs))
+                                if (!rhs.equals(lhs))
                                 {
-                                    breaks.addToBreaks(Lists.mutable.with(personLhs, personRhs));
+                                    breaks.addToBreaks(Lists.mutable.with(lhs, rhs));
                                 }
 
                                 visitedIndexes.add(index);
                             }
                             else
                             {
-                                breaks.addToPresentInLhsNotInRhs(personLhs);
+                                breaks.addToPresentInLhsNotInRhs(lhs);
                             }
                         });
 
-                        personListRhs.forEachWithIndex((personRhs, index) ->
+                        listRhs.forEachWithIndex((rhs, index) ->
                         {
                             if (!visitedIndexes.contains(index))
                             {
-                                breaks.addToPresentInRhsNotInLhs(personRhs);
+                                breaks.addToPresentInRhsNotInLhs(rhs);
                             }
                         });
                     }
                     else
                     {
-                        breaks.addAllToPresentInLhsNotInRhs(personListLhs);
+                        breaks.addAllToPresentInLhsNotInRhs(listLhs);
                     }
                 });
 
-        personMultimapRhs.forEachKeyMultiValues((id, personRhsIterable) ->
-                breaks.addAllToPresentInRhsNotInLhs((MutableList<Person>) personRhsIterable));
+        multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
+                breaks.addAllToPresentInRhsNotInLhs((MutableList<ReconRecord>) rhsIterable));
 
         return breaks;
     }
 
-    private Breaks<Person> compareWithDuplicatesIgnored(UnifiedSetWithHashingStrategy<Person> personSetLhs, String pathFile2)
+    private Breaks<ReconRecord> compareWithDuplicatesIgnored(UnifiedSetWithHashingStrategy<ReconRecord> setLhs, String pathFile2, RequestType requestType)
     {
-        Breaks<Person> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
+        Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathFile2)))
         {
             String currentLine;
-            String COMMA_DELIMITER = ",";
 
             while ((currentLine = reader.readLine()) != null)
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
 
-                Person personRhs = new Person(
-                        Integer.valueOf(split[0]), //id
-                        split[1], //firstName
-                        split[2], //lastName
-                        Integer.valueOf(split[3]), //age
-                        split[4] //city
-                );
+                ReconRecord rhs = this.getSingleParsedRecord(split, requestType);
 
-                Person personLhs = personSetLhs.removeFromPool(personRhs);
+                ReconRecord lhs = setLhs.removeFromPool(rhs);
 
-                if (Objects.nonNull(personLhs))
+                if (Objects.nonNull(lhs))
                 {
-                    if (!personLhs.equals(personRhs))
+                    if (!lhs.equals(rhs))
                     {
-                        breaks.addToBreaks(Lists.mutable.with(personLhs, personRhs));
+                        breaks.addToBreaks(Lists.mutable.with(lhs, rhs));
                     }
                 }
                 else
                 {
-                    breaks.addToPresentInRhsNotInLhs(personRhs);
+                    breaks.addToPresentInRhsNotInLhs(rhs);
                 }
             }
-            personSetLhs.each(breaks::addToPresentInLhsNotInRhs);
+            setLhs.each(breaks::addToPresentInLhsNotInRhs);
         }
         catch (IOException e)
         {
@@ -213,7 +201,22 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return breaks;
     }
 
-    private void writeBreakFiles(Breaks<Person> personBreaks)
+    private ReconRecord getSingleParsedRecord(String[] split, RequestType requestType)
+    {
+        if (RequestType.SMALL == requestType)
+        {
+            return new Person(
+                    Integer.valueOf(split[0]), //id
+                    split[1], //firstName
+                    split[2], //lastName
+                    Integer.valueOf(split[3]), //age
+                    split[4] //city
+            );
+        }
+        return null;
+    }
+
+    private void writeBreakFiles(Breaks<ReconRecord> personBreaks)
     {
         File presentInLhsNotInRhs = new File(this.outputFileDir + "/PresentInLhsNotInRhs-" + UUID.randomUUID() + ".dat");
         File presentInRhsNotInLhs = new File(this.outputFileDir + "/PresentInRhsNotInLhs-" + UUID.randomUUID() + ".dat");
@@ -226,7 +229,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         this.writeBreaks(personBreaks, breaks);
     }
 
-    private void writeBreaks(Breaks<Person> personBreaks, File breaks)
+    private void writeBreaks(Breaks<ReconRecord> personBreaks, File breaks)
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(breaks)))
         {
@@ -251,7 +254,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         }
     }
 
-    private void writeMissingRecords(File file, List<Person> missingRecords)
+    private void writeMissingRecords(File file, List<ReconRecord> missingRecords)
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file)))
         {

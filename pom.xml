@@ -9,6 +9,9 @@
 
     <modules>
         <module>data-creator</module>
+        <module>common</module>
+        <module>jdk-reconciler</module>
+        <module>ec-reconciler</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -27,6 +30,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>nikhil.nani.reconciler</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>

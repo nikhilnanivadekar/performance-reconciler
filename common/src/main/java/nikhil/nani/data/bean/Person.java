@@ -5,14 +5,14 @@ public class Person
     private int id;
     private String firstName;
     private String lastName;
-    private String age;
+    private int age;
     private String city;
 
     public Person()
     {
     }
 
-    public Person(int id, String firstName, String lastName, String age, String city)
+    public Person(int id, String firstName, String lastName, int age, String city)
     {
         this.id = id;
         this.firstName = firstName;
@@ -51,12 +51,12 @@ public class Person
         this.lastName = lastName;
     }
 
-    public String getAge()
+    public int getAge()
     {
         return this.age;
     }
 
-    public void setAge(String age)
+    public void setAge(int age)
     {
         this.age = age;
     }
@@ -89,15 +89,15 @@ public class Person
         {
             return false;
         }
+        if (this.age != person.age)
+        {
+            return false;
+        }
         if (this.firstName != null ? !this.firstName.equals(person.firstName) : person.firstName != null)
         {
             return false;
         }
         if (this.lastName != null ? !this.lastName.equals(person.lastName) : person.lastName != null)
-        {
-            return false;
-        }
-        if (this.age != null ? !this.age.equals(person.age) : person.age != null)
         {
             return false;
         }
@@ -110,7 +110,7 @@ public class Person
         int result = this.id;
         result = 31 * result + (this.firstName != null ? this.firstName.hashCode() : 0);
         result = 31 * result + (this.lastName != null ? this.lastName.hashCode() : 0);
-        result = 31 * result + (this.age != null ? this.age.hashCode() : 0);
+        result = 31 * result + this.age;
         result = 31 * result + (this.city != null ? this.city.hashCode() : 0);
         return result;
     }

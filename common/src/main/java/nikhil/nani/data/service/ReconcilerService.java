@@ -1,8 +1,8 @@
-package nikhil.nani.reconciler.jdk.service;
+package nikhil.nani.data.service;
 
 import nikhil.nani.data.bean.ReconcilerRequest;
 
-public interface JdkReconcilerService
+public interface ReconcilerService
 {
     String reconcile(ReconcilerRequest request);
 }

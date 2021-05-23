@@ -1,7 +1,7 @@
 package nikhil.nani.reconciler.jdk.controller;
 
 import nikhil.nani.data.bean.ReconcilerRequest;
-import nikhil.nani.reconciler.jdk.service.JdkReconcilerService;
+import nikhil.nani.data.service.ReconcilerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/reconcile")
 public class JdkReconcilerController
 {
-    private JdkReconcilerService reconcilerService;
+    private ReconcilerService reconcilerService;
 
-    public JdkReconcilerController(JdkReconcilerService reconcilerService)
+    public JdkReconcilerController(ReconcilerService reconcilerService)
     {
         this.reconcilerService = reconcilerService;
     }

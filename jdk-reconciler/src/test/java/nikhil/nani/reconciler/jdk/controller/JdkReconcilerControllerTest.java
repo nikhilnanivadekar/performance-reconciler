@@ -1,7 +1,7 @@
 package nikhil.nani.reconciler.jdk.controller;
 
 import nikhil.nani.data.bean.ReconcilerRequest;
-import nikhil.nani.reconciler.jdk.service.JdkReconcilerService;
+import nikhil.nani.data.service.ReconcilerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JdkReconcilerControllerTest
 {
     @Mock
-    private JdkReconcilerService service;
+    private ReconcilerService service;
 
     @InjectMocks
     private JdkReconcilerController testObj;

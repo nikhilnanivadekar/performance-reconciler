@@ -1,18 +1,18 @@
 package nikhil.nani.reconciler.jdk.service.impl;
 
 import nikhil.nani.data.bean.ReconcilerRequest;
-import nikhil.nani.reconciler.jdk.service.JdkReconcilerService;
+import nikhil.nani.data.service.ReconcilerService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JdkReconcilerServiceImplTest
 {
-    private JdkReconcilerService testObj = new JdkReconcilerServiceImpl();
+    private ReconcilerService testObj = new JdkReconcilerServiceImpl();
 
     @Test
     public void reconcile()
     {
-        assertEquals("reconciled", this.testObj.reconcile(new ReconcilerRequest()));
+        assertEquals("reconciled using JDK", this.testObj.reconcile(new ReconcilerRequest()));
     }
 }

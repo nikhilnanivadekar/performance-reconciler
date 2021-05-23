@@ -114,4 +114,9 @@ public class Person
         result = 31 * result + (this.city != null ? this.city.hashCode() : 0);
         return result;
     }
+
+    public String getRecordString()
+    {
+        return String.valueOf(id) + ',' + firstName + ',' + lastName + ',' + age + ',' + city;
+    }
 }

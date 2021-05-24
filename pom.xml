@@ -12,6 +12,7 @@
         <module>common</module>
         <module>jdk-reconciler</module>
         <module>ec-reconciler</module>
+        <module>examples</module>
     </modules>
 
     <packaging>pom</packaging>

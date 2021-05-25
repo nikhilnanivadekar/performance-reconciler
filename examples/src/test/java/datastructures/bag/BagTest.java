@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 public class BagTest
 {
-
     private final String words = "one two Two three Three THREE four FOUR Four FoUr";
 
     @Test

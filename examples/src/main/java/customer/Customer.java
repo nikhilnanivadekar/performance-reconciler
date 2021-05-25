@@ -9,18 +9,31 @@ import org.eclipse.collections.api.list.MutableList;
 
 public class Customer
 {
+    static final AtomicLong CUSTOMER_ID_GENERATOR = new AtomicLong(0);
     static final AtomicLong ORDER_ID_GENERATOR = new AtomicLong(0);
 
+    private final long id;
     private final String lastName;
     private final String middleInitial;
     private final String firstName;
     private final MutableList<Order> orders = Lists.mutable.empty();
 
-    public Customer(String lastName, String middleInitial, String firstName)
+    public Customer(String firstName, String middleInitial, String lastName)
     {
-        this.lastName = Objects.requireNonNull(lastName);
-        this.middleInitial = Objects.requireNonNull(middleInitial);
+        this(CUSTOMER_ID_GENERATOR.incrementAndGet(), firstName, middleInitial, lastName);
+    }
+
+    public Customer(long id, String firstName, String middleInitial, String lastName)
+    {
+        this.id = id;
         this.firstName = Objects.requireNonNull(firstName);
+        this.middleInitial = Objects.requireNonNull(middleInitial);
+        this.lastName = Objects.requireNonNull(lastName);
+    }
+
+    public long getId()
+    {
+        return this.id;
     }
 
     public String getLastName()

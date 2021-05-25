@@ -15,9 +15,9 @@ public class HashingStrategyBagTest
     @Test
     public void caseInsensitiveBag()
     {
-        MutableBag<String> bagOfWords = HashingStrategyBags.mutable.with(
-                HashingStrategies.fromFunction(String::toLowerCase));
-        bagOfWords.addAll(Arrays.asList(this.words.split(" ")));
+        MutableBag<String> bagOfWords =
+                HashingStrategyBags.mutable.<String>with(HashingStrategies.fromFunction(String::toLowerCase))
+                        .withAll(Arrays.asList(this.words.split(" ")));
 
         Assertions.assertEquals(1, bagOfWords.occurrencesOf("one"));
         Assertions.assertEquals(2, bagOfWords.occurrencesOf("two"));

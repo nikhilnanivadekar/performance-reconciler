@@ -14,22 +14,27 @@ public class PoolTest
     public void stringPool()
     {
         Pool<String> pool = UnifiedSet.newSet();
-        String one = pool.put(new String("a"));
-        String two = pool.put(new String("a"));
+        String a1 = pool.put(new String("a"));
+        String a2 = pool.put(new String("a"));
+        String b1 = pool.put(new String("b"));
+        String b2 = pool.put(new String("b"));
 
-        Assertions.assertNotNull(one);
-        Assertions.assertSame(one, two);
+        Assertions.assertNotNull(a1);
+        Assertions.assertNotEquals(a1, b1);
+        Assertions.assertSame(a1, a2);
+        Assertions.assertSame(b1, b2);
     }
 
     @Test
     void hashingStrategyPool()
     {
-        Pool<Customer> poolById = UnifiedSetWithHashingStrategy.newSet(
-                HashingStrategies.fromLongFunction(Customer::getId));
+        Pool<Customer> poolById =
+                UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromLongFunction(Customer::getId));
 
         Customer donaldDuck = new Customer("Donald", "A", "Duck");
+        Customer donaldQuack = new Customer(donaldDuck.getId(), "Donald", "B", "Quack");
         Assertions.assertSame(donaldDuck, poolById.put(donaldDuck));
         Assertions.assertNotNull(poolById.put(new Customer("Mickey", "Mouse", "T")));
-        Assertions.assertSame(donaldDuck, poolById.put(new Customer(donaldDuck.getId(), "Donald", "B", "Quack")));
+        Assertions.assertSame(donaldDuck, poolById.put(donaldQuack));
     }
 }

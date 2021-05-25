@@ -11,11 +11,11 @@ public class HashingStrategyMapTest
     @Test
     public void caseInsensitiveMap()
     {
-        MutableMap<String, String> map = HashingStrategyMaps.mutable.<String, String>with(
-                HashingStrategies.fromFunction(String::toLowerCase))
-                .withKeyValue("one", "1")
-                .withKeyValue("Two", "2")
-                .withKeyValue("THREE", "3");
+        MutableMap<String, String> map =
+                HashingStrategyMaps.mutable.<String, String>with(HashingStrategies.fromFunction(String::toLowerCase))
+                        .withKeyValue("one", "1")
+                        .withKeyValue("Two", "2")
+                        .withKeyValue("THREE", "3");
 
         Assertions.assertEquals("1", map.get("ONE"));
         Assertions.assertEquals("2", map.get("tWO"));

@@ -13,7 +13,7 @@
 
     <properties>
         <junit5.version>5.7.2</junit5.version>
-        <eclipse-collections.version>10.4.0</eclipse-collections.version>
+        <eclipse-collections.version>11.0.0.M2</eclipse-collections.version>
     </properties>
 
     <dependencies>

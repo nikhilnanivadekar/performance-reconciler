@@ -56,7 +56,8 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                 if (request.isIgnoreDuplicates())
                 {
                     // Impl on the left as only Impl implements Pool.
-                    UnifiedSetWithHashingStrategy<ReconRecord> set1 = new UnifiedSetWithHashingStrategy<>(HashingStrategies.fromFunction(each -> ((Person) each).getId()));
+                    UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+                            UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromIntFunction(ReconRecord::getId));
                     this.readFile(request.getPathFile1(), set1, request.getRequestType());
 
                     breaks = this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
@@ -108,7 +109,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         MutableList<ReconRecord> personList = Lists.mutable.empty();
         this.readFile(path, personList, requestType);
 
-        return personList.groupBy(each -> ((Person) each).getId());
+        return personList.groupBy(ReconRecord::getId);
     }
 
     private <T> Breaks<ReconRecord> compareMultimaps(MutableListMultimap<T, ReconRecord> multimapLhs, MutableListMultimap<T, ReconRecord> multimapRhs)

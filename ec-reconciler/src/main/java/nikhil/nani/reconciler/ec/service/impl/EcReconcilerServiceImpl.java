@@ -65,8 +65,10 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                 }
                 else
                 {
-                    MutableListMultimap<Integer, ReconRecord> multimap1 = this.getPersonRecordMultimap(request.getPathFile1(), request.getRequestType());
-                    MutableListMultimap<Integer, ReconRecord> multimap2 = this.getPersonRecordMultimap(request.getPathFile2(), request.getRequestType());
+                    MutableListMultimap<Integer, ReconRecord> multimap1 =
+                            this.getPersonRecordMultimap(request.getPathFile1(), request.getRequestType());
+                    MutableListMultimap<Integer, ReconRecord> multimap2 =
+                            this.getPersonRecordMultimap(request.getPathFile2(), request.getRequestType());
 
                     breaks = this.compareMultimaps(multimap1, multimap2);
                     multimap1 = null;
@@ -112,7 +114,9 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return personList.groupBy(ReconRecord::getId);
     }
 
-    private <T> Breaks<ReconRecord> compareMultimaps(MutableListMultimap<T, ReconRecord> multimapLhs, MutableListMultimap<T, ReconRecord> multimapRhs)
+    private <T> Breaks<ReconRecord> compareMultimaps(
+            MutableListMultimap<T, ReconRecord> multimapLhs,
+            MutableListMultimap<T, ReconRecord> multimapRhs)
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
@@ -164,7 +168,10 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return breaks;
     }
 
-    private Breaks<ReconRecord> compareWithDuplicatesIgnored(UnifiedSetWithHashingStrategy<ReconRecord> setLhs, String pathFile2, RequestType requestType)
+    private Breaks<ReconRecord> compareWithDuplicatesIgnored(
+            UnifiedSetWithHashingStrategy<ReconRecord> setLhs,
+            String pathFile2,
+            RequestType requestType)
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
@@ -207,10 +214,10 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         if (RequestType.SMALL == requestType)
         {
             return new Person(
-                    Integer.valueOf(split[0]), //id
+                    Integer.parseInt(split[0]), //id
                     split[1], //firstName
                     split[2], //lastName
-                    Integer.valueOf(split[3]), //age
+                    Integer.parseInt(split[3]), //age
                     split[4] //city
             );
         }
@@ -219,8 +226,10 @@ public class EcReconcilerServiceImpl implements ReconcilerService
 
     private void writeBreakFiles(Breaks<ReconRecord> personBreaks)
     {
-        File presentInLhsNotInRhs = new File(this.outputFileDir + "/PresentInLhsNotInRhs-" + UUID.randomUUID() + ".dat");
-        File presentInRhsNotInLhs = new File(this.outputFileDir + "/PresentInRhsNotInLhs-" + UUID.randomUUID() + ".dat");
+        File presentInLhsNotInRhs =
+                new File(this.outputFileDir + "/PresentInLhsNotInRhs-" + UUID.randomUUID() + ".dat");
+        File presentInRhsNotInLhs =
+                new File(this.outputFileDir + "/PresentInRhsNotInLhs-" + UUID.randomUUID() + ".dat");
         File breaks = new File(this.outputFileDir + "/Breaks-" + UUID.randomUUID() + ".dat");
 
         this.writeMissingRecords(presentInLhsNotInRhs, personBreaks.getPresentInLhsNotInRhs());
@@ -239,13 +248,9 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                             each ->
                             {
                                 each.forEach(Procedures.throwing(
-                                        breakRecord ->
-                                        {
-                                            writer.write(breakRecord.getRecordString());
-                                            writer.append("||");
-                                        }));
-
-                                writer.append(System.lineSeparator());
+                                        breakRecord -> writeRecordStringAndAppend(writer, breakRecord, "||")
+                                ));
+                               writer.append(System.lineSeparator());
                             }));
             writer.flush();
         }
@@ -260,16 +265,19 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file)))
         {
             missingRecords.forEach(Procedures.throwing(
-                    each ->
-                    {
-                        writer.write(each.getRecordString());
-                        writer.append(System.lineSeparator());
-                    }));
+                    each -> writeRecordStringAndAppend(writer, each, System.lineSeparator())
+            ));
             writer.flush();
         }
         catch (IOException e)
         {
             LOGGER.error("Something went wrong while writing file", e);
         }
+    }
+
+    private void writeRecordStringAndAppend(BufferedWriter writer, ReconRecord each, String s) throws IOException
+    {
+        writer.write(each.getRecordString());
+        writer.append(s);
     }
 }

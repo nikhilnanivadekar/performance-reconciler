@@ -244,20 +244,21 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(breaks)))
         {
             personBreaks.getBreaks()
-                    .forEach(Procedures.throwing(
-                            each ->
-                            {
-                                each.forEach(Procedures.throwing(
-                                        breakRecord -> writeRecordStringAndAppend(writer, breakRecord, "||")
-                                ));
-                               writer.append(System.lineSeparator());
-                            }));
+                    .forEach(Procedures.throwing(each -> writeRecords(writer, each)));
             writer.flush();
         }
         catch (IOException e)
         {
             LOGGER.error("Something went wrong while writing file", e);
         }
+    }
+
+    private void writeRecords(BufferedWriter writer, List<ReconRecord> each) throws IOException
+    {
+        each.forEach(Procedures.throwing(
+                breakRecord -> writeRecordStringAndAppend(writer, breakRecord, "||")
+        ));
+        writer.append(System.lineSeparator());
     }
 
     private void writeMissingRecords(File file, List<ReconRecord> missingRecords)

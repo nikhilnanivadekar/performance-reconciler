@@ -189,7 +189,8 @@ public class EcReconcilerServiceImplTest
     {
         List<String> cities = Lists.mutable.with("Phoenix", "Sacramento", "Atlanta", "Denver", "Boise", "Honolulu", "Baton Rouge", "Boston", "Trenton", "Albany", "Raleigh", "Austin", "Salt Lake City", "Olympia");
 
-        this.writeFile(insertDuplicates1,
+        this.writeFile(
+                insertDuplicates1,
                 insertDuplicates2,
                 insertDuplicates3,
                 file,
@@ -203,7 +204,8 @@ public class EcReconcilerServiceImplTest
     {
         List<String> cities = Lists.mutable.with("Phoenix", "Sacramento", "Denver", "Atlanta", "Boise", "Honolulu", "Baton Rouge", "Boston", "Trenton", "Albany", "Raleigh", "Austin", "Salt Lake City", "Olympia");
 
-        this.writeFile(insertDuplicates1,
+        this.writeFile(
+                insertDuplicates1,
                 insertDuplicates2,
                 insertDuplicates3,
                 file,
@@ -222,43 +224,20 @@ public class EcReconcilerServiceImplTest
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    writer.write(
-                            new Person(
-                                    count,
-                                    firstName.get(i),
-                                    lastName.get(i),
-                                    i + 10,
-                                    city).getRecordString());
-                    writer.append(System.lineSeparator());
+                    String fName = firstName.get(i);
+                    String lName = lastName.get(i);
+                    this.writePerson(writer, count, fName, lName, i, city);
                     if (insertDuplicates1 && count % 5 == 0)
                     {
-                        writer.write(
-                                new Person(count,
-                                        firstName.get(i),
-                                        lastName.get(i),
-                                        i + 10,
-                                        city).getRecordString());
-                        writer.append(System.lineSeparator());
+                        this.writePerson(writer, count, fName, lName, i, city);
                     }
                     if (insertDuplicates2 && count % 10 == 0)
                     {
-                        writer.write(
-                                new Person(count,
-                                        firstName.get(i),
-                                        lastName.get(i),
-                                        i + 10,
-                                        city).getRecordString());
-                        writer.append(System.lineSeparator());
+                        this.writePerson(writer, count, fName, lName, i, city);
                     }
                     if (insertDuplicates3 && count % 7 == 0)
                     {
-                        writer.write(
-                                new Person(count,
-                                        firstName.get(i),
-                                        lastName.get(i),
-                                        i + 10,
-                                        city).getRecordString());
-                        writer.append(System.lineSeparator());
+                        this.writePerson(writer, count, fName, lName, i, city);
                     }
                     count++;
                 }
@@ -271,5 +250,17 @@ public class EcReconcilerServiceImplTest
         {
             throw e;
         }
+    }
+
+    private void writePerson(
+            BufferedWriter writer,
+            int count,
+            String firstName,
+            String lastName,
+            int i,
+            String city) throws IOException
+    {
+        writer.write(new Person(count, firstName, lastName, i + 10, city).getRecordString());
+        writer.append(System.lineSeparator());
     }
 }

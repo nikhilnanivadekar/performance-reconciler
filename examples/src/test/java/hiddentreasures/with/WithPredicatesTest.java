@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class WithPredicatesTest
 {
-    private static final ImmutableList<Integer> INTEGERS = Lists.immutable.with(1, 2, 3, 4, 5);
-
-    private ImmutableList<Customer> customers = Lists.immutable.with(
+    private final ImmutableList<Customer> customers = Lists.immutable.with(
         new Customer("John", "E", "Smith"),
         new Customer("Sally", "C", "Smith"),
         new Customer("Ted", "G", "Williams"),
@@ -20,8 +18,7 @@ public class WithPredicatesTest
     @Test
     public void selectWith()
     {
-        ImmutableList<Customer> smiths =
-                this.customers.selectWith(Customer::lastNameMatches, "Smith");
+        ImmutableList<Customer> smiths = this.customers.selectWith(Customer::lastNameMatches, "Smith");
 
         Assertions.assertTrue(smiths.allSatisfyWith(Customer::lastNameMatches, "Smith"));
     }
@@ -29,8 +26,7 @@ public class WithPredicatesTest
     @Test
     public void rejectWith()
     {
-        ImmutableList<Customer> notSmiths =
-                this.customers.rejectWith(Customer::lastNameMatches, "Smith");
+        ImmutableList<Customer> notSmiths = this.customers.rejectWith(Customer::lastNameMatches, "Smith");
 
         Assertions.assertTrue(notSmiths.noneSatisfyWith(Customer::lastNameMatches, "Smith"));
     }
@@ -38,10 +34,40 @@ public class WithPredicatesTest
     @Test
     public void detectWith()
     {
-        Customer firstNameMary =
-                this.customers.detectWith(Customer::firstNameMatches, "Mary");
+        Customer mary = this.customers.detectWith(Customer::firstNameMatches, "Mary");
 
-        Assertions.assertEquals("Travis", firstNameMary.getLastName());
+        Assertions.assertEquals("Travis", mary.getLastName());
     }
 
+    @Test
+    public void anySatisfyWith()
+    {
+        boolean anyMary = this.customers.anySatisfyWith(Customer::firstNameMatches, "Mary");
+
+        Assertions.assertTrue(anyMary);
+    }
+
+    @Test
+    public void allSatisfyWith()
+    {
+        boolean allBob = this.customers.allSatisfyWith(Customer::firstNameMatches, "Bob");
+
+        Assertions.assertFalse(allBob);
+    }
+
+    @Test
+    public void noneSatisfyWith()
+    {
+        boolean noneBob = this.customers.noneSatisfyWith(Customer::firstNameMatches, "Bob");
+
+        Assertions.assertTrue(noneBob);
+    }
+
+    @Test
+    public void countWith()
+    {
+        int count = this.customers.countWith(Customer::lastNameMatches, "Smith");
+
+        Assertions.assertEquals(2, count);
+    }
 }

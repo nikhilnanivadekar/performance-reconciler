@@ -1,5 +1,6 @@
 package customer;
 
+import java.sql.Statement;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -49,6 +50,21 @@ public class Customer
     public String getFirstName()
     {
         return this.firstName;
+    }
+
+    public boolean fullNameMatches(String name)
+    {
+        return name.equals(this.firstName + " " + this.middleInitial + " " + this.lastName);
+    }
+
+    public boolean lastNameMatches(String name)
+    {
+        return name.equals(this.lastName);
+    }
+
+    public boolean firstNameMatches(String name)
+    {
+        return name.equals(this.firstName);
     }
 
     public ListIterable<Order> getOrders()

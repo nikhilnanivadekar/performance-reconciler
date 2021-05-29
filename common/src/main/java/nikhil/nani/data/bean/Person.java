@@ -120,4 +120,15 @@ public class Person implements ReconRecord
     {
         return String.valueOf(id) + ',' + firstName + ',' + lastName + ',' + age + ',' + city;
     }
+
+    public static Person getPerson(String[] split)
+    {
+        return new Person(
+                Integer.parseInt(split[0]), //id
+                split[1], //firstName
+                split[2], //lastName
+                Integer.parseInt(split[3]), //age
+                split[4] //city
+        );
+    }
 }

@@ -7,17 +7,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import nikhil.nani.data.bean.Breaks;
-import nikhil.nani.data.bean.Person;
 import nikhil.nani.data.bean.ReconRecord;
 import nikhil.nani.data.bean.ReconcilerRequest;
 import nikhil.nani.data.bean.RequestType;
+import nikhil.nani.data.bean.Reservation;
+import nikhil.nani.data.bean.ReservationKey;
 import nikhil.nani.data.service.ReconcilerService;
+import nikhil.nani.data.util.FileParserUtil;
+import org.eclipse.collections.api.block.HashingStrategy;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.api.set.primitive.MutableIntSet;
@@ -35,8 +37,9 @@ import org.springframework.stereotype.Service;
 public class EcReconcilerServiceImpl implements ReconcilerService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(EcReconcilerServiceImpl.class);
-
     private static final String COMMA_DELIMITER = ",";
+
+    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcReconcilerServiceImpl.getHashingReservationHashingStrategy();
 
     private String outputFileDir = "";
 
@@ -50,31 +53,17 @@ public class EcReconcilerServiceImpl implements ReconcilerService
     {
         try
         {
+            Breaks<ReconRecord> breaks = null;
             if (request.getRequestType() == RequestType.SMALL)
             {
-                Breaks<ReconRecord> breaks;
-                if (request.isIgnoreDuplicates())
-                {
-                    // Impl on the left as only Impl implements Pool.
-                    UnifiedSetWithHashingStrategy<ReconRecord> set1 =
-                            UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromIntFunction(ReconRecord::getId));
-                    this.readFile(request.getPathFile1(), set1, request.getRequestType());
-
-                    breaks = this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
-                    set1 = null;
-                }
-                else
-                {
-                    MutableListMultimap<Integer, ReconRecord> multimap1 =
-                            this.getPersonRecordMultimap(request.getPathFile1(), request.getRequestType());
-                    MutableListMultimap<Integer, ReconRecord> multimap2 =
-                            this.getPersonRecordMultimap(request.getPathFile2(), request.getRequestType());
-
-                    breaks = this.compareMultimaps(multimap1, multimap2);
-                    multimap1 = null;
-                    multimap2 = null;
-                }
-
+                breaks = this.getReconRecordBreaksForSmallRequest(request);
+            }
+            if (request.getRequestType() == RequestType.LARGE)
+            {
+                breaks = this.getReconRecordBreaksForLargeRequest(request);
+            }
+            if (Objects.nonNull(breaks))
+            {
                 this.writeBreakFiles(breaks);
             }
         }
@@ -87,31 +76,68 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return "reconciled using EC";
     }
 
-    private void readFile(String filePath, Collection<ReconRecord> reconRecordCollection, RequestType requestType)
+    private Breaks<ReconRecord> getReconRecordBreaksForSmallRequest(ReconcilerRequest request)
     {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath)))
+        if (request.isIgnoreDuplicates())
         {
-            String currentLine;
+            // Impl on the left as only Impl implements Pool.
+            UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+                    UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromIntFunction(ReconRecord::getId));
+            FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
 
-            while ((currentLine = reader.readLine()) != null)
-            {
-                String[] split = currentLine.split(COMMA_DELIMITER);
-
-                reconRecordCollection.add(this.getSingleParsedRecord(split, requestType));
-            }
+            return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
         }
-        catch (IOException e)
+
+        MutableListMultimap<Integer, ReconRecord> multimap1 =
+                this.getPersonRecordMultimap(request.getPathFile1(), request.getRequestType());
+        MutableListMultimap<Integer, ReconRecord> multimap2 =
+                this.getPersonRecordMultimap(request.getPathFile2(), request.getRequestType());
+
+        return this.compareMultimaps(multimap1, multimap2);
+    }
+
+    private Breaks<ReconRecord> getReconRecordBreaksForLargeRequest(ReconcilerRequest request)
+    {
+        if (request.isIgnoreDuplicates())
         {
-            LOGGER.error("Some went wrong while reading file: {}", filePath, e);
+            // Impl on the left as only Impl implements Pool.
+            UnifiedSetWithHashingStrategy<ReconRecord> set1 = UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
+            FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
+
+            return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
         }
+
+        MutableListMultimap<ReservationKey, ReconRecord> multimap1 =
+                this.getReservationRecordMultimap(request.getPathFile1(), request.getRequestType());
+        MutableListMultimap<ReservationKey, ReconRecord> multimap2 =
+                this.getReservationRecordMultimap(request.getPathFile2(), request.getRequestType());
+
+        return this.compareMultimaps(multimap1, multimap2);
+    }
+
+    private static HashingStrategy<ReconRecord> getHashingReservationHashingStrategy()
+    {
+        return HashingStrategies.chain(
+                HashingStrategies.fromFunction(each -> ((Reservation) each).getFirstName()),
+                HashingStrategies.fromFunction(each -> ((Reservation) each).getLastName()),
+                HashingStrategies.fromFunction(each -> ((Reservation) each).getDestination()),
+                HashingStrategies.fromFunction(each -> ((Reservation) each).getTransportType()));
     }
 
     private MutableListMultimap<Integer, ReconRecord> getPersonRecordMultimap(String path, RequestType requestType)
     {
         MutableList<ReconRecord> personList = Lists.mutable.empty();
-        this.readFile(path, personList, requestType);
+        FileParserUtil.readFile(path, personList, requestType);
 
         return personList.groupBy(ReconRecord::getId);
+    }
+
+    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(String path, RequestType requestType)
+    {
+        MutableList<ReconRecord> reservationList = Lists.mutable.empty();
+        FileParserUtil.readFile(path, reservationList, requestType);
+
+        return reservationList.groupBy(ReconRecord::getKey);
     }
 
     private <T> Breaks<ReconRecord> compareMultimaps(
@@ -183,7 +209,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
 
-                ReconRecord rhs = this.getSingleParsedRecord(split, requestType);
+                ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
 
                 ReconRecord lhs = setLhs.removeFromPool(rhs);
 
@@ -209,21 +235,6 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return breaks;
     }
 
-    private ReconRecord getSingleParsedRecord(String[] split, RequestType requestType)
-    {
-        if (RequestType.SMALL == requestType)
-        {
-            return new Person(
-                    Integer.parseInt(split[0]), //id
-                    split[1], //firstName
-                    split[2], //lastName
-                    Integer.parseInt(split[3]), //age
-                    split[4] //city
-            );
-        }
-        return null;
-    }
-
     private void writeBreakFiles(Breaks<ReconRecord> personBreaks)
     {
         File presentInLhsNotInRhs =
@@ -239,12 +250,12 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         this.writeBreaks(personBreaks, breaks);
     }
 
-    private void writeBreaks(Breaks<ReconRecord> personBreaks, File breaks)
+    private void writeBreaks(Breaks<ReconRecord> reconRecordBreaks, File breaks)
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(breaks)))
         {
-            personBreaks.getBreaks()
-                    .forEach(Procedures.throwing(each -> writeRecords(writer, each)));
+            reconRecordBreaks.getBreaks()
+                    .forEach(Procedures.throwing(each -> this.writeRecords(writer, each)));
             writer.flush();
         }
         catch (IOException e)
@@ -256,8 +267,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
     private void writeRecords(BufferedWriter writer, List<ReconRecord> each) throws IOException
     {
         each.forEach(Procedures.throwing(
-                breakRecord -> writeRecordStringAndAppend(writer, breakRecord, "||")
-        ));
+                breakRecord -> this.writeRecordStringAndAppend(writer, breakRecord, "||")));
         writer.append(System.lineSeparator());
     }
 
@@ -266,8 +276,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file)))
         {
             missingRecords.forEach(Procedures.throwing(
-                    each -> writeRecordStringAndAppend(writer, each, System.lineSeparator())
-            ));
+                    each -> this.writeRecordStringAndAppend(writer, each, System.lineSeparator())));
             writer.flush();
         }
         catch (IOException e)

@@ -47,11 +47,14 @@ public class CreatorServiceImpl implements CreatorService
             }
         }
 
-        this.addDataToLhs(lhsList, request.getCreatorRequestType(), request.getNumRecords());
-        this.addDataToRhs(rhsList, request.getCreatorRequestType(), request.getNumRecords());
+        if (request.getNumRecords() > 0)
+        {
+            this.addDataToLhs(lhsList, request.getCreatorRequestType(), request.getNumRecords());
+            this.addDataToRhs(rhsList, request.getCreatorRequestType(), request.getNumRecords());
 
-        this.writeFile(lhsList, request.getLhsFileName());
-        this.writeFile(rhsList, request.getRhsFileName());
+            this.writeFile(lhsList, request.getLhsFileName());
+            this.writeFile(rhsList, request.getRhsFileName());
+        }
 
         return "created";
     }

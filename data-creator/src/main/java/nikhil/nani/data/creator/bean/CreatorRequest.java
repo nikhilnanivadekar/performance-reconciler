@@ -4,7 +4,8 @@ import nikhil.nani.data.bean.RequestType;
 
 public class CreatorRequest
 {
-    private String fullyQualifiedFileName;
+    private String lhsFileName;
+    private String rhsFileName;
     private RequestType creatorRequestType;
     private int numRecords;
 
@@ -12,21 +13,32 @@ public class CreatorRequest
     {
     }
 
-    public CreatorRequest(String fullyQualifiedFileName, RequestType creatorRequestType, int numRecords)
+    public CreatorRequest(String lhsFileName, String rhsFileName, RequestType creatorRequestType, int numRecords)
     {
-        this.fullyQualifiedFileName = fullyQualifiedFileName;
+        this.lhsFileName = lhsFileName;
+        this.rhsFileName = rhsFileName;
         this.creatorRequestType = creatorRequestType;
         this.numRecords = numRecords;
     }
 
-    public String getFullyQualifiedFileName()
+    public String getLhsFileName()
     {
-        return this.fullyQualifiedFileName;
+        return this.lhsFileName;
     }
 
-    public void setFullyQualifiedFileName(String fullyQualifiedFileName)
+    public void setLhsFileName(String lhsFileName)
     {
-        this.fullyQualifiedFileName = fullyQualifiedFileName;
+        this.lhsFileName = lhsFileName;
+    }
+
+    public String getRhsFileName()
+    {
+        return this.rhsFileName;
+    }
+
+    public void setRhsFileName(String rhsFileName)
+    {
+        this.rhsFileName = rhsFileName;
     }
 
     public RequestType getCreatorRequestType()
@@ -67,7 +79,11 @@ public class CreatorRequest
         {
             return false;
         }
-        if (this.fullyQualifiedFileName != null ? !this.fullyQualifiedFileName.equals(that.fullyQualifiedFileName) : that.fullyQualifiedFileName != null)
+        if (this.lhsFileName != null ? !this.lhsFileName.equals(that.lhsFileName) : that.lhsFileName != null)
+        {
+            return false;
+        }
+        if (this.rhsFileName != null ? !this.rhsFileName.equals(that.rhsFileName) : that.rhsFileName != null)
         {
             return false;
         }
@@ -77,7 +93,8 @@ public class CreatorRequest
     @Override
     public int hashCode()
     {
-        int result = this.fullyQualifiedFileName != null ? this.fullyQualifiedFileName.hashCode() : 0;
+        int result = this.lhsFileName != null ? this.lhsFileName.hashCode() : 0;
+        result = 31 * result + (this.rhsFileName != null ? this.rhsFileName.hashCode() : 0);
         result = 31 * result + (this.creatorRequestType != null ? this.creatorRequestType.hashCode() : 0);
         result = 31 * result + this.numRecords;
         return result;

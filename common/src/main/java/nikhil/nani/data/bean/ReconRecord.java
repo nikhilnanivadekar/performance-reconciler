@@ -7,10 +7,7 @@ public interface ReconRecord
         throw new UnsupportedOperationException("getId() not implemented");
     }
 
-    default <K> K getKey()
-    {
-        throw new UnsupportedOperationException("getKey() not implemented");
-    }
+    <K> K getKey();
 
     String getRecordString();
 }

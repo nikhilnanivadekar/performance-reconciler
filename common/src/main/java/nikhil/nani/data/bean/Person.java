@@ -116,6 +116,12 @@ public class Person implements ReconRecord
     }
 
     @Override
+    public Integer getKey()
+    {
+        return this.id;
+    }
+
+    @Override
     public String getRecordString()
     {
         return String.valueOf(id) + ',' + firstName + ',' + lastName + ',' + age + ',' + city;

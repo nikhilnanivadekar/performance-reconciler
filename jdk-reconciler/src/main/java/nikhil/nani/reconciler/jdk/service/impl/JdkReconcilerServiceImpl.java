@@ -156,8 +156,8 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
                     if (listRhs != null && !listRhs.isEmpty())
                     {
                         IntStream.range(0, Math.min(listLhs.size(), listRhs.size()))
+                                .filter(i -> !listLhs.get(i).equals(listRhs.get(i)))
                                 .mapToObj(i -> Arrays.asList(listLhs.get(i), listRhs.get(i)))
-                                .filter(list -> !list.get(0).equals(list.get(1)))
                                 .forEach(breaks::addToBreaks);
 
                         if (listRhs.size() < listLhs.size())

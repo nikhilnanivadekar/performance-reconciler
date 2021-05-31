@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.ReconRecord;
@@ -154,33 +155,18 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
 
                     if (listRhs != null && !listRhs.isEmpty())
                     {
-                        Set<Integer> visitedIndexes = new HashSet<>();
-                        for (int i = 0; i < listLhs.size(); i++)
+                        IntStream.range(0, Math.min(listLhs.size(), listRhs.size()))
+                                .mapToObj(i -> Arrays.asList(listLhs.get(i), listRhs.get(i)))
+                                .filter(list -> !list.get(0).equals(list.get(1)))
+                                .forEach(breaks::addToBreaks);
+
+                        if (listRhs.size() < listLhs.size())
                         {
-                            ReconRecord lhs = listLhs.get(i);
-                            if (i < listRhs.size())
-                            {
-                                ReconRecord rhs = listRhs.get(i);
-
-                                if (!rhs.equals(lhs))
-                                {
-                                    breaks.addToBreaks(Arrays.asList(lhs, rhs));
-                                }
-
-                                visitedIndexes.add(i);
-                            }
-                            else
-                            {
-                                breaks.addToPresentInLhsNotInRhs(lhs);
-                            }
+                            listLhs.subList(listRhs.size(), listLhs.size()).forEach(breaks::addToPresentInLhsNotInRhs);
                         }
-                        for (int i = 0; i < listRhs.size(); i++)
+                        if (listRhs.size() > listLhs.size())
                         {
-                            ReconRecord rhs = listRhs.get(i);
-                            if (!visitedIndexes.contains(i))
-                            {
-                                breaks.addToPresentInRhsNotInLhs(rhs);
-                            }
+                            listRhs.subList(listLhs.size(), listRhs.size()).forEach(breaks::addToPresentInRhsNotInLhs);
                         }
                     }
                     else

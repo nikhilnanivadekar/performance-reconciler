@@ -22,11 +22,9 @@ import nikhil.nani.data.util.FileParserUtil;
 import org.eclipse.collections.api.block.HashingStrategy;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
-import org.eclipse.collections.api.set.primitive.MutableIntSet;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
 import org.eclipse.collections.impl.block.factory.Procedures;
 import org.eclipse.collections.impl.factory.Lists;
-import org.eclipse.collections.impl.factory.primitive.IntSets;
 import org.eclipse.collections.impl.set.strategy.mutable.UnifiedSetWithHashingStrategy;
 import org.eclipse.collections.impl.utility.Iterate;
 import org.slf4j.Logger;
@@ -154,33 +152,19 @@ public class EcReconcilerServiceImpl implements ReconcilerService
 
                     if (Iterate.notEmpty(listRhs))
                     {
-                        MutableIntSet visitedIndexes = IntSets.mutable.empty();
-                        listLhs.forEachWithIndex((lhs, index) ->
+                        listLhs.asLazy()
+                                .zip(listRhs)
+                                .reject(pair -> pair.getOne().equals(pair.getTwo()))
+                                .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
+                                .each(breaks::addToBreaks);
+                        if (listRhs.size() < listLhs.size())
                         {
-                            if (index < listRhs.size())
-                            {
-                                ReconRecord rhs = listRhs.get(index);
-
-                                if (!rhs.equals(lhs))
-                                {
-                                    breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
-                                }
-
-                                visitedIndexes.add(index);
-                            }
-                            else
-                            {
-                                breaks.addToPresentInLhsNotInRhs(lhs);
-                            }
-                        });
-
-                        listRhs.forEachWithIndex((rhs, index) ->
+                            listLhs.subList(listRhs.size(), listLhs.size()).forEach(breaks::addToPresentInLhsNotInRhs);
+                        }
+                        if (listRhs.size() > listLhs.size())
                         {
-                            if (!visitedIndexes.contains(index))
-                            {
-                                breaks.addToPresentInRhsNotInLhs(rhs);
-                            }
-                        });
+                            listRhs.subList(listLhs.size(), listRhs.size()).forEach(breaks::addToPresentInRhsNotInLhs);
+                        }
                     }
                     else
                     {

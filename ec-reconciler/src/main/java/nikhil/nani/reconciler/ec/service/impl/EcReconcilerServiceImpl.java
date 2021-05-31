@@ -163,7 +163,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
 
                                 if (!rhs.equals(lhs))
                                 {
-                                    breaks.addToBreaks(Lists.mutable.with(lhs, rhs));
+                                    breaks.addToBreaks(Lists.immutable.with(lhs, rhs).castToList());
                                 }
 
                                 visitedIndexes.add(index);
@@ -217,7 +217,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                 {
                     if (!lhs.equals(rhs))
                     {
-                        breaks.addToBreaks(Lists.mutable.with(lhs, rhs));
+                        breaks.addToBreaks(Lists.immutable.with(lhs, rhs).castToList());
                     }
                 }
                 else

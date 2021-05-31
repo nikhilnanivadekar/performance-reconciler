@@ -150,7 +150,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                     MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
                     MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
 
-                    if (Iterate.notEmpty(listRhs))
+                    if (listRhs.notEmpty())
                     {
                         listLhs.asLazy()
                                 .zip(listRhs)

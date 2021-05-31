@@ -157,13 +157,14 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                                 .reject(pair -> pair.getOne().equals(pair.getTwo()))
                                 .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
                                 .each(breaks::addToBreaks);
+
                         if (listRhs.size() < listLhs.size())
                         {
-                            listLhs.subList(listRhs.size(), listLhs.size()).forEach(breaks::addToPresentInLhsNotInRhs);
+                            listLhs.forEachWithIndex(listRhs.size(), listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
                         }
                         if (listRhs.size() > listLhs.size())
                         {
-                            listRhs.subList(listLhs.size(), listRhs.size()).forEach(breaks::addToPresentInRhsNotInLhs);
+                            listRhs.forEachWithIndex(listLhs.size(), listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
                         }
                     }
                     else

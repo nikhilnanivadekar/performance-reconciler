@@ -291,9 +291,11 @@ public class MyTop25FavoriteECMethods
         ParallelListIterable<String> parallelSelect =
                 parallelFruit.select(this.onlyBanana::contains);
 
-        MutableList<String> onlyBanana = parallelSelect.toList();
+        MutableList<String> onlyBananaList = parallelSelect.toList();
+        MutableSet<String> onlyBananaSet = parallelSelect.toSet();
 
-        Assertions.assertEquals(Lists.mutable.with("banana"), onlyBanana);
+        Assertions.assertEquals(Lists.mutable.with("banana"), onlyBananaList);
+        Assertions.assertEquals(Sets.mutable.with("banana"), onlyBananaSet);
     }
 
     @Test

@@ -91,32 +91,42 @@ public class MyTop25FavoriteECMethods
     public void count()
     {
         int countBanana = this.fruit.count(this.onlyBanana::contains);
+        int countAll = this.fruit.count(this.fruit::contains);
 
         Assertions.assertEquals(1, countBanana);
+        Assertions.assertEquals(5, countAll);
     }
 
     @Test
     public void anySatisfy()
     {
         boolean anyBanana = this.fruit.anySatisfy(this.onlyBanana::contains);
+        boolean anyEmpty = this.fruit.anySatisfy(String::isEmpty);
 
         Assertions.assertTrue(anyBanana);
+        Assertions.assertFalse(anyEmpty);
     }
 
     @Test
     public void allSatisfy()
     {
         boolean allBanana = this.fruit.allSatisfy(this.onlyBanana::contains);
+        boolean allLowercase =
+                this.fruit.allSatisfy(string ->
+                        Strings.asChars(string).allSatisfy(Character::isLowerCase));
 
         Assertions.assertFalse(allBanana);
+        Assertions.assertTrue(allLowercase);
     }
 
     @Test
     public void noneSatisfy()
     {
-        boolean noneBanana = this.fruit.allSatisfy(this.onlyBanana::contains);
+        boolean noneBanana = this.fruit.noneSatisfy(this.onlyBanana::contains);
+        boolean noneEmpty = this.fruit.noneSatisfy(String::isEmpty);
 
         Assertions.assertFalse(noneBanana);
+        Assertions.assertTrue(noneEmpty);
     }
 
     @Test
@@ -166,30 +176,39 @@ public class MyTop25FavoriteECMethods
         LazyIterable<String> lazyFruit = this.fruit.asLazy();
 
         Assertions.assertEquals(5, lazyFruit.size());
+        // Note: LazyIterable does not get exhausted, so you can keep using it.
+        Assertions.assertEquals(5, lazyFruit.size());
     }
 
     @Test
     public void containsBy()
     {
         boolean hasApple = this.fruit.containsBy(String::toUpperCase, "APPLE");
+        boolean hasTomato = this.fruit.containsBy(String::toUpperCase, "TOMATO");
 
         Assertions.assertTrue(hasApple);
+        Assertions.assertFalse(hasTomato);
     }
 
     @Test
     public void detectWith()
     {
         String banana = this.fruit.detectWith(String::startsWith, "b");
+        String none = this.fruit.detectWith(String::startsWith, "d");
 
         Assertions.assertEquals("banana", banana);
+        Assertions.assertNull(none);
     }
 
     @Test
     public void detectWithIfNone()
     {
+        String banana =
+                this.fruit.detectWithIfNone(String::startsWith, "b", () -> "apple");
         String stillBanana =
                 this.fruit.detectWithIfNone(String::startsWith, "d", () -> "banana");
 
+        Assertions.assertEquals("banana", banana);
         Assertions.assertEquals("banana", stillBanana);
     }
 

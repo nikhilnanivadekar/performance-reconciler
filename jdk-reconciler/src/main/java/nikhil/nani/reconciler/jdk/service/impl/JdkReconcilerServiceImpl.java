@@ -10,11 +10,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -46,6 +44,7 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
     @Override
     public String reconcile(ReconcilerRequest request)
     {
+        LOGGER.info("Starting Reconciler:{} Time:{}", request, System.currentTimeMillis());
         try
         {
             Breaks<ReconRecord> breaks = null;
@@ -68,6 +67,7 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
             return "Something went wrong while reconciling:" + e.getMessage();
         }
 
+        LOGGER.info("Completed Reconciler:{} Time:{}", request, System.currentTimeMillis());
         return "reconciled using JDK";
     }
 

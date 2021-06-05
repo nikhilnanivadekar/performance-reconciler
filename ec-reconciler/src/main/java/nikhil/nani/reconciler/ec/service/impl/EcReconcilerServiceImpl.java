@@ -26,7 +26,6 @@ import org.eclipse.collections.impl.block.factory.HashingStrategies;
 import org.eclipse.collections.impl.block.factory.Procedures;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.set.strategy.mutable.UnifiedSetWithHashingStrategy;
-import org.eclipse.collections.impl.utility.Iterate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,6 +48,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
     @Override
     public String reconcile(ReconcilerRequest request)
     {
+        LOGGER.info("Starting Reconciler:{} Time:{}", request, System.currentTimeMillis());
         try
         {
             Breaks<ReconRecord> breaks = null;
@@ -71,6 +71,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
             return "Something went wrong while reconciling:" + e.getMessage();
         }
 
+        LOGGER.info("Completed Reconciler:{} Time:{}", request, System.currentTimeMillis());
         return "reconciled using EC";
     }
 

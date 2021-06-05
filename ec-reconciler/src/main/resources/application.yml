@@ -2,3 +2,10 @@ server:
   port: 9060
 
 # http://localhost:9060/swagger-ui.html
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: info, health, metrics, mappings

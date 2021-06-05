@@ -1,0 +1,9 @@
+server:
+  port: 7030
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: info, health, metrics, mappings

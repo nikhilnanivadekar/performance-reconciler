@@ -13,6 +13,7 @@
         <module>jdk-reconciler</module>
         <module>ec-reconciler</module>
         <module>examples</module>
+        <module>metrics-recorder</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -60,6 +61,12 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
                 <version>${spring-boot-starter.version}</version>
             </dependency>
 

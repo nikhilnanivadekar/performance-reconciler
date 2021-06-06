@@ -114,4 +114,16 @@ public class ReconcilerRequest
         result = 31 * result + (this.ignoreDuplicates ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString()
+    {
+        return "ReconcilerRequest{" +
+                "pathFile1='" + pathFile1 + '\'' +
+                ", pathFile2='" + pathFile2 + '\'' +
+                ", requestType=" + requestType +
+                ", reconcilerModuleType=" + reconcilerModuleType +
+                ", ignoreDuplicates=" + ignoreDuplicates +
+                '}';
+    }
 }

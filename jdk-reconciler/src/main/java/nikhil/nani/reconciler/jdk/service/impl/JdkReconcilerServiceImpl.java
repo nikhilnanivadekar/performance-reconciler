@@ -1,6 +1,5 @@
 package nikhil.nani.reconciler.jdk.service.impl;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,7 +34,7 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
     private static final Logger LOGGER = LoggerFactory.getLogger(JdkReconcilerServiceImpl.class);
     private static final String COMMA_DELIMITER = ",";
 
-    private String outputFileDir = "";
+    private String outputFileDir = "D:/reconciler/results/jdk";
 
     protected void setOutputFileDir(String outputFileDir)
     {

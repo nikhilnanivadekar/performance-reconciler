@@ -40,7 +40,7 @@ public class EcForEachInBothReconcilerServiceImpl implements ReconcilerService
             EcForEachInBothReconcilerServiceImpl
                     .getHashingReservationHashingStrategy();
 
-    private String outputFileDir = "";
+    private String outputFileDir = "D:/reconciler/results/ec";
 
     protected void setOutputFileDir(String outputFileDir)
     {

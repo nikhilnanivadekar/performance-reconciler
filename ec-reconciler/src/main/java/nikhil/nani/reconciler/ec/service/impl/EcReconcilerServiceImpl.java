@@ -1,6 +1,5 @@
 package nikhil.nani.reconciler.ec.service.impl;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -39,7 +38,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
 
     private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcReconcilerServiceImpl.getHashingReservationHashingStrategy();
 
-    private String outputFileDir = "";
+    private String outputFileDir = "D:/reconciler/results/ec";
 
     protected void setOutputFileDir(String outputFileDir)
     {

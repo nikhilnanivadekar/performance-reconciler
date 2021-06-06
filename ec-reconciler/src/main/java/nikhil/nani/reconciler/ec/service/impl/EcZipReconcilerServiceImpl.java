@@ -39,7 +39,7 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
     private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY =
             EcZipReconcilerServiceImpl.getHashingReservationHashingStrategy();
 
-    private String outputFileDir = "";
+    private String outputFileDir = "D:/reconciler/results/ec";
 
     protected void setOutputFileDir(String outputFileDir)
     {

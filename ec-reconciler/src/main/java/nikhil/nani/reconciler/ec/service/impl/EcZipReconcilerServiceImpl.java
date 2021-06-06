@@ -31,12 +31,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EcReconcilerServiceImpl implements ReconcilerService
+public class EcZipReconcilerServiceImpl implements ReconcilerService
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EcReconcilerServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EcZipReconcilerServiceImpl.class);
     private static final String COMMA_DELIMITER = ",";
 
-    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcReconcilerServiceImpl.getHashingReservationHashingStrategy();
+    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcZipReconcilerServiceImpl.getHashingReservationHashingStrategy();
 
     private String outputFileDir = "";
 
@@ -153,22 +153,19 @@ public class EcReconcilerServiceImpl implements ReconcilerService
 
                     if (listRhs.notEmpty())
                     {
-                        int minSize = Math.min(listLhs.size(), listRhs.size());
-                        listLhs.forEachWithIndex(0, minSize - 1, (left, index) ->
-                        {
-                            ReconRecord right = listRhs.get(index);
-                            if (left.notEquals(right))
-                            {
-                                breaks.addToBreaks(Lists.fixedSize.with(left, right));
-                            }
-                        });
+                        listLhs.asLazy()
+                                .zip(listRhs)
+                                .reject(pair -> pair.getOne().equals(pair.getTwo()))
+                                .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
+                                .each(breaks::addToBreaks);
+
                         if (listRhs.size() < listLhs.size())
                         {
-                            listLhs.forEachWithIndex(minSize, listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
+                            listLhs.forEachWithIndex(listRhs.size(), listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
                         }
-                        else if (listRhs.size() > listLhs.size())
+                        if (listRhs.size() > listLhs.size())
                         {
-                            listRhs.forEachWithIndex(minSize, listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
+                            listRhs.forEachWithIndex(listLhs.size(), listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
                         }
                     }
                     else

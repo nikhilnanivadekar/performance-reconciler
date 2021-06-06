@@ -7,6 +7,11 @@ public interface ReconRecord
         throw new UnsupportedOperationException("getId() not implemented");
     }
 
+    default boolean notEquals(ReconRecord other)
+    {
+        return !this.equals(other);
+    }
+
     <K> K getKey();
 
     String getRecordString();

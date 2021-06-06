@@ -20,6 +20,7 @@ import nikhil.nani.data.bean.ReservationKey;
 import nikhil.nani.data.service.ReconcilerService;
 import nikhil.nani.data.util.FileParserUtil;
 import org.eclipse.collections.api.block.HashingStrategy;
+import org.eclipse.collections.api.block.procedure.Procedure2;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
@@ -31,12 +32,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EcReconcilerServiceImpl implements ReconcilerService
+public class EcForEachInBothReconcilerServiceImpl implements ReconcilerService
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EcReconcilerServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EcForEachInBothReconcilerServiceImpl.class);
     private static final String COMMA_DELIMITER = ",";
 
-    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcReconcilerServiceImpl.getHashingReservationHashingStrategy();
+    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY =
+            EcForEachInBothReconcilerServiceImpl
+                    .getHashingReservationHashingStrategy();
 
     private String outputFileDir = "";
 
@@ -100,7 +103,8 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         if (request.isIgnoreDuplicates())
         {
             // Impl on the left as only Impl implements Pool.
-            UnifiedSetWithHashingStrategy<ReconRecord> set1 = UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
+            UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+                    UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
             FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
 
             return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
@@ -131,7 +135,9 @@ public class EcReconcilerServiceImpl implements ReconcilerService
         return personList.groupBy(ReconRecord::getId);
     }
 
-    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(String path, RequestType requestType)
+    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(
+            String path,
+            RequestType requestType)
     {
         MutableList<ReconRecord> reservationList = Lists.mutable.empty();
         FileParserUtil.readFile(path, reservationList, requestType);
@@ -154,9 +160,8 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                     if (listRhs.notEmpty())
                     {
                         int minSize = Math.min(listLhs.size(), listRhs.size());
-                        listLhs.forEachWithIndex(0, minSize - 1, (left, index) ->
+                        listLhs.subList(0, minSize).forEachInBoth(listRhs.subList(0, minSize), (left, right) ->
                         {
-                            ReconRecord right = listRhs.get(index);
                             if (left.notEquals(right))
                             {
                                 breaks.addToBreaks(Lists.fixedSize.with(left, right));
@@ -164,11 +169,11 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                         });
                         if (listRhs.size() < listLhs.size())
                         {
-                            listLhs.forEachWithIndex(minSize, listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
+                            listLhs.forEachWithIndex(minSize, listLhs.size() - 1, (each, i) -> breaks.addToPresentInLhsNotInRhs(each));
                         }
                         else if (listRhs.size() > listLhs.size())
                         {
-                            listRhs.forEachWithIndex(minSize, listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
+                            listRhs.forEachWithIndex(minSize, listRhs.size() - 1, (each, i) -> breaks.addToPresentInRhsNotInLhs(each));
                         }
                     }
                     else

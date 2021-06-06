@@ -1,6 +1,5 @@
 package nikhil.nani.reconciler.ec.service.impl;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.ReconRecord;
@@ -36,7 +36,8 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
     private static final Logger LOGGER = LoggerFactory.getLogger(EcZipReconcilerServiceImpl.class);
     private static final String COMMA_DELIMITER = ",";
 
-    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY = EcZipReconcilerServiceImpl.getHashingReservationHashingStrategy();
+    private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY =
+            EcZipReconcilerServiceImpl.getHashingReservationHashingStrategy();
 
     private String outputFileDir = "";
 
@@ -100,7 +101,8 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
         if (request.isIgnoreDuplicates())
         {
             // Impl on the left as only Impl implements Pool.
-            UnifiedSetWithHashingStrategy<ReconRecord> set1 = UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
+            UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+                    UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
             FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
 
             return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
@@ -131,7 +133,9 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
         return personList.groupBy(ReconRecord::getId);
     }
 
-    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(String path, RequestType requestType)
+    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(
+            String path,
+            RequestType requestType)
     {
         MutableList<ReconRecord> reservationList = Lists.mutable.empty();
         FileParserUtil.readFile(path, reservationList, requestType);
@@ -187,21 +191,17 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathFile2)))
+        try (Stream<String> stream = Files.lines(Paths.get(pathFile2)))
         {
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null)
+            stream.forEach(currentLine ->
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
-
                 ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-
                 ReconRecord lhs = setLhs.removeFromPool(rhs);
 
                 if (Objects.nonNull(lhs))
                 {
-                    if (!lhs.equals(rhs))
+                    if (lhs.notEquals(rhs))
                     {
                         breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
                     }
@@ -210,7 +210,7 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
                 {
                     breaks.addToPresentInRhsNotInLhs(rhs);
                 }
-            }
+            });
             setLhs.each(breaks::addToPresentInLhsNotInRhs);
         }
         catch (IOException e)

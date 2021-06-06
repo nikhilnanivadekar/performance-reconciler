@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.ReconRecord;
@@ -190,21 +191,17 @@ public class EcReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathFile2)))
+        try (Stream<String> stream = Files.lines(Paths.get(pathFile2)))
         {
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null)
+            stream.forEach(currentLine ->
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
-
                 ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-
                 ReconRecord lhs = setLhs.removeFromPool(rhs);
 
                 if (Objects.nonNull(lhs))
                 {
-                    if (!lhs.equals(rhs))
+                    if (lhs.notEquals(rhs))
                     {
                         breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
                     }
@@ -213,7 +210,7 @@ public class EcReconcilerServiceImpl implements ReconcilerService
                 {
                     breaks.addToPresentInRhsNotInLhs(rhs);
                 }
-            }
+            });
             setLhs.each(breaks::addToPresentInLhsNotInRhs);
         }
         catch (IOException e)

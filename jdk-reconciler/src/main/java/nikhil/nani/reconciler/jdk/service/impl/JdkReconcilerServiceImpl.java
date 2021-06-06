@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.ReconRecord;
@@ -188,21 +189,17 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathFile2)))
+        try (Stream<String> stream = Files.lines(Paths.get(pathFile2)))
         {
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null)
+            stream.forEach(currentLine -> 
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
-
                 ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-
                 ReconRecord lhs = mapLhs.remove(rhs.getKey());
 
                 if (Objects.nonNull(lhs))
                 {
-                    if (!lhs.equals(rhs))
+                    if (lhs.notEquals(rhs))
                     {
                         breaks.addToBreaks(Arrays.asList(lhs, rhs));
                     }
@@ -211,7 +208,7 @@ public class JdkReconcilerServiceImpl implements ReconcilerService
                 {
                     breaks.addToPresentInRhsNotInLhs(rhs);
                 }
-            }
+            });
             mapLhs.forEach((id, reconRecord) -> breaks.addToPresentInLhsNotInRhs(reconRecord));
         }
         catch (IOException e)

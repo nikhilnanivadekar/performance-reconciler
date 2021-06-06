@@ -1,6 +1,5 @@
 package nikhil.nani.reconciler.ec.service.impl;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import nikhil.nani.data.bean.Breaks;
 import nikhil.nani.data.bean.ReconRecord;
@@ -20,7 +20,6 @@ import nikhil.nani.data.bean.ReservationKey;
 import nikhil.nani.data.service.ReconcilerService;
 import nikhil.nani.data.util.FileParserUtil;
 import org.eclipse.collections.api.block.HashingStrategy;
-import org.eclipse.collections.api.block.procedure.Procedure2;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
@@ -195,21 +194,17 @@ public class EcForEachInBothReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathFile2)))
+        try (Stream<String> stream = Files.lines(Paths.get(pathFile2)))
         {
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null)
+            stream.forEach(currentLine ->
             {
                 String[] split = currentLine.split(COMMA_DELIMITER);
-
                 ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-
                 ReconRecord lhs = setLhs.removeFromPool(rhs);
 
                 if (Objects.nonNull(lhs))
                 {
-                    if (!lhs.equals(rhs))
+                    if (lhs.notEquals(rhs))
                     {
                         breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
                     }
@@ -218,7 +213,7 @@ public class EcForEachInBothReconcilerServiceImpl implements ReconcilerService
                 {
                     breaks.addToPresentInRhsNotInLhs(rhs);
                 }
-            }
+            });
             setLhs.each(breaks::addToPresentInLhsNotInRhs);
         }
         catch (IOException e)

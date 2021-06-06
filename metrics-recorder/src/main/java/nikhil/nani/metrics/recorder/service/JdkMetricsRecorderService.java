@@ -1,5 +1,8 @@
 package nikhil.nani.metrics.recorder.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import nikhil.nani.data.bean.Counter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,19 @@ import org.springframework.stereotype.Service;
 public class JdkMetricsRecorderService implements MetricsRecorderService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdkMetricsRecorderService.class);
+
+    private static final Path jvmBufferCountPath = Paths.get("D:/reconciler-metrics/jdk/jvmBufferCount.dat");
+    private static final Path jvmBufferMemoryUsedPath = Paths.get("D:/reconciler-metrics/jdk/jvmBufferMemoryUsed.dat");
+    private static final Path jvmBufferTotalCapacityPath = Paths.get("D:/reconciler-metrics/jdk/jvmBufferTotalCapacity.dat");
+    private static final Path jvmGcLiveDataSizePath = Paths.get("D:/reconciler-metrics/jdk/jvmGcLiveDataSize.dat");
+    private static final Path jvmGcMaxDataSizePath = Paths.get("D:/reconciler-metrics/jdk/jvmGcMaxDataSize.dat");
+    private static final Path jvmGcMemoryAllocatedPath = Paths.get("D:/reconciler-metrics/jdk/jvmGcMemoryAllocated.dat");
+    private static final Path jvmGcMemoryPromotedPath = Paths.get("D:/reconciler-metrics/jdk/jvmGcMemoryPromoted.dat");
+    private static final Path jvmGcPausePath = Paths.get("D:/reconciler-metrics/jdk/jvmGcPause.dat");
+    private static final Path jvmMemoryCommittedPath = Paths.get("D:/reconciler-metrics/jdk/jvmMemoryCommitted.dat");
+    private static final Path jvmMemoryMaxPath = Paths.get("D:/reconciler-metrics/jdk/jvmMemoryMax.dat");
+    private static final Path jvmMemoryUsedPath = Paths.get("D:/reconciler-metrics/jdk/jvmMemoryUsed.dat");
+    private static final Path cpuUsagePath = Paths.get("D:/reconciler-metrics/jdk/cpuUsage.dat");
 
     private final Counter jvmBufferCountCounter;
     private final Counter jvmBufferMemoryUsedCounter;
@@ -121,5 +137,77 @@ public class JdkMetricsRecorderService implements MetricsRecorderService
     public String getBaseUrl()
     {
         return jdkReconcilerBaseUrl;
+    }
+
+    @Override
+    public Path getJvmBufferCountFilePath()
+    {
+        return jvmBufferCountPath;
+    }
+
+    @Override
+    public Path getJvmBufferMemoryUsedFilePath()
+    {
+        return jvmBufferMemoryUsedPath;
+    }
+
+    @Override
+    public Path getJvmBufferTotalCapacityFilePath()
+    {
+        return jvmBufferTotalCapacityPath;
+    }
+
+    @Override
+    public Path getJvmGcLiveDataSizeFilePath()
+    {
+        return jvmGcLiveDataSizePath;
+    }
+
+    @Override
+    public Path getJvmGcMaxDataSizeFilePath()
+    {
+        return jvmGcMaxDataSizePath;
+    }
+
+    @Override
+    public Path getJvmGcMemoryAllocatedFilePath()
+    {
+        return jvmGcMemoryAllocatedPath;
+    }
+
+    @Override
+    public Path getJvmGcMemoryPromotedFilePath()
+    {
+        return jvmGcMemoryPromotedPath;
+    }
+
+    @Override
+    public Path getJvmGcPauseFilePath()
+    {
+        return jvmGcPausePath;
+    }
+
+    @Override
+    public Path getJvmMemoryCommittedFilePath()
+    {
+        return jvmMemoryCommittedPath;
+    }
+
+    @Override
+    public Path getJvmMemoryMaxFilePath()
+    {
+        return jvmMemoryMaxPath;
+    }
+
+    @Override
+    public Path getJvmMemoryUsedFilePath()
+    {
+        return jvmMemoryUsedPath;
+    }
+
+    @Override
+    public Path getCpuUsageFilePath()
+    {
+        return cpuUsagePath;
     }
 }

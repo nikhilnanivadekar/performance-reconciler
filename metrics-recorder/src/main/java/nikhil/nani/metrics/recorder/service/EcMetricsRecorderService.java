@@ -1,5 +1,8 @@
 package nikhil.nani.metrics.recorder.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import nikhil.nani.data.bean.Counter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,19 @@ import org.springframework.stereotype.Service;
 public class EcMetricsRecorderService implements MetricsRecorderService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(EcMetricsRecorderService.class);
+
+    private static final Path jvmBufferCountPath = Paths.get("D:/reconciler-metrics/ec/jvmBufferCount.dat");
+    private static final Path jvmBufferMemoryUsedPath = Paths.get("D:/reconciler-metrics/ec/jvmBufferMemoryUsed.dat");
+    private static final Path jvmBufferTotalCapacityPath = Paths.get("D:/reconciler-metrics/ec/jvmBufferTotalCapacity.dat");
+    private static final Path jvmGcLiveDataSizePath = Paths.get("D:/reconciler-metrics/ec/jvmGcLiveDataSize.dat");
+    private static final Path jvmGcMaxDataSizePath = Paths.get("D:/reconciler-metrics/ec/jvmGcMaxDataSize.dat");
+    private static final Path jvmGcMemoryAllocatedPath = Paths.get("D:/reconciler-metrics/ec/jvmGcMemoryAllocated.dat");
+    private static final Path jvmGcMemoryPromotedPath = Paths.get("D:/reconciler-metrics/ec/jvmGcMemoryPromoted.dat");
+    private static final Path jvmGcPausePath = Paths.get("D:/reconciler-metrics/ec/jvmGcPause.dat");
+    private static final Path jvmMemoryCommittedPath = Paths.get("D:/reconciler-metrics/ec/jvmMemoryCommitted.dat");
+    private static final Path jvmMemoryMaxPath = Paths.get("D:/reconciler-metrics/ec/jvmMemoryMax.dat");
+    private static final Path jvmMemoryUsedPath = Paths.get("D:/reconciler-metrics/ec/jvmMemoryUsed.dat");
+    private static final Path cpuUsagePath = Paths.get("D:/reconciler-metrics/ec/cpuUsage.dat");
 
     private final Counter jvmBufferCountCounter;
     private final Counter jvmBufferMemoryUsedCounter;
@@ -109,6 +125,78 @@ public class EcMetricsRecorderService implements MetricsRecorderService
     public Counter getCpuUsageCounter()
     {
         return this.cpuUsageCounter;
+    }
+
+    @Override
+    public Path getJvmBufferCountFilePath()
+    {
+        return jvmBufferCountPath;
+    }
+
+    @Override
+    public Path getJvmBufferMemoryUsedFilePath()
+    {
+        return jvmBufferMemoryUsedPath;
+    }
+
+    @Override
+    public Path getJvmBufferTotalCapacityFilePath()
+    {
+        return jvmBufferTotalCapacityPath;
+    }
+
+    @Override
+    public Path getJvmGcLiveDataSizeFilePath()
+    {
+        return jvmGcLiveDataSizePath;
+    }
+
+    @Override
+    public Path getJvmGcMaxDataSizeFilePath()
+    {
+        return jvmGcMaxDataSizePath;
+    }
+
+    @Override
+    public Path getJvmGcMemoryAllocatedFilePath()
+    {
+        return jvmGcMemoryAllocatedPath;
+    }
+
+    @Override
+    public Path getJvmGcMemoryPromotedFilePath()
+    {
+        return jvmGcMemoryPromotedPath;
+    }
+
+    @Override
+    public Path getJvmGcPauseFilePath()
+    {
+        return jvmGcPausePath;
+    }
+
+    @Override
+    public Path getJvmMemoryCommittedFilePath()
+    {
+        return jvmMemoryCommittedPath;
+    }
+
+    @Override
+    public Path getJvmMemoryMaxFilePath()
+    {
+        return jvmMemoryMaxPath;
+    }
+
+    @Override
+    public Path getJvmMemoryUsedFilePath()
+    {
+        return jvmMemoryUsedPath;
+    }
+
+    @Override
+    public Path getCpuUsageFilePath()
+    {
+        return cpuUsagePath;
     }
 
     @Override

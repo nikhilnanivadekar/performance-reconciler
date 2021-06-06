@@ -1,5 +1,8 @@
 package nikhil.nani.metrics.recorder.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 
 import nikhil.nani.data.bean.Counter;
@@ -35,6 +38,30 @@ public interface MetricsRecorderService
     Counter getJvmMemoryUsedCounter();
 
     Counter getCpuUsageCounter();
+
+    Path getJvmBufferCountFilePath();
+
+    Path getJvmBufferMemoryUsedFilePath();
+
+    Path getJvmBufferTotalCapacityFilePath();
+
+    Path getJvmGcLiveDataSizeFilePath();
+
+    Path getJvmGcMaxDataSizeFilePath();
+
+    Path getJvmGcMemoryAllocatedFilePath();
+
+    Path getJvmGcMemoryPromotedFilePath();
+
+    Path getJvmGcPauseFilePath();
+
+    Path getJvmMemoryCommittedFilePath();
+
+    Path getJvmMemoryMaxFilePath();
+
+    Path getJvmMemoryUsedFilePath();
+
+    Path getCpuUsageFilePath();
 
     Logger getLogger();
 
@@ -106,110 +133,134 @@ public interface MetricsRecorderService
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmBufferCountUrl()
+    default void recordJvmBufferCountUrl() throws Exception
     {
         this.getJvmBufferCountCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmBufferCountUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmBufferCountCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmBufferCountCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmBufferCountFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmBufferMemoryUsedUrl()
+    default void recordJvmBufferMemoryUsedUrl() throws Exception
     {
         this.getJvmBufferMemoryUsedCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmBufferMemoryUsedUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmBufferMemoryUsedCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmBufferMemoryUsedCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmBufferMemoryUsedFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmBufferTotalCapacityUrl()
+    default void recordJvmBufferTotalCapacityUrl() throws Exception
     {
         this.getJvmBufferTotalCapacityCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmBufferTotalCapacityUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmBufferTotalCapacityCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmBufferTotalCapacityCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmBufferTotalCapacityFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmGcLiveDataSizeUrl()
+    default void recordJvmGcLiveDataSizeUrl() throws Exception
     {
         this.getJvmGcLiveDataSizeCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmGcLiveDataSizeUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmGcLiveDataSizeCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmGcLiveDataSizeCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmGcLiveDataSizeFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmGcMaxDataSizeUrl()
+    default void recordJvmGcMaxDataSizeUrl() throws Exception
     {
         this.getJvmGcMaxDataSizeCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmGcMaxDataSizeUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmGcMaxDataSizeCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmGcMaxDataSizeCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmGcMaxDataSizeFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmGcMemoryAllocatedUrl()
+    default void recordJvmGcMemoryAllocatedUrl() throws Exception
     {
         this.getJvmGcMemoryAllocatedCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmGcMemoryAllocatedUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmGcMemoryAllocatedCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmGcMemoryAllocatedCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmGcMemoryAllocatedFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmGcMemoryPromotedUrl()
+    default void recordJvmGcMemoryPromotedUrl() throws Exception
     {
         this.getJvmGcMemoryPromotedCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmGcMemoryPromotedUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmGcMemoryPromotedCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmGcMemoryPromotedCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmGcMemoryPromotedFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmGcPauseUrl()
+    default void recordJvmGcPauseUrl() throws Exception
     {
         this.getJvmGcPauseCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmGcPauseUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmGcPauseCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmGcPauseCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmGcPauseFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmMemoryCommittedUrl()
+    default void recordJvmMemoryCommittedUrl() throws Exception
     {
         this.getJvmMemoryCommittedCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmMemoryCommittedUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmMemoryCommittedCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmMemoryCommittedCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmMemoryCommittedFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmMemoryMaxUrl()
+    default void recordJvmMemoryMaxUrl() throws Exception
     {
         this.getJvmMemoryMaxCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmMemoryMaxUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmMemoryMaxCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmMemoryMaxCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmMemoryMaxFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordJvmMemoryUsedUrl()
+    default void recordJvmMemoryUsedUrl() throws Exception
     {
         this.getJvmMemoryUsedCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getJvmMemoryUsedUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getJvmMemoryUsedCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getJvmMemoryUsedCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getJvmMemoryUsedFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     @Scheduled(fixedDelay = 1000)
-    default void recordProcessCpuUsageUrl()
+    default void recordProcessCpuUsageUrl() throws Exception
     {
         this.getCpuUsageCounter().increment();
         Map<String, Object> response = this.getRestTemplate()
                 .getForEntity(this.getProcessCpuUsageUrl(), Map.class).getBody();
-        this.getLogger().info("{} | {}", this.getCpuUsageCounter(), response);
+        String message = String.format("Time:%d | %s | %s", System.currentTimeMillis(), this.getCpuUsageCounter(), response);
+        this.getLogger().info(message);
+        Files.write(this.getCpuUsageFilePath(), (message + System.lineSeparator()).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 }

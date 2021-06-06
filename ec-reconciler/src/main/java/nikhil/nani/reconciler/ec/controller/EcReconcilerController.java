@@ -35,40 +35,55 @@ public class EcReconcilerController
     }
 
     @PostMapping("/ecForEachInBothReconcilerServiceImpl")
-    public ResponseEntity<String> ecForEachInBothReconcilerServiceImpl(@RequestBody ReconcilerRequest request)
+    public ResponseEntity<String> ecForEachInBothReconcilerServiceImpl(@RequestBody ReconcilerRequest request) throws InterruptedException
     {
-        long startTime = System.currentTimeMillis();
-        LOGGER.info("Start time:{} for ecForEachInBothReconcilerServiceImpl", startTime);
-        String reconcile = this.ecForEachInBothReconcilerServiceImpl.reconcile(request);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("End time:{} for ecForEachInBothReconcilerServiceImpl", endTime);
-        LOGGER.info("Total time:{} | Reconciler Request:{}", endTime - startTime, request);
+        String reconcile = null;
+        for (int i = 0; i < request.getCount(); i++)
+        {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("Start time:{} for ecForEachInBothReconcilerServiceImpl | Iteration:{}", startTime, i);
+            reconcile = this.ecForEachInBothReconcilerServiceImpl.reconcile(request);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("End time:{} for ecForEachInBothReconcilerServiceImpl | Iteration:{}", endTime, i);
+            LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
+            Thread.sleep(1000);
+        }
 
         return ResponseEntity.ok(reconcile);
     }
 
     @PostMapping("/ecReconcilerServiceImpl")
-    public ResponseEntity<String> ecReconcilerServiceImpl(@RequestBody ReconcilerRequest request)
+    public ResponseEntity<String> ecReconcilerServiceImpl(@RequestBody ReconcilerRequest request) throws InterruptedException
     {
-        long startTime = System.currentTimeMillis();
-        LOGGER.info("Start time:{} for ecReconcilerServiceImpl", startTime);
-        String reconcile = this.ecReconcilerServiceImpl.reconcile(request);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("End time:{} for ecReconcilerServiceImpl", endTime);
-        LOGGER.info("Total time:{} | Reconciler Request:{}", endTime - startTime, request);
+        String reconcile = null;
+        for (int i = 0; i < request.getCount(); i++)
+        {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("Start time:{} for ecReconcilerServiceImpl | Iteration:{}", startTime, i);
+            reconcile = this.ecReconcilerServiceImpl.reconcile(request);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("End time:{} for ecReconcilerServiceImpl | Iteration:{}", endTime, i);
+            LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
+            Thread.sleep(1000);
+        }
 
         return ResponseEntity.ok(reconcile);
     }
 
     @PostMapping("/ecZipReconcilerServiceImpl")
-    public ResponseEntity<String> ecZipReconcilerServiceImpl(@RequestBody ReconcilerRequest request)
+    public ResponseEntity<String> ecZipReconcilerServiceImpl(@RequestBody ReconcilerRequest request) throws InterruptedException
     {
-        long startTime = System.currentTimeMillis();
-        LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl", startTime);
-        String reconcile = this.ecZipReconcilerServiceImpl.reconcile(request);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("End time:{} for ecZipReconcilerServiceImpl", endTime);
-        LOGGER.info("Total time:{} | Reconciler Request:{}", endTime - startTime, request);
+        String reconcile = null;
+        for (int i = 0; i < request.getCount(); i++)
+        {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl | Iteration:{}", startTime, i);
+            reconcile = this.ecZipReconcilerServiceImpl.reconcile(request);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("End time:{} for ecZipReconcilerServiceImpl | Iteration:{}", endTime, i);
+            LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
+            Thread.sleep(1000);
+        }
 
         return ResponseEntity.ok(reconcile);
     }

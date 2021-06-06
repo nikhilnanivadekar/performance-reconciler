@@ -7,18 +7,20 @@ public class ReconcilerRequest
     private RequestType requestType;
     private ReconcilerModuleType reconcilerModuleType;
     private boolean ignoreDuplicates;
+    private int count;
 
     public ReconcilerRequest()
     {
     }
 
-    public ReconcilerRequest(String pathFile1, String pathFile2, RequestType requestType, ReconcilerModuleType reconcilerModuleType, boolean ignoreDuplicates)
+    public ReconcilerRequest(String pathFile1, String pathFile2, RequestType requestType, ReconcilerModuleType reconcilerModuleType, boolean ignoreDuplicates, int count)
     {
         this.pathFile1 = pathFile1;
         this.pathFile2 = pathFile2;
         this.requestType = requestType;
         this.reconcilerModuleType = reconcilerModuleType;
         this.ignoreDuplicates = ignoreDuplicates;
+        this.count = count;
     }
 
     public String getPathFile1()
@@ -69,6 +71,16 @@ public class ReconcilerRequest
     public void setIgnoreDuplicates(boolean ignoreDuplicates)
     {
         this.ignoreDuplicates = ignoreDuplicates;
+    }
+
+    public int getCount()
+    {
+        return this.count;
+    }
+
+    public void setCount(int count)
+    {
+        this.count = count;
     }
 
     @Override

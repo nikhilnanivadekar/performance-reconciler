@@ -29,7 +29,7 @@ public class EcReconcilerControllerTest
     private EcReconcilerController testObj;
 
     @Test
-    public void ecForEachInBothReconcilerServiceImpl()
+    public void ecForEachInBothReconcilerServiceImpl() throws InterruptedException
     {
         Mockito.when(this.ecForEachInBothReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
                 .thenReturn("reconciled");
@@ -41,7 +41,7 @@ public class EcReconcilerControllerTest
     }
 
     @Test
-    public void ecZipReconcilerServiceImpl()
+    public void ecZipReconcilerServiceImpl() throws InterruptedException
     {
         Mockito.when(this.ecZipReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
                 .thenReturn("reconciled");
@@ -53,7 +53,7 @@ public class EcReconcilerControllerTest
     }
 
     @Test
-    public void ecReconcilerServiceImpl()
+    public void ecReconcilerServiceImpl() throws InterruptedException
     {
         Mockito.when(this.ecReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
                 .thenReturn("reconciled");

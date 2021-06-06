@@ -23,7 +23,7 @@ public class JdkReconcilerControllerTest
     private JdkReconcilerController testObj;
 
     @Test
-    public void reconcile()
+    public void reconcile() throws InterruptedException
     {
         Mockito.when(this.service.reconcile(new ReconcilerRequest())).thenReturn("reconciled");
 

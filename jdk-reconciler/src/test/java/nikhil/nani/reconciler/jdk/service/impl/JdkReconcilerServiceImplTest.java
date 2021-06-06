@@ -68,7 +68,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        true)));
+                        true,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
 
@@ -103,7 +104,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        true)));
+                        true,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
 
@@ -138,7 +140,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        false)));
+                        false,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
 
@@ -175,7 +178,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        false)));
+                        false,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
         File breaks = Arrays.stream(files).filter(each -> each.getName().contains("Breaks-")).findFirst().get();
@@ -210,7 +214,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.LARGE,
                         ReconcilerModuleType.JDK,
-                        true)));
+                        true,
+                        1)));
 
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
@@ -243,7 +248,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        true)));
+                        true,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
 
@@ -275,7 +281,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        false)));
+                        false,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
 
@@ -307,7 +314,8 @@ public class JdkReconcilerServiceImplTest
                         rhsFile.getAbsolutePath(),
                         RequestType.SMALL,
                         ReconcilerModuleType.JDK,
-                        false)));
+                        false,
+                        1)));
         File file = new File(this.tempDir.getAbsolutePath());
         File[] files = file.listFiles();
         File breaks = Arrays.stream(files).filter(each -> each.getName().contains("Breaks-")).findFirst().get();

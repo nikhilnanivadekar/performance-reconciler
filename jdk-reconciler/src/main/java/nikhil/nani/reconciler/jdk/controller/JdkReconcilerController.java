@@ -24,14 +24,19 @@ public class JdkReconcilerController
     }
 
     @PostMapping("/predefined-objects")
-    public ResponseEntity<String> reconcile(@RequestBody ReconcilerRequest request)
+    public ResponseEntity<String> reconcile(@RequestBody ReconcilerRequest request) throws InterruptedException
     {
-        long startTime = System.currentTimeMillis();
-        LOGGER.info("Start time:{} for jdkReconcilerService", startTime);
-        String reconcile = this.reconcilerService.reconcile(request);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("End time:{} for jdkReconcilerService", endTime);
-        LOGGER.info("Total time:{} | Reconciler Request:{}", endTime - startTime, request);
+        String reconcile = null;
+        for (int i = 0; i < request.getCount(); i++)
+        {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("Start time:{} for reconcilerService | Iteration:{}", startTime, i);
+            reconcile = this.reconcilerService.reconcile(request);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("End time:{} for reconcilerService | Iteration:{}", endTime, i);
+            LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
+            Thread.sleep(1000);
+        }
 
         return ResponseEntity.ok(reconcile);
     }

@@ -31,10 +31,10 @@ public class EcReconcilerControllerTest
     @Test
     public void ecForEachInBothReconcilerServiceImpl() throws InterruptedException
     {
-        Mockito.when(this.ecForEachInBothReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
+        Mockito.when(this.ecForEachInBothReconcilerServiceImpl.reconcile(Mockito.any()))
                 .thenReturn("reconciled");
 
-        ResponseEntity<String> response = this.testObj.ecForEachInBothReconcilerServiceImpl(new ReconcilerRequest());
+        ResponseEntity<String> response = this.testObj.ecForEachInBothReconcilerServiceImpl(new ReconcilerRequest(null, null, null, null, false, 1));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("reconciled", response.getBody());
@@ -43,10 +43,10 @@ public class EcReconcilerControllerTest
     @Test
     public void ecZipReconcilerServiceImpl() throws InterruptedException
     {
-        Mockito.when(this.ecZipReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
+        Mockito.when(this.ecZipReconcilerServiceImpl.reconcile(Mockito.any()))
                 .thenReturn("reconciled");
 
-        ResponseEntity<String> response = this.testObj.ecZipReconcilerServiceImpl(new ReconcilerRequest());
+        ResponseEntity<String> response = this.testObj.ecZipReconcilerServiceImpl(new ReconcilerRequest(null, null, null, null, false, 1));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("reconciled", response.getBody());
@@ -55,10 +55,10 @@ public class EcReconcilerControllerTest
     @Test
     public void ecReconcilerServiceImpl() throws InterruptedException
     {
-        Mockito.when(this.ecReconcilerServiceImpl.reconcile(new ReconcilerRequest()))
+        Mockito.when(this.ecReconcilerServiceImpl.reconcile(Mockito.any()))
                 .thenReturn("reconciled");
 
-        ResponseEntity<String> response = this.testObj.ecReconcilerServiceImpl(new ReconcilerRequest());
+        ResponseEntity<String> response = this.testObj.ecReconcilerServiceImpl(new ReconcilerRequest(null, null, null, null, false, 1));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("reconciled", response.getBody());

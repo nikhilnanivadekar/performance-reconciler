@@ -25,9 +25,9 @@ public class JdkReconcilerControllerTest
     @Test
     public void reconcile() throws InterruptedException
     {
-        Mockito.when(this.service.reconcile(new ReconcilerRequest())).thenReturn("reconciled");
+        Mockito.when(this.service.reconcile(Mockito.any())).thenReturn("reconciled");
 
-        ResponseEntity<String> response = this.testObj.reconcile(new ReconcilerRequest());
+        ResponseEntity<String> response = this.testObj.reconcile(new ReconcilerRequest(null, null, null, null, false, 1));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("reconciled", response.getBody());

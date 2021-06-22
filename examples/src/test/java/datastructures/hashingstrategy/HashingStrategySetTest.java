@@ -28,6 +28,7 @@ public class HashingStrategySetTest
                         HashingStrategies.fromFunction(Customer::getMiddleInitial)));
 
         Assertions.assertTrue(setByName.add(new Customer("Donald", "A", "Duck")));
+        Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
         Assertions.assertTrue(setByName.add(new Customer("Mickey", "Mouse", "T")));
         Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
     }

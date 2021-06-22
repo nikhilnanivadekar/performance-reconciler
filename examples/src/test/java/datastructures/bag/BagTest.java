@@ -1,10 +1,14 @@
 package datastructures.bag;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import org.eclipse.collections.api.bag.Bag;
+import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.bag.primitive.CharBag;
+import org.eclipse.collections.api.factory.Bags;
 import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.collector.Collectors2;
 import org.eclipse.collections.impl.factory.Strings;
 import org.junit.jupiter.api.Assertions;
@@ -12,13 +16,13 @@ import org.junit.jupiter.api.Test;
 
 public class BagTest
 {
-    private final String words = "one two Two three Three THREE four FOUR Four FoUr";
 
     @Test
     void wordCounter1()
     {
-        Bag<String> bagOfWords = Lists.mutable.with(this.words.split(" "))
-                .asLazy()
+        String words = "one two Two three Three THREE four FOUR Four FoUr";
+        MutableBag<String> bag = Bags.mutable.with(words.split(" "));
+        Bag<String> bagOfWords = bag.asLazy()
                 .collect(String::toLowerCase)
                 .toBag();
 
@@ -31,19 +35,22 @@ public class BagTest
     @Test
     void wordCounter2()
     {
-        Bag<String> bagOfWords = Lists.mutable.with(this.words.split(" "))
-                .countBy(String::toLowerCase);
+        String words = "one two Two three Three THREE four FOUR Four FoUr";
+        MutableBag<String> bag = Bags.mutable.with(words.split(" "));
+        Bag<String> lowercaseWords = bag.countBy(String::toLowerCase);
 
-        Assertions.assertEquals(1, bagOfWords.occurrencesOf("one"));
-        Assertions.assertEquals(2, bagOfWords.occurrencesOf("two"));
-        Assertions.assertEquals(3, bagOfWords.occurrencesOf("three"));
-        Assertions.assertEquals(4, bagOfWords.occurrencesOf("four"));
+        Assertions.assertEquals(1, lowercaseWords.occurrencesOf("one"));
+        Assertions.assertEquals(2, lowercaseWords.occurrencesOf("two"));
+        Assertions.assertEquals(3, lowercaseWords.occurrencesOf("three"));
+        Assertions.assertEquals(4, lowercaseWords.occurrencesOf("four"));
     }
 
     @Test
     void wordCounter3()
     {
-        Bag<String> bagOfWords = Arrays.stream(this.words.split(" "))
+        String words = "one two Two three Three THREE four FOUR Four FoUr";
+        Stream<String> stream = Arrays.stream(words.split(" "));
+        Bag<String> bagOfWords = stream
                 .collect(Collectors2.countBy(String::toLowerCase));
 
         Assertions.assertEquals(1, bagOfWords.occurrencesOf("one"));
@@ -55,7 +62,8 @@ public class BagTest
     @Test
     void characterCounter()
     {
-        CharBag charBag = Strings.asChars(this.words)
+        String words = "one two Two three Three THREE four FOUR Four FoUr";
+        CharBag charBag = Strings.asChars(words)
                 .select(Character::isAlphabetic)
                 .collectChar(Character::toLowerCase)
                 .toBag();

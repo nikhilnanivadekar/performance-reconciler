@@ -1,6 +1,7 @@
 package datastructures.hashingstrategy;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
@@ -10,18 +11,20 @@ import org.junit.jupiter.api.Test;
 
 public class HashingStrategyBagTest
 {
-    private final String words = "one two Two three Three THREE four FOUR Four FoUr";
 
     @Test
     public void caseInsensitiveBag()
     {
-        MutableBag<String> bagOfWords =
-                HashingStrategyBags.mutable.<String>with(HashingStrategies.fromFunction(String::toLowerCase))
-                        .withAll(Arrays.asList(this.words.split(" ")));
+        String words = "one two Two three Three THREE four FOUR Four FoUr";
+        List<String> list = Arrays.asList(words.split(" "));
+        MutableBag<String> caseInsensitiveBag =
+                HashingStrategyBags.mutable.<String>with(
+                        HashingStrategies.fromFunction(String::toLowerCase))
+                        .withAll(list);
 
-        Assertions.assertEquals(1, bagOfWords.occurrencesOf("one"));
-        Assertions.assertEquals(2, bagOfWords.occurrencesOf("two"));
-        Assertions.assertEquals(3, bagOfWords.occurrencesOf("three"));
-        Assertions.assertEquals(4, bagOfWords.occurrencesOf("four"));
+        Assertions.assertEquals(1, caseInsensitiveBag.occurrencesOf("ONE"));
+        Assertions.assertEquals(2, caseInsensitiveBag.occurrencesOf("two"));
+        Assertions.assertEquals(3, caseInsensitiveBag.occurrencesOf("THREE"));
+        Assertions.assertEquals(4, caseInsensitiveBag.occurrencesOf("four"));
     }
 }

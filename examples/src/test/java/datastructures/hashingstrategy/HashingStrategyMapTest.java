@@ -11,14 +11,15 @@ public class HashingStrategyMapTest
     @Test
     public void caseInsensitiveMap()
     {
-        MutableMap<String, String> map =
-                HashingStrategyMaps.mutable.<String, String>with(HashingStrategies.fromFunction(String::toLowerCase))
+        MutableMap<String, String> caseInsensitiveMap =
+                HashingStrategyMaps.mutable.<String, String>with(
+                        HashingStrategies.fromFunction(String::toLowerCase))
                         .withKeyValue("one", "1")
                         .withKeyValue("Two", "2")
                         .withKeyValue("THREE", "3");
 
-        Assertions.assertEquals("1", map.get("ONE"));
-        Assertions.assertEquals("2", map.get("tWO"));
-        Assertions.assertEquals("3", map.get("three"));
+        Assertions.assertEquals("1", caseInsensitiveMap.get("ONE"));
+        Assertions.assertEquals("2", caseInsensitiveMap.get("tWO"));
+        Assertions.assertEquals("3", caseInsensitiveMap.get("three"));
     }
 }

@@ -239,3 +239,37 @@ Assertions.assertEquals(IntInterval.oneTo(6).toSet(), union);
 Assertions.assertEquals(IntSets.mutable.with(1, 2), difference);
 Assertions.assertEquals(IntSets.mutable.with(1, 2, 5, 6), symmetricDifference);
 ```
+
+
+### Chunk
+
+* Breaks a collection into batches or "chunks" based on a chunk size
+* The last chunk may be smaller than the chunk size
+
+```java
+IntInterval ints = IntInterval.oneTo(10);
+RichIterable<IntIterable> chunks = ints.chunk(3);
+LazyIterable<IntIterable> lazy = chunks.asLazy();
+Assertions.assertEquals(IntInterval.oneTo(3), lazy.getFirst());
+Assertions.assertEquals(IntInterval.fromTo(4, 6), lazy.drop(1).getFirst());
+Assertions.assertEquals(IntInterval.fromTo(7, 9), lazy.drop(2).getFirst());
+Assertions.assertEquals(IntInterval.fromTo(10, 10), lazy.drop(3).getFirst());
+```
+
+
+### Zip
+
+* Converts two lists to a single list of pairs
+* Size is based on the shorter of the two lists
+* zipWithIndex combines a List with the indices
+
+```java
+MutableList<Integer> list1 = Lists.mutable.with(1, 2, 3);
+MutableList<Integer> list2 = Lists.mutable.with(0, 1, 2, 0);
+MutableList<Pair<Integer, Integer>> zip = list1.zip(list2);
+
+Assertions.assertEquals(Tuples.pair(1, 0), zip.getFirst());
+Assertions.assertEquals(Tuples.pair(2, 1), zip.get(1));
+Assertions.assertEquals(Tuples.pair(3, 2), zip.getLast());
+Assertions.assertEquals(zip, list1.zipWithIndex());
+```

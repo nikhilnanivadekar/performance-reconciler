@@ -8,10 +8,12 @@
 ** Free as in beer - Goldman only contributors
 * Moved to Eclipse Foundation at end of 2015
 ** Free as in speech - anyone can contribute after they sign ECA
+** #You can help evolve Eclipse Collection and add the features you need#
 * Design goals
 ** Rich API for collections
 ** Memory savings
 ** Performance
+** Add missing data structures
 
 == Eclipse Collection Today
 
@@ -179,6 +181,76 @@ Assertions.assertEquals(1, caseInsensitiveBag.occurrencesOf("ONE"));
 Assertions.assertEquals(2, caseInsensitiveBag.occurrencesOf("two"));
 Assertions.assertEquals(3, caseInsensitiveBag.occurrencesOf("THREE"));
 Assertions.assertEquals(4, caseInsensitiveBag.occurrencesOf("four"));
+----
+--
+
+== Primitive Data Structures
+* List, Set, Bag, Stack, Map
+** Support for all primitive types
+** Readable, Mutable and Immutable types
+** Lazy support
+** Stream support for Int/Double/LongList
+* Interval (int/long only)
+* Good symmetry with Object collection API
+* Math Methods
+** min, max, sum, average, median, summaryStatistics
+* Set Operations
+** intersect, union, difference, symmetricDifference, cartesianProduct
+
+== Primitive Set - Math Methods
+[example]
+--
+[source,java,linenums,highlight=2..12]
+----
+IntSet set = IntInterval.oneTo(5).toSet();
+Assertions.assertEquals(15L, set.sum());
+Assertions.assertEquals(1, set.min());
+Assertions.assertEquals(1, set.minIfEmpty(0));
+Assertions.assertEquals(5, set.max());
+Assertions.assertEquals(5, set.maxIfEmpty(0));
+Assertions.assertEquals(3.0d, set.average());
+Assertions.assertEquals(3.0d, set.averageIfEmpty(0.0d));
+Assertions.assertEquals(3, set.median());
+Assertions.assertEquals(5, set.size());
+
+IntSummaryStatistics stats = set.summaryStatistics();
+Assertions.assertEquals(15L, stats.getSum());
+Assertions.assertEquals(1, stats.getMin());
+Assertions.assertEquals(5, stats.getMax());
+Assertions.assertEquals(3.0d, stats.getAverage());
+Assertions.assertEquals(5, stats.getCount());
+----
+--
+
+== Primitive Set - Set Operations
+[example]
+--
+[source,java,linenums,highlight=3..7]
+----
+        IntSet set1 = IntSets.mutable.with(1, 2, 3);
+        IntSet set2 = IntSets.mutable.with(2, 3, 4);
+        IntSet intersect = set1.intersect(set2);
+        IntSet union = set1.union(set2);
+        IntSet difference = set1.difference(set2);
+        IntSet symmetricDifference = set1.symmetricDifference(set2);
+        Bag<IntIntPair> cartesianProduct = set1.cartesianProduct(set2).toBag();
+
+        Assertions.assertEquals(IntSets.mutable.with(2, 3), intersect);
+        Assertions.assertEquals(IntSets.mutable.with(1, 2, 3, 4), union);
+        Assertions.assertEquals(IntSets.mutable.with(1), difference);
+        Assertions.assertEquals(IntSets.mutable.with(1, 4), symmetricDifference);
+        ImmutableBag<IntIntPair> expected = Bags.immutable.with(
+                PrimitiveTuples.pair(1, 2),
+                PrimitiveTuples.pair(2, 2),
+                PrimitiveTuples.pair(3, 2),
+                PrimitiveTuples.pair(1, 3),
+                PrimitiveTuples.pair(2, 3),
+                PrimitiveTuples.pair(3, 3),
+                PrimitiveTuples.pair(1, 4),
+                PrimitiveTuples.pair(2, 4),
+                PrimitiveTuples.pair(3, 4)
+        );
+        Assertions.assertEquals(expected, cartesianProduct);
 ----
 --
 

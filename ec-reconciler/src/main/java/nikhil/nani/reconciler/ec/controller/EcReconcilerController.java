@@ -98,9 +98,14 @@ public class EcReconcilerController
         String reconcile = null;
         for (int i = 0; i < request.getCount(); i++)
         {
+            System.gc();
+            System.gc();
+            System.gc();
+
             long startTime = System.currentTimeMillis();
             LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl | Iteration:{}", startTime, i);
             reconcile = this.ecReconcilerServiceCustomHashingStrategyImpl.reconcile(request);
+
             System.gc();
             System.gc();
             System.gc();

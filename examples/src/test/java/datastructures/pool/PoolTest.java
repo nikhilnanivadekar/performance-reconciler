@@ -36,5 +36,6 @@ public class PoolTest
         Assertions.assertSame(donaldDuck, poolById.put(donaldDuck));
         Assertions.assertNotNull(poolById.put(new Customer("Mickey", "Mouse", "T")));
         Assertions.assertSame(donaldDuck, poolById.put(donaldQuack));
+        Assertions.assertSame(donaldDuck, poolById.get(new Customer(donaldDuck.getId(), "", "", "")));
     }
 }

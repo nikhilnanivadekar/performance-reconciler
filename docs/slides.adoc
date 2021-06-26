@@ -1,52 +1,56 @@
-## Eclipse Collections
+:icons: font
+
+== Eclipse Collections
 
 * An alternative to JDK Collections
 * Created in 2004 in Goldman Sachs
 * Open sourced as GS Collections in 2012
-    * Free as in beer - Goldman only contributors
+** Free as in beer - Goldman only contributors
 * Moved to Eclipse Foundation at end of 2015
-    * Free as in speech - anyone can contribute after they sign ECA
+** Free as in speech - anyone can contribute after they sign ECA
 * Design goals
-    * Rich API for collections
-    * Memory savings 
-    * Performance
+** Rich API for collections
+** Memory savings
+** Performance
 
-    
-## Today
+== Eclipse Collection Today
+
 * 2 Project Leads (Nikhil and Don)
-* 5 Active Committers 
-* Member of [OpenJDK Quality Outreach program](https://wiki.openjdk.java.net/display/quality/Quality+Outreach)
-  * Found/reported issue in [JDK 15 with CharSequence](https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/)
-* Current Release: [10.4](https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0)
+* 5 Active Committers
+* Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
+* Found/reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]
+* Current Release: https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0[10.4]
 * Planned Release: 11.0 release soon after JDK 17 released (September 2021)
 
+== Learning
 
-## Learning
 * Eclipse Collections Katas
-    * [Company kata](https://github.com/eclipse/eclipse-collections-kata/tree/master/company-kata) (largest API coverage) 
-    * [Pet kata](https://github.com/eclipse/eclipse-collections-kata/tree/master/pet-kata) (good API coverage)
-    * [Candy kata](https://github.com/eclipse/eclipse-collections-kata/tree/master/candy-kata) (example of Bag)
-    * [Converter Method Kata](https://github.com/eclipse/eclipse-collections-kata/tree/master/converter-method-kata) (covers all to(Type), toImmutable(Type) methods)
-    * [Top Methods Kata] - Covers 25 of favorite methods
-* [Reference Guide](https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md)
-* [Jackson Support](https://github.com/eclipse/eclipse-collections/blob/master/docs/jackson.md)
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/company-kata[Company kata] (largest API coverage)
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/pet-kata[Pet kata] (good API coverage)
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/candy-kata[Candy kata] (example of Bag)
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/converter-method-kata[Converter Method Kata] (covers all to(Type), toImmutable(Type) methods)
+** [Top Methods Kata] - Covers 25 of favorite methods
+* https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md[Reference Guide]
+* https://github.com/eclipse/eclipse-collections/blob/master/docs/jackson.md[Jackson Support]
 
-    
-## Unique Data Structures
+== Unique Data Structures
 
 * Bag
 * Multimap
 * HashingStrategy Data Structures
 * Primitive Data Structures
 
-
-### Bag
+=== Bag
 
 * Unorderd collection which allows duplicates
-* Similar to ```Map<K, Integer```
-* Useful for counting things by a function (```countBy```)
+* Similar to `Map&lt;K, Integer
+`
+* Useful for counting things by a function (`countBy`)
 
-```java
+[example]
+--
+[source,java,linenums,highlight=2..3]
+----
 String words = "one two Two three Three THREE four FOUR Four FoUr";
 MutableBag<String> bag = Bags.mutable.with(words.split(" "));
 Bag<String> lowercaseWords = bag.countBy(String::toLowerCase);
@@ -56,15 +60,19 @@ Assertions.assertEquals(2, lowercaseWords.occurrencesOf("two"));
 Assertions.assertEquals(3, lowercaseWords.occurrencesOf("three"));
 Assertions.assertEquals(4, lowercaseWords.occurrencesOf("four"));
 
-```
+----
+--
 
-### Multimap
+=== Multimap
 
 * Map-like data structure that allows multiple values per key
-* Similar to ```Map<K, Collection<V>```
-* Useful for grouping things by a function (```groupBy```)
+* Similar to `Map&lt;K, Collection&lt;V&gt;`
+* Useful for grouping things by a function (`groupBy`)
 
-```java
+[example]
+--
+[source, java, linenums, highlight=5]
+----
 String words = "The quick brown fox jumps over the lazy dog";
 MutableList<String> list = Lists.mutable.with(words.split(" "));
 Multimap<Character, String> multimap = list.collect(String::toLowerCase)
@@ -72,23 +80,26 @@ Multimap<Character, String> multimap = list.collect(String::toLowerCase)
 
 Assertions.assertEquals(Lists.mutable.with("the", "the"), multimap.get('t'));
 Assertions.assertEquals(Lists.mutable.empty(), multimap.get('a'));
-```
+----
+--
 
+=== HashingStrategy
 
-### HashingStrategy
 * HashingStrategy is an interface with two methods to implement
-  * ```int computeHashCode(E object)```
-  * ```boolean equals(E object1, E object2)```
+* `int computeHashCode(E object)`
+* `boolean equals(E object1, E object2)`
 * Useful for creating hash based data structures without requiring dedicated keys
 * Types
-  * ```UnifiedSetWithHashingStrategy```
-  * ```UnifiedMapWithHashingStrategy```
-  * ```HashBagWithHashingStrategy```
+* `UnifiedSetWithHashingStrategy`
+* `UnifiedMapWithHashingStrategy`
+* `HashBagWithHashingStrategy`
 
+=== UnifiedSetWithHashingStrategy Example
 
-### UnifiedSetWithHashingStrategy Example
-
-```java
+[example]
+--
+[source,java,linenums,highlight=1..5]
+----
 MutableSet<Customer> setByName = HashingStrategySets.mutable.with(
         HashingStrategies.chain(
                 HashingStrategies.fromFunction(Customer::getLastName),
@@ -98,12 +109,15 @@ MutableSet<Customer> setByName = HashingStrategySets.mutable.with(
 Assertions.assertTrue(setByName.add(new Customer("Donald", "A", "Duck")));
 Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
 Assertions.assertTrue(setByName.add(new Customer("Mickey", "Mouse", "T")));
-```
+----
+--
 
+=== UnifiedMapWithHashingStrategy Example
 
-### UnifiedMapWithHashingStrategy Example
-
-```java
+[example]
+--
+[source,java,linenums,highlight=1..6]
+----
 MutableMap<String, String> caseInsensitiveMap =
         HashingStrategyMaps.mutable.<String, String>with(
                 HashingStrategies.fromFunction(String::toLowerCase))
@@ -114,13 +128,15 @@ MutableMap<String, String> caseInsensitiveMap =
 Assertions.assertEquals("1", caseInsensitiveMap.get("ONE"));
 Assertions.assertEquals("2", caseInsensitiveMap.get("tWO"));
 Assertions.assertEquals("3", caseInsensitiveMap.get("three"));
-```
+----
+--
 
+=== HashBagWithHashingStrategy Example
 
-### HashBagWithHashingStrategy Example
-
-
-```java
+[example]
+--
+[source,java,linenums,highlight=3..6]
+----
 String words = "one two Two three Three THREE four FOUR Four FoUr";
 List<String> list = Arrays.asList(words.split(" "));
 MutableBag<String> caseInsensitiveBag =
@@ -132,10 +148,10 @@ Assertions.assertEquals(1, caseInsensitiveBag.occurrencesOf("ONE"));
 Assertions.assertEquals(2, caseInsensitiveBag.occurrencesOf("two"));
 Assertions.assertEquals(3, caseInsensitiveBag.occurrencesOf("THREE"));
 Assertions.assertEquals(4, caseInsensitiveBag.occurrencesOf("four"));
-```
+----
+--
 
-
-## Hidden Treasures
+== Hidden Treasures
 
 * Filter Symmetry
 * +With patterns
@@ -145,13 +161,15 @@ Assertions.assertEquals(4, caseInsensitiveBag.occurrencesOf("four"));
 * chunk
 * zip
 
-
-### Filter Symmetry
+=== Filter Symmetry
 
 * Inclusive filter (select)
 * Exclusive filter (reject)
 
-```java
+[example]
+--
+[source,java,linenums,highlight=2..3]
+----
 MutableList<Integer> list = Lists.mutable.with(1, 2, 3, 4, 5);
 MutableList<Integer> evens = list.select(each -> each % 2 == 0);
 MutableList<Integer> odds = list.reject(each -> each % 2 == 0);
@@ -160,19 +178,22 @@ MutableList<Integer> expectedEvens = Lists.mutable.with(2, 4);
 Assertions.assertEquals(expectedEvens, evens);
 MutableList<Integer> expectedOdds = Lists.mutable.with(1, 3, 5);
 Assertions.assertEquals(expectedOdds, odds);
-```
+----
+--
 
-Blog: [EC by Example: Filtering](https://donraab.medium.com/ec-by-example-filtering-4f14b906f718?source=friends_link&sk=1594797d204bcb37f59f70cf5b2454ef)
+Blog: https://donraab.medium.com/ec-by-example-filtering-4f14b906f718?source=friends_link&sk=1594797d204bcb37f59f70cf5b2454ef[EC by Example: Filtering]
 
+=== +With patterns
 
-### +With patterns
+* Basic: `select`, `reject`, `collect`, etc.
+* Takes `Predicate` or `Function`
+* +With: `selectWith`, `rejectWith`, `collectWith`, etc.
+* Takes: `Predicate2` or `Function2` and extra parameter
 
-* Basic: ```select```, ```reject```, ```collect```, etc.
-  * Takes ```Predicate``` or ```Function```
-* +With: ```selectWith```, ```rejectWith```, ```collectWith```, etc.
-  * Takes: ```Predicate2``` or ```Function2``` and extra parameter
-
-```java
+[example]
+--
+[source,java,linenums,highlight=4..5]
+----
 ImmutableList<Customer> smiths =
         this.customers.select(customer -> customer.lastNameMatches("Smith"));
 
@@ -183,30 +204,32 @@ Assertions.assertTrue(
         smiths.allSatisfy(customer -> customer.lastNameMatches("Smith")));
 Assertions.assertTrue(
         withSmiths.allSatisfyWith(Customer::lastNameMatches, "Smith"));
-```
+----
+--
 
-Blog: [Preposition Preference](https://dzone.com/articles/preposition-preference)
+Blog: https://dzone.com/articles/preposition-preference[Preposition Preference]
 
+=== +By patterns
 
-### +By patterns
+* Mapping: `groupBy`, `countBy`, `sumBy`, `aggregateBy`, `groupByUniqueKey`
+* Fused: `groupByEach`, `countByEach`
+* Finding: `minBy`, `maxBy`, `minByOptional`, `maxByOptional`
+* Filtering: `distinctBy`
+* Testing: `containsBy`
+* Converting: `toSortedListBy`, `toSortedSetBy`, `toSortedBagBy`
+* Mutating: `sortThisBy`, `sortThisBy(Primitive)`
 
-* Mapping: ```groupBy```, ```countBy```, ```sumBy```, ```aggregateBy```, ```groupByUniqueKey```
-* Fused: ```groupByEach```, ```countByEach```
-* Finding: ```minBy```, ```maxBy```, ```minByOptional```, ```maxByOptional```
-* Filtering: ```distinctBy```
-* Testing: ```containsBy```
-* Converting: ```toSortedListBy```, ```toSortedSetBy```, ```toSortedBagBy```
-* Mutating: ```sortThisBy```, ```sortThisBy(Primitive)```
+Blog: https://medium.com/javarevisited/by-yourself-some-time-e16c0f488847?source=friends_link&sk=026096d953cc149db75435d095d58e36[By Yourself Some Time]
 
-Blog: [By Yourself Some Time](https://medium.com/javarevisited/by-yourself-some-time-e16c0f488847?source=friends_link&sk=026096d953cc149db75435d095d58e36)
-
-
-### selectInstancesOf
+=== selectInstancesOf
 
 * Filtering by and casting to specific type
 * Useful for filtering and/or down-casting collections with mixed types
 
-```java
+[example]
+--
+[source,java,linenums,highlight=2..5]
+----
 MutableList<Number> numbers = Lists.mutable.with(1, 2L, 3.0, 4.0f);
 MutableList<Integer> integers = numbers.selectInstancesOf(Integer.class);
 MutableList<Long> longs = numbers.selectInstancesOf(Long.class);
@@ -217,16 +240,19 @@ Assertions.assertEquals(Lists.mutable.with(1), integers);
 Assertions.assertEquals(Lists.mutable.with(2L), longs);
 Assertions.assertEquals(Lists.mutable.with(3.0), doubles);
 Assertions.assertEquals(Lists.mutable.with(4.0f), floats);
-```
+----
+--
 
-
-### Set Operations
+=== Set Operations
 
 * Eager: union, intersect, difference, symmetricDifference
 * Lazy: cartesianProduct
 * Testing: isSubsetOf, isProperSubsetOf
 
-```java
+[example]
+--
+[source,java,linenums,highlight=3..6]
+----
 IntSet setA = IntSets.mutable.with(1, 2, 3, 4);
 IntSet setB = IntSets.mutable.with(3, 4, 5, 6);
 IntSet intersect = setA.intersect(setB);
@@ -238,32 +264,39 @@ Assertions.assertEquals(IntSets.mutable.with(3, 4), intersect);
 Assertions.assertEquals(IntInterval.oneTo(6).toSet(), union);
 Assertions.assertEquals(IntSets.mutable.with(1, 2), difference);
 Assertions.assertEquals(IntSets.mutable.with(1, 2, 5, 6), symmetricDifference);
-```
+----
+--
 
-
-### Chunk
+=== Chunk
 
 * Breaks a collection into batches or "chunks" based on a chunk size
 * The last chunk may be smaller than the chunk size
 
-```java
+[example]
+--
+[source,java,linenums,highlight=2]
+----
 IntInterval ints = IntInterval.oneTo(10);
 RichIterable<IntIterable> chunks = ints.chunk(3);
 LazyIterable<IntIterable> lazy = chunks.asLazy();
+
 Assertions.assertEquals(IntInterval.oneTo(3), lazy.getFirst());
 Assertions.assertEquals(IntInterval.fromTo(4, 6), lazy.drop(1).getFirst());
 Assertions.assertEquals(IntInterval.fromTo(7, 9), lazy.drop(2).getFirst());
 Assertions.assertEquals(IntInterval.fromTo(10, 10), lazy.drop(3).getFirst());
-```
+----
+--
 
-
-### Zip
+=== Zip
 
 * Converts two lists to a single list of pairs
 * Size is based on the shorter of the two lists
 * zipWithIndex combines a List with the indices
 
-```java
+[example]
+--
+[source,java,linenums,highlight=3]
+----
 MutableList<Integer> list1 = Lists.mutable.with(1, 2, 3);
 MutableList<Integer> list2 = Lists.mutable.with(0, 1, 2, 0);
 MutableList<Pair<Integer, Integer>> zip = list1.zip(list2);
@@ -272,4 +305,5 @@ Assertions.assertEquals(Tuples.pair(1, 0), zip.getFirst());
 Assertions.assertEquals(Tuples.pair(2, 1), zip.get(1));
 Assertions.assertEquals(Tuples.pair(3, 2), zip.getLast());
 Assertions.assertEquals(zip, list1.zipWithIndex());
-```
+----
+--

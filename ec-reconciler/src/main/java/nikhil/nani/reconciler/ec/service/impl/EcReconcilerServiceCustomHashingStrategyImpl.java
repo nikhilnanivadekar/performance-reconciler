@@ -22,7 +22,6 @@ import nikhil.nani.data.util.FileParserUtil;
 import org.eclipse.collections.api.block.HashingStrategy;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
-import org.eclipse.collections.impl.block.factory.HashingStrategies;
 import org.eclipse.collections.impl.block.factory.Procedures;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.set.strategy.mutable.UnifiedSetWithHashingStrategy;
@@ -38,6 +37,9 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
 
     private static final HashingStrategy<ReconRecord> RESERVATION_HASHING_STRATEGY =
             EcReconcilerServiceCustomHashingStrategyImpl.getReservationHashingStrategy();
+
+    private static final HashingStrategy<ReconRecord> PERSON_HASHING_STRATEGY =
+            EcReconcilerServiceCustomHashingStrategyImpl.getPersonHashingStrategy();
 
     private String outputFileDir = "D:/reconciler/results/ec";
 
@@ -82,7 +84,7 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
         {
             // Impl on the left as only Impl implements Pool.
             UnifiedSetWithHashingStrategy<ReconRecord> set1 =
-                    UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromIntFunction(ReconRecord::getId));
+                    UnifiedSetWithHashingStrategy.newSet(PERSON_HASHING_STRATEGY);
             FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
 
             return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
@@ -118,6 +120,11 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
     private static HashingStrategy<ReconRecord> getReservationHashingStrategy()
     {
         return new ReservationHashingStrategy();
+    }
+
+    private static HashingStrategy<ReconRecord> getPersonHashingStrategy()
+    {
+        return new PersonHashingStrategy();
     }
 
     private MutableListMultimap<Integer, ReconRecord> getPersonRecordMultimap(String path, RequestType requestType)
@@ -288,12 +295,27 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
         @Override
         public boolean equals(ReconRecord object1, ReconRecord object2)
         {
-            Reservation reservation1 = (Reservation)object1;
-            Reservation reservation2 = (Reservation)object2;
+            Reservation reservation1 = (Reservation) object1;
+            Reservation reservation2 = (Reservation) object2;
             return Objects.equals(reservation1.getFirstName(), reservation2.getFirstName())
                     && Objects.equals(reservation1.getLastName(), reservation2.getLastName())
                     && Objects.equals(reservation1.getDestination(), reservation2.getDestination())
                     && Objects.equals(reservation1.getTransportType(), reservation2.getTransportType());
+        }
+    }
+
+    private static class PersonHashingStrategy implements HashingStrategy<ReconRecord>
+    {
+        @Override
+        public int computeHashCode(ReconRecord object)
+        {
+            return object.getId();
+        }
+
+        @Override
+        public boolean equals(ReconRecord object1, ReconRecord object2)
+        {
+            return object1.getId() == object2.getId();
         }
     }
 }

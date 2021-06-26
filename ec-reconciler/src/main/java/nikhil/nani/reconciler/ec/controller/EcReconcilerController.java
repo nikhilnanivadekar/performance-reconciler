@@ -101,14 +101,13 @@ public class EcReconcilerController
             long startTime = System.currentTimeMillis();
             LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl | Iteration:{}", startTime, i);
             reconcile = this.ecReconcilerServiceCustomHashingStrategyImpl.reconcile(request);
+            System.gc();
+            System.gc();
+            System.gc();
             long endTime = System.currentTimeMillis();
             LOGGER.info("End time:{} for ecZipReconcilerServiceImpl | Iteration:{}", endTime, i);
             LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
 
-            Thread.sleep(1000);
-            System.gc();
-            System.gc();
-            System.gc();
             Thread.sleep(1000);
         }
 

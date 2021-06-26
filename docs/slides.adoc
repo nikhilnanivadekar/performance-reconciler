@@ -22,6 +22,18 @@
 * Current Release: https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0[10.4]
 * Planned Release: 11.0 release soon after JDK 17 released (September 2021)
 
+== Eclipse Collections Top 10
+* Rich, fluent, and functional API with good symmetry
+* Memory Efficiency
+* Optimized Eager API
+* Primitive Collections
+* Immutable Collections
+* Multimap, Bag, BiMap, Pool, Interval
+* Hashing Strategy data structures
+* Multi-reader data structures
+* Mutable and Immutable Collection Factories
+* Lazy and Parallel Lazy API (multi-use)
+
 == Learning
 
 * Eclipse Collections Katas
@@ -43,8 +55,7 @@
 === Bag
 
 * Unorderd collection which allows duplicates
-* Similar to `Map&lt;K, Integer
-`
+* Similar to `Map&lt;K, Integer&gt;`
 * Useful for counting things by a function (`countBy`)
 
 [example]

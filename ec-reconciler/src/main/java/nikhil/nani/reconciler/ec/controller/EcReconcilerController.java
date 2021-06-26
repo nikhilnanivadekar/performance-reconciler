@@ -2,6 +2,7 @@ package nikhil.nani.reconciler.ec.controller;
 
 import nikhil.nani.data.bean.ReconcilerRequest;
 import nikhil.nani.reconciler.ec.service.impl.EcForEachInBothReconcilerServiceImpl;
+import nikhil.nani.reconciler.ec.service.impl.EcReconcilerServiceCustomHashingStrategyImpl;
 import nikhil.nani.reconciler.ec.service.impl.EcReconcilerServiceImpl;
 import nikhil.nani.reconciler.ec.service.impl.EcZipReconcilerServiceImpl;
 import org.slf4j.Logger;
@@ -22,16 +23,19 @@ public class EcReconcilerController
     private final EcForEachInBothReconcilerServiceImpl ecForEachInBothReconcilerServiceImpl;
     private final EcReconcilerServiceImpl ecReconcilerServiceImpl;
     private final EcZipReconcilerServiceImpl ecZipReconcilerServiceImpl;
+    private final EcReconcilerServiceCustomHashingStrategyImpl ecReconcilerServiceCustomHashingStrategyImpl;
 
     @Autowired
     public EcReconcilerController(
             EcForEachInBothReconcilerServiceImpl ecForEachInBothReconcilerServiceImpl,
             EcReconcilerServiceImpl ecReconcilerServiceImpl,
-            EcZipReconcilerServiceImpl ecZipReconcilerServiceImpl)
+            EcZipReconcilerServiceImpl ecZipReconcilerServiceImpl,
+            EcReconcilerServiceCustomHashingStrategyImpl ecReconcilerServiceCustomHashingStrategyImpl)
     {
         this.ecForEachInBothReconcilerServiceImpl = ecForEachInBothReconcilerServiceImpl;
         this.ecReconcilerServiceImpl = ecReconcilerServiceImpl;
         this.ecZipReconcilerServiceImpl = ecZipReconcilerServiceImpl;
+        this.ecReconcilerServiceCustomHashingStrategyImpl = ecReconcilerServiceCustomHashingStrategyImpl;
     }
 
     @PostMapping("/ecForEachInBothReconcilerServiceImpl")
@@ -79,6 +83,24 @@ public class EcReconcilerController
             long startTime = System.currentTimeMillis();
             LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl | Iteration:{}", startTime, i);
             reconcile = this.ecZipReconcilerServiceImpl.reconcile(request);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("End time:{} for ecZipReconcilerServiceImpl | Iteration:{}", endTime, i);
+            LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);
+            Thread.sleep(1000);
+        }
+
+        return ResponseEntity.ok(reconcile);
+    }
+
+    @PostMapping("/ecReconcilerServiceCustomHashingStrategyImpl")
+    public ResponseEntity<String> ecReconcilerServiceCustomHashingStrategyImpl(@RequestBody ReconcilerRequest request) throws InterruptedException
+    {
+        String reconcile = null;
+        for (int i = 0; i < request.getCount(); i++)
+        {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("Start time:{} for ecZipReconcilerServiceImpl | Iteration:{}", startTime, i);
+            reconcile = this.ecReconcilerServiceCustomHashingStrategyImpl.reconcile(request);
             long endTime = System.currentTimeMillis();
             LOGGER.info("End time:{} for ecZipReconcilerServiceImpl | Iteration:{}", endTime, i);
             LOGGER.info("Total time:{} | Reconciler Request:{} | Iteration:{}", endTime - startTime, request, i);

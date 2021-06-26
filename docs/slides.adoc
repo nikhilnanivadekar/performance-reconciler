@@ -40,7 +40,7 @@
 ** Released immediately
 ** Backported based on severity or demand
 * Minor releases
-** Based on demand
+** Based on demand (roughly 3-9 months)
 ** Before Java 8: New methods require major version
 ** After Java 8: Add methods to interfaces as default methods
 ** Deprecate methods/classes, but do not remove without advance documented warning for future major release

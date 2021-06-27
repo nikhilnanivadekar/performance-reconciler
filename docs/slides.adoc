@@ -1,15 +1,22 @@
 :icons: font
 
-== Eclipse Collections
+== Invest in your Java Collections
+
+* Donald Raab, Creator, Project Lead, Eclipse Collections
+* Nikhil Nanivadekar, Active Project Lead, Eclipse Collections
+
+== Eclipse Collections Background
 
 * An alternative to JDK Collections
+** Compatible with Java Collection Interfaces
 * Created in 2004 in Goldman Sachs
+** Originally called Caramel
 * Open sourced as GS Collections in 2012
 ** Free as in beer - Goldman only contributors
 * Moved to Eclipse Foundation at end of 2015
 ** Free as in speech - anyone can contribute after they sign ECA
-** #You can help evolve Eclipse Collection and add the features you need#
-* Design goals
+** #You can invest in Eclipse Collections and add the features you need#
+* Design goals of Eclipse Collections
 ** Rich API for collections
 ** Memory savings
 ** Performance
@@ -17,7 +24,7 @@
 
 == Eclipse Collection Today
 
-* 2 Project Leads (Nikhil and Don)
+* 2 Project Leads (Nikhil Nanivadekar and Donald Raab)
 * 5 Active Committers
 * Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
 * Found/reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]

@@ -1,0 +1,17 @@
+:icons: font
+
+== Hidden Treasures
+
+* Filter Symmetry
+* +With patterns
+* +By patterns
+* selectInstancesOf
+* Set operations
+* chunk
+* zip
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./15_primitive_math.adoc[Primitive Math] /
+link:./17_filter_symmetry.adoc[Filter Symmetry]

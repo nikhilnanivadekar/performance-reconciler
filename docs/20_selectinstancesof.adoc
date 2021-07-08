@@ -1,0 +1,29 @@
+:icons: font
+
+=== selectInstancesOf
+
+* Filtering by and casting to specific type
+* Useful for filtering and/or down-casting collections with mixed types
+
+[example]
+--
+[source,java,linenums,highlight=2..5]
+----
+MutableList<Number> numbers = Lists.mutable.with(1, 2L, 3.0, 4.0f);
+MutableList<Integer> integers = numbers.selectInstancesOf(Integer.class);
+MutableList<Long> longs = numbers.selectInstancesOf(Long.class);
+MutableList<Double> doubles = numbers.selectInstancesOf(Double.class);
+MutableList<Float> floats = numbers.selectInstancesOf(Float.class);
+
+Assertions.assertEquals(Lists.mutable.with(1), integers);
+Assertions.assertEquals(Lists.mutable.with(2L), longs);
+Assertions.assertEquals(Lists.mutable.with(3.0), doubles);
+Assertions.assertEquals(Lists.mutable.with(4.0f), floats);
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./19_by_patterns.adoc[+By Patterns] /
+link:./21_set_operations.adoc[Set Operations]

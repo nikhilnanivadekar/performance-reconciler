@@ -1,0 +1,28 @@
+:icons: font
+
+=== Chunk
+
+* Breaks a collection into batches or "chunks" based on a chunk size
+* The last chunk may be smaller than the chunk size
+
+[example]
+--
+[source,java,linenums,highlight=2]
+----
+IntInterval ints = IntInterval.oneTo(10);
+RichIterable<IntIterable> chunks = ints.chunk(3);
+LazyIterable<IntIterable> lazy = chunks.asLazy();
+
+Assertions.assertEquals(IntInterval.oneTo(3), lazy.getFirst());
+Assertions.assertEquals(IntInterval.fromTo(4, 6), lazy.drop(1).getFirst());
+Assertions.assertEquals(IntInterval.fromTo(7, 9), lazy.drop(2).getFirst());
+Assertions.assertEquals(IntInterval.fromTo(10, 10), lazy.drop(3).getFirst());
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./21_set_operations.adoc[Set Operations] /
+link:./23_zip.adoc[Zip]
+

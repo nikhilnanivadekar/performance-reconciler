@@ -1,0 +1,27 @@
+:icons: font
+
+=== HashBagWithHashingStrategy Example
+
+[example]
+--
+[source,java,linenums,highlight=3..6]
+----
+String words = "one two Two three Three THREE four FOUR Four FoUr";
+List<String> list = Arrays.asList(words.split(" "));
+MutableBag<String> caseInsensitiveBag =
+        HashingStrategyBags.mutable.<String>with(
+                HashingStrategies.fromFunction(String::toLowerCase))
+                .withAll(list);
+
+Assertions.assertEquals(1, caseInsensitiveBag.occurrencesOf("ONE"));
+Assertions.assertEquals(2, caseInsensitiveBag.occurrencesOf("two"));
+Assertions.assertEquals(3, caseInsensitiveBag.occurrencesOf("THREE"));
+Assertions.assertEquals(4, caseInsensitiveBag.occurrencesOf("four"));
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./12_unifiedmapwhs.adoc[UnifiedMapWithHashingStrategy] /
+link:./14_primitive_datastructures.adoc[Primitive Data Structures]

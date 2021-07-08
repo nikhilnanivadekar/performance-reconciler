@@ -1,0 +1,18 @@
+:icons: font
+
+=== HashingStrategy
+
+* HashingStrategy is an interface with two methods to implement
+* `int computeHashCode(E object)`
+* `boolean equals(E object1, E object2)`
+* Useful for creating hash based data structures without requiring dedicated keys
+* Types
+* `UnifiedSetWithHashingStrategy`
+* `UnifiedMapWithHashingStrategy`
+* `HashBagWithHashingStrategy`
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./09_multimap.adoc[Multimap] /
+link:./11_unifiedsetwhs.adoc[UnifiedSetWithHashingStrategy]

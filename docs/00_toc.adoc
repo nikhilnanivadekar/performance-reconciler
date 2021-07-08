@@ -1,0 +1,27 @@
+:icons: font
+
+== Invest in your Java Collections
+
+* link:01_intro.adoc[Introduction]
+* link:02_background.adoc[Background]
+* link:03_ec_today.adoc[Eclipse Collections Today]
+* link:04_ec_top10.adoc[Eclipse Collections Top 10]
+* link:05_compatibility.adoc[Versioning and Compatibility]
+* link:06_learning_ec.adoc[Learning Eclipse Collections]
+* link:07_nonjdk_datastructures.adoc[Non-JDK Data Structures]
+** link:08_bag.adoc[Bag]
+** link:09_multimap.adoc[Multimap]
+** link:10_hashingstrategy.adoc[Hashing Strategy]
+*** link:11_unifiedsetwhs.adoc[UnifiedSetWithHashingStrategy]
+*** link:12_unifiedmapwhs.adoc[UnifiedMapWithHashingStrategy]
+*** link:13_hashbagwhs.adoc[HashBagWithHashingStrategy]
+** link:14_primitive_datastructures.adoc[Primitive Data Structures]
+*** link:15_primitive_math.adoc[Primitive Math]
+* link:16_hidden_treasures.adoc[Hidden Treasures]
+** link:17_filter_symmetry.adoc[Filter Symmetry]
+** link:18_with_patterns.adoc[+With Patterns]
+** link:19_by_patterns.adoc[+By Patterns]
+** link:20_selectinstancesof.adoc[SelectInstancesOf]
+** link:21_set_operations.adoc[Set Operations]
+** link:22_chunk.adoc[Chunk]
+** link:23_zip.adoc[Zip]

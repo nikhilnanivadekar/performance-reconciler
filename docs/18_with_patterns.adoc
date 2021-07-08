@@ -1,0 +1,33 @@
+:icons: font
+
+=== +With patterns
+
+* Basic: `select`, `reject`, `collect`, etc.
+* Takes `Predicate` or `Function`
+* +With: `selectWith`, `rejectWith`, `collectWith`, etc.
+* Takes: `Predicate2` or `Function2` and extra parameter
+
+[example]
+--
+[source,java,linenums,highlight=4..5]
+----
+ImmutableList<Customer> smiths =
+        this.customers.select(customer -> customer.lastNameMatches("Smith"));
+
+ImmutableList<Customer> withSmiths =
+        this.customers.selectWith(Customer::lastNameMatches, "Smith");
+
+Assertions.assertTrue(
+        smiths.allSatisfy(customer -> customer.lastNameMatches("Smith")));
+Assertions.assertTrue(
+        withSmiths.allSatisfyWith(Customer::lastNameMatches, "Smith"));
+----
+--
+
+Blog: https://dzone.com/articles/preposition-preference[Preposition Preference]
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./17_filter_symmetry.adoc[Filter Symmetry] /
+link:./19_by_patterns.adoc[+By Patterns]

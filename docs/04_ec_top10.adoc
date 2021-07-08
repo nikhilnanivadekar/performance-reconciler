@@ -1,0 +1,19 @@
+:icons: font
+
+== Eclipse Collections Top 10
+* Rich, fluent, and functional API with good symmetry
+* Memory Efficiency
+* Optimized Eager API
+* Primitive Collections
+* Immutable Collections
+* Multimap, Bag, BiMap, Pool, Interval
+* Hashing Strategy data structures
+* Multi-reader data structures
+* Mutable and Immutable Collection Factories
+* Lazy and Parallel Lazy API (multi-use)
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:03_ec_today.adoc[EC Today] /
+link:./05_compatibility.adoc[Versioning and Compatibility]

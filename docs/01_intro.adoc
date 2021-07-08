@@ -1,0 +1,15 @@
+:icons: font
+
+== Invest in your Java Collections
+
+* Donald Raab
+** Creator, Project Lead, Eclipse Collections
+** Java Champion
+* Nikhil Nanivadekar
+** Active Project Lead, Eclipse Collections
+** Java Champion
+
+---
+
+link:00_toc.adoc[TOC] /
+link:./02_background.adoc[Background]

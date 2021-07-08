@@ -63,7 +63,7 @@
 ** Remove deprecated methods/classes previously targeted to version
 
 
-== Learning
+== Learning Eclipse Collections
 
 * Eclipse Collections Katas
 ** https://github.com/eclipse/eclipse-collections-kata/tree/master/company-kata[Company kata] (largest API coverage)

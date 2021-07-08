@@ -1,0 +1,27 @@
+:icons: font
+
+=== Multimap
+
+* Map-like data structure that allows multiple values per key
+* Similar to `Map&lt;K, Collection&lt;V&gt;`
+* Useful for grouping things by a function (`groupBy`)
+
+[example]
+--
+[source, java, linenums, highlight=5]
+----
+String words = "The quick brown fox jumps over the lazy dog";
+MutableList<String> list = Lists.mutable.with(words.split(" "));
+Multimap<Character, String> multimap = list.collect(String::toLowerCase)
+        .groupBy(each -> each.charAt(0));
+
+Assertions.assertEquals(Lists.mutable.with("the", "the"), multimap.get('t'));
+Assertions.assertEquals(Lists.mutable.empty(), multimap.get('a'));
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./08_bag.adoc[Bag] /
+link:./10_hashingstrategy.adoc[Hashing Strategy]

@@ -1,0 +1,16 @@
+:icons: font
+
+== Eclipse Collection Today
+
+* 2 Project Leads (Nikhil Nanivadekar and Donald Raab)
+* 5 Active Committers
+* Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
+* Found/reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]
+* Current Release: https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0[10.4]
+* Planned Release: 11.0 release soon after JDK 17 released (September 2021)
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:02_background.adoc[Intro] /
+link:./04_ec_top10.adoc[Eclipse Collections Top 10]

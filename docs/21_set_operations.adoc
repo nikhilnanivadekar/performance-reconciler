@@ -1,0 +1,31 @@
+:icons: font
+
+=== Set Operations
+
+* Eager: union, intersect, difference, symmetricDifference
+* Lazy: cartesianProduct
+* Testing: isSubsetOf, isProperSubsetOf
+
+[example]
+--
+[source,java,linenums,highlight=3..6]
+----
+IntSet setA = IntSets.mutable.with(1, 2, 3, 4);
+IntSet setB = IntSets.mutable.with(3, 4, 5, 6);
+IntSet intersect = setA.intersect(setB);
+IntSet union = setA.union(setB);
+IntSet difference = setA.difference(setB);
+IntSet symmetricDifference = setA.symmetricDifference(setB);
+
+Assertions.assertEquals(IntSets.mutable.with(3, 4), intersect);
+Assertions.assertEquals(IntInterval.oneTo(6).toSet(), union);
+Assertions.assertEquals(IntSets.mutable.with(1, 2), difference);
+Assertions.assertEquals(IntSets.mutable.with(1, 2, 5, 6), symmetricDifference);
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./20_selectinstancesof.adoc[SelectInstancesOf] /
+link:./22_chunk.adoc[Chunk]

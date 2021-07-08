@@ -1,0 +1,32 @@
+:icons: font
+
+== Primitive Math Methods
+[example]
+--
+[source,java,linenums,highlight=2..12]
+----
+IntSet set = IntInterval.oneTo(5).toSet();
+Assertions.assertEquals(15L, set.sum());
+Assertions.assertEquals(1, set.min());
+Assertions.assertEquals(1, set.minIfEmpty(0));
+Assertions.assertEquals(5, set.max());
+Assertions.assertEquals(5, set.maxIfEmpty(0));
+Assertions.assertEquals(3.0d, set.average());
+Assertions.assertEquals(3.0d, set.averageIfEmpty(0.0d));
+Assertions.assertEquals(3, set.median());
+Assertions.assertEquals(5, set.size());
+
+IntSummaryStatistics stats = set.summaryStatistics();
+Assertions.assertEquals(15L, stats.getSum());
+Assertions.assertEquals(1, stats.getMin());
+Assertions.assertEquals(5, stats.getMax());
+Assertions.assertEquals(3.0d, stats.getAverage());
+Assertions.assertEquals(5, stats.getCount());
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./14_primitive_datastructures.adoc[Primitive Data Structures] /
+link:./16_hidden_treasures.adoc[Hidden Treasures]

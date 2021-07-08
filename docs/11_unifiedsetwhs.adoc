@@ -1,0 +1,25 @@
+:icons: font
+
+=== UnifiedSetWithHashingStrategy Example
+
+[example]
+--
+[source,java,linenums,highlight=1..5]
+----
+MutableSet<Customer> setByName = HashingStrategySets.mutable.with(
+        HashingStrategies.chain(
+                HashingStrategies.fromFunction(Customer::getLastName),
+                HashingStrategies.fromFunction(Customer::getFirstName),
+                HashingStrategies.fromFunction(Customer::getMiddleInitial)));
+
+Assertions.assertTrue(setByName.add(new Customer("Donald", "A", "Duck")));
+Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
+Assertions.assertTrue(setByName.add(new Customer("Mickey", "Mouse", "T")));
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./10_hashingstrategy.adoc[HashingStrategy] /
+link:./12_unifiedmapwhs.adoc[UnifiedMapWithHashingStrategy]

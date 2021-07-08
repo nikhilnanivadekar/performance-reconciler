@@ -1,0 +1,21 @@
+:icons: font
+
+== Primitive Data Structures
+* List, Set, Bag, Stack, Map
+** Support for all primitive types
+** Readable, Mutable and Immutable types
+** Lazy support
+** Stream support for Int/Double/LongList
+* Interval (int/long only)
+* String (char and int)
+* Good symmetry with Object collection API
+* Math Methods
+** min, max, sum, average, median, summaryStatistics
+* Set Operations
+** intersect, union, difference, symmetricDifference, cartesianProduct
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./13_hashbagwhs.adoc[HashBagWithHashingStrategy] /
+link:./15_primitive_math.adoc[Primitive Math]

@@ -1,0 +1,27 @@
+:icons: font
+
+=== Zip
+
+* Converts two lists to a single list of pairs
+* Size is based on the shorter of the two lists
+* zipWithIndex combines a List with the indices
+
+[example]
+--
+[source,java,linenums,highlight=3]
+----
+MutableList<Integer> list1 = Lists.mutable.with(1, 2, 3);
+MutableList<Integer> list2 = Lists.mutable.with(0, 1, 2, 0);
+MutableList<Pair<Integer, Integer>> zip = list1.zip(list2);
+
+Assertions.assertEquals(Tuples.pair(1, 0), zip.getFirst());
+Assertions.assertEquals(Tuples.pair(2, 1), zip.get(1));
+Assertions.assertEquals(Tuples.pair(3, 2), zip.getLast());
+Assertions.assertEquals(zip, list1.zipWithIndex());
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./22_chunk.adoc[Chunk]

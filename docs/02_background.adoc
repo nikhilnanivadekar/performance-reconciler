@@ -1,0 +1,24 @@
+:icons: font
+
+== Eclipse Collections Background
+
+* An alternative to JDK Collections
+** Compatible with Java Collection Interfaces
+* Created in 2004 in Goldman Sachs
+** Originally called Caramel
+* Open sourced as GS Collections in 2012
+** Free as in beer - Goldman only contributors
+* Moved to Eclipse Foundation at end of 2015
+** Free as in speech - anyone can contribute after they sign ECA
+** #You can invest in Eclipse Collections and add the features you need#
+* Design goals of Eclipse Collections
+** Rich API for collections
+** Memory savings
+** Performance
+** Add missing data structures
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:01_intro.adoc[Intro] /
+link:./03_ec_today.adoc[Eclipse Collections Today]

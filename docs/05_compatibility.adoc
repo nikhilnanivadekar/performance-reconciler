@@ -1,0 +1,26 @@
+:icons: font
+
+== Versioning and Backwards Compatibility
+* Eclipse Collections follows https://semver.org/[Semantic Versioning]
+* Bug Fixes
+** Released immediately
+** Backported based on severity or demand
+* Minor releases
+** Based on demand (roughly 3-9 months)
+** Before Java 8: New methods require major version
+** After Java 8: Add methods to interfaces as default methods
+** Deprecate methods/classes, but do not remove without advance documented warning for future major release
+* Major Releases
+** Roughly every two years now
+*** 11.0 - ETA Oct. 2021
+*** 10.0 - Jul. 2019
+*** 9.0 - Sep. 2017
+*** 8.0 - Sep. 2016
+** Add new methods to interfaces with or without default implementation
+** Remove deprecated methods/classes previously targeted to version
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:04_ec_top10.adoc[EC Top 10] /
+link:./06_learning_ec.adoc[Learning Eclipse Collections]

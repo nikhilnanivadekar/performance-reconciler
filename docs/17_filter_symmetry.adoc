@@ -1,0 +1,31 @@
+:icons: font
+
+=== Filter Symmetry
+
+* Inclusive filter (select)
+* Exclusive filter (reject)
+* Inclusive and Exclusive (partition)
+
+[example]
+--
+[source,java,linenums,highlight=2..3]
+----
+MutableList<Integer> list = Lists.mutable.with(1, 2, 3, 4, 5);
+MutableList<Integer> evens = list.select(each -> each % 2 == 0);
+MutableList<Integer> odds = list.reject(each -> each % 2 == 0);
+
+MutableList<Integer> expectedEvens = Lists.mutable.with(2, 4);
+Assertions.assertEquals(expectedEvens, evens);
+MutableList<Integer> expectedOdds = Lists.mutable.with(1, 3, 5);
+Assertions.assertEquals(expectedOdds, odds);
+----
+--
+
+* Blog: https://donraab.medium.com/ec-by-example-filtering-4f14b906f718?source=friends_link&sk=1594797d204bcb37f59f70cf5b2454ef[EC by Example: Filtering]
+* Blog: https://donraab.medium.com/ec-by-example-partitioning-d2704f826e66?source=friends_link&sk=bac93f4516d88e47b719fcc778f40b79[EC by Example: Partitioning]
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./16_hidden_treasures.adoc[Hidden Treasures] /
+link:./18_with_patterns.adoc[+With Patterns]

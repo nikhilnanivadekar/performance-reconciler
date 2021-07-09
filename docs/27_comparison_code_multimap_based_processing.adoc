@@ -1,0 +1,34 @@
+:icons: font
+
+=== Comparison Code
+
+* In case the same primary key can have multiple rows, it shouldn't because it is a primary key. But we all know data is not always clean!
+* We can use Multimap based comparison
+
+* Create Multimaps
+* EC
+
+[example]
+--
+[source,java,linenums]
+----
+MutableListMultimap<Integer, ReconRecord> personMultimap =
+    personList.groupBy(ReconRecord::getKey);
+----
+--
+
+** JDK
+
+[example]
+--
+[source,java,linenums]
+----
+Map<Integer, List<ReconRecord>> personMultimap =
+    personList.stream()
+        .collect(Collectors.groupingBy(ReconRecord::getKey));
+----
+--
+---
+
+link:./00_toc.adoc[TOC] /
+link:./26_reconciler_domain_reservation.adoc[Reservation Definition]

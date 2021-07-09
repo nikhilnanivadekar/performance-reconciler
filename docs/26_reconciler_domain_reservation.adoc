@@ -1,0 +1,51 @@
+:icons: font
+
+=== Reconciler Domain
+
+* `Reservation` - an object with with 14 fields and a composite Primary Key
+
+`Reservation`
+
+[example]
+--
+[source,java,linenums]
+----
+String firstName; // Primary Key
+String lastName; // Primary Key
+String destination; // Primary Key
+TransportType transportType; // Primary Key
+String travelingFrom;
+int numberOfPeopleInReservation;
+boolean airlineReservation;
+String airlineName;
+boolean hotelReservation;
+String hotelName;
+boolean carReservation;
+String carRental;
+String promoCode;
+PaymentType paymentType;
+----
+--
+[example]
+--
+[source,java,linenums]
+----
+public enum TransportType {
+    LAND, WATER, AIR;
+}
+----
+--
+[example]
+--
+[source,java,linenums]
+----
+public enum PaymentType {
+    CREDIT_CARD, CASH, CHECK;
+}
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./25_reconciler_domain_person.adoc[Person Definition]

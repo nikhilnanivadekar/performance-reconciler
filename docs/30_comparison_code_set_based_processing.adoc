@@ -1,0 +1,32 @@
+:icons: font
+
+=== Comparison Code
+
+* In case the dataset has duplicates, but the comparison should only care about the first instance, you can use `Set` based comparison
+
+* EC - `UnifiedSetWithHashingStrategy`
+
+[example]
+--
+[source,java,linenums]
+----
+UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+    UnifiedSetWithHashingStrategy.newSet(PERSON_HASHING_STRATEGY);
+----
+--
+
+* JDK - `Map`
+
+[example]
+--
+[source,java,linenums]
+----
+Map<Integer, ReconRecord> personMap = new HashMap<>();
+        personList.forEach(reconRecord -> personMap.put(reconRecord.getKey(), reconRecord));
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./29_comparison_code_compare_multimaps_jdk.adoc[Reservation Definition]

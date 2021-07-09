@@ -1,0 +1,45 @@
+:icons: font
+
+=== Comparison Code
+
+* Compare Multimaps
+** JDK
+
+[example]
+--
+[source,java,linenums]
+----
+multimapLhs.forEach((id, listLhs) ->
+{
+    List<ReconRecord> listRhs = multimapRhs.remove(id);
+
+    if (listRhs != null && !listRhs.isEmpty()) {
+        int minSize = Math.min(listLhs.size(), listRhs.size());
+        IntStream.range(0, minSize)
+                .filter(i -> listLhs.get(i).notEquals(listRhs.get(i)))
+                .mapToObj(i -> Arrays.asList(listLhs.get(i), listRhs.get(i)))
+                .forEach(breaks::addToBreaks);
+
+        if (listRhs.size() < listLhs.size()) {
+            listLhs.subList(minSize, listLhs.size())
+                   .forEach(breaks::addToPresentInLhsNotInRhs);
+        }
+        else if (listRhs.size() > listLhs.size()) {
+            listRhs.subList(minSize, listRhs.size())
+                   .forEach(breaks::addToPresentInRhsNotInLhs);
+        }
+    }
+    else {
+        breaks.addAllToPresentInLhsNotInRhs(listLhs);
+    }
+});
+
+multimapRhs.forEach((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
+
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./28_comparison_code_compare_multimaps_ec.adoc[Reservation Definition]

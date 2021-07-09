@@ -1,0 +1,22 @@
+:icons: font
+
+=== Reconciler Domain
+
+* `Person` - Simple object with with 5 fields and a single `int` attribute is a Primary Key
+
+[example]
+--
+[source,java,linenums]
+----
+int id; // Primary Key
+String firstName;
+String lastName;
+int age;
+String city;
+----
+--
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./24_metrics_overview.adoc[Metric Overview]

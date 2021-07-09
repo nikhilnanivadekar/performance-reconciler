@@ -1,0 +1,45 @@
+:icons: font
+
+=== Comparison Code
+
+* Compare Multimaps
+** EC
+
+[example]
+--
+[source,java,linenums]
+----
+multimapLhs.forEachKeyMultiValues((id, reconRecordIterable) -> {
+    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
+    MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
+
+    if (listRhs.notEmpty()) {
+        int minSize = Math.min(listLhs.size(), listRhs.size());
+        listLhs.forEachWithIndex(0, minSize - 1,
+                (left, index) -> {
+                    ReconRecord right = listRhs.get(index);
+                    if (left.notEquals(right)) {
+                        breaks.addToBreaks(Lists.fixedSize.with(left, right));
+                    }
+                });
+        if (listRhs.size() < listLhs.size()) {
+            listLhs.forEachWithIndex(minSize, listLhs.size() - 1,
+                    (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
+        }
+        else if (listRhs.size() > listLhs.size()) {
+            listRhs.forEachWithIndex(minSize, listRhs.size() - 1,
+                    (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
+        }
+    } else {
+        breaks.addAllToPresentInLhsNotInRhs(listLhs);
+    }
+});
+
+multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
+        breaks.addAllToPresentInRhsNotInLhs((MutableList<ReconRecord>) rhsIterable));
+----
+--
+---
+
+link:./00_toc.adoc[TOC] /
+link:./27_comparison_code_multimap_based_processing.adoc[Reservation Definition]

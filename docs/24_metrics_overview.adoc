@@ -1,0 +1,19 @@
+:icons: font
+
+=== Metrics Overview
+
+==== Problem Statement
+
+* Compare Eclipse Collections and JDK Collections
+** Performance
+** Memory
+** Ease of Writing Code
+
+* Measure using a relatable scenario - *Reconciler*
+** Requires 2 datasets
+** Needs to perform computations for comparison
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./23_zip.adoc[Zip]

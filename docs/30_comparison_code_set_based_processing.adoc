@@ -2,7 +2,8 @@
 
 === Comparison Code
 
-* In case the dataset has duplicates, but the comparison should only care about the first instance, you can use `Set` based comparison
+* You can use `Set` based comparison when using Eclipse Collections, however, that translates to `Map` based comparison for JDK
+* This is useful when the dataset will not have duplicates for the same key
 
 * EC - `UnifiedSetWithHashingStrategy`
 
@@ -12,6 +13,16 @@
 ----
 UnifiedSetWithHashingStrategy<ReconRecord> set1 =
     UnifiedSetWithHashingStrategy.newSet(PERSON_HASHING_STRATEGY);
+// Add each object to the Set
+----
+--
+[example]
+--
+[source,java,linenums]
+----
+UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+    UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
+// Add each object to the Set
 ----
 --
 
@@ -22,11 +33,20 @@ UnifiedSetWithHashingStrategy<ReconRecord> set1 =
 [source,java,linenums]
 ----
 Map<Integer, ReconRecord> personMap = new HashMap<>();
-        personList.forEach(reconRecord -> personMap.put(reconRecord.getKey(), reconRecord));
+personList.forEach(reconRecord -> personMap.put(reconRecord.getKey(), reconRecord));
+----
+--
+
+[example]
+--
+[source,java,linenums]
+----
+Map<ReservationKey, ReconRecord> reservationMap = new HashMap<>();
+reservationList.forEach(reconRecord -> reservationMap.put(reconRecord.getKey(), reconRecord));
 ----
 --
 
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./29_comparison_code_compare_multimaps_jdk.adoc[Reservation Definition]
+link:./29_comparison_code_compare_multimaps_jdk.adoc[JDK Multimaps Comparison]

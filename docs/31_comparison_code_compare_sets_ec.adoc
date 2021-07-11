@@ -1,0 +1,38 @@
+:icons: font
+
+=== Comparison Code
+
+* Compare Sets
+** EC
+
+[example]
+--
+[source,java,linenums]
+----
+try (Stream<String> stream = Files.lines(Paths.get(pathFile2))) {
+    stream.forEach(currentLine ->
+    {
+        String[] split = currentLine.split(COMMA_DELIMITER);
+        ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
+        ReconRecord lhs = setLhs.removeFromPool(rhs);
+
+        if (Objects.nonNull(lhs)) {
+            if (lhs.notEquals(rhs)) {
+                breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
+            }
+        } else {
+            breaks.addToPresentInRhsNotInLhs(rhs);
+        }
+    });
+    setLhs.each(breaks::addToPresentInLhsNotInRhs);
+}
+catch (IOException e) {
+    LOGGER.error("Some went wrong while reading file: {}", pathFile2, e);
+}
+
+----
+--
+---
+
+link:./00_toc.adoc[TOC] /
+link:./30_comparison_code_set_based_processing.adoc[Set/Map Construction]

@@ -42,4 +42,4 @@ multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./27_comparison_code_multimap_based_processing.adoc[Reservation Definition]
+link:./27_comparison_code_multimap_based_processing.adoc[Multimap Construction]

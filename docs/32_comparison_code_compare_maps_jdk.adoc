@@ -1,0 +1,38 @@
+:icons: font
+
+=== Comparison Code
+
+* Compare Maps
+** JDK
+
+[example]
+--
+[source,java,linenums]
+----
+try (Stream<String> stream = Files.lines(Paths.get(pathFile2))) {
+    stream.forEach(currentLine ->
+    {
+        String[] split = currentLine.split(COMMA_DELIMITER);
+        ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
+        ReconRecord lhs = mapLhs.remove(rhs.getKey());
+
+        if (Objects.nonNull(lhs)) {
+            if (lhs.notEquals(rhs)) {
+                breaks.addToBreaks(Arrays.asList(lhs, rhs));
+            }
+        }
+        else {
+            breaks.addToPresentInRhsNotInLhs(rhs);
+        }
+    });
+    mapLhs.forEach((id, reconRecord) -> breaks.addToPresentInLhsNotInRhs(reconRecord));
+}
+catch (IOException e) {
+    LOGGER.error("Some went wrong while reading file: {}", pathFile2, e);
+}
+----
+--
+---
+
+link:./00_toc.adoc[TOC] /
+link:./31_comparison_code_compare_sets_ec.adoc[EC Sets Comparison]

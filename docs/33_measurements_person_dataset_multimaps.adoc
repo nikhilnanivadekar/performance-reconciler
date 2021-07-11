@@ -1,0 +1,31 @@
+:icons: font
+
+=== Measurements
+==== Person Dataset: Multimap based Comparison
+
+[width="80%",cols="2,>2,>6,>5,>6,>5",options="header"]
+|=========================================================
+|Library |Size |Median Time (ms) JDK-8 |Memory (Mb) JDK-8| Median Time (ms) JDK-11 | Memory (Mb) JDK-11
+
+| ec  | 10 | 169 |33.48 | 123 | 28.51
+| jdk | 10 | 169 |_#28.51#_ | *#122.5#* | _#25.63#_
+| ec  |100  | 169 |33.52 | 123 | 28.55
+| jdk | 100 |*#163#*|_#30.51#_ | 123 |_#25.59#_
+| ec  | 1000 |*#169#*|37.26 | 131 | 32.52
+| jdk | 1000 | 170.5 |_#34.51#_ | *#123.5#* | _#29.61#_
+| ec  | 10000 |*#231.5#*|_#38.51#_ | 169 | _#34.63#_
+| jdk | 10000 | 238   |43.99 | 169 | 38.58
+| ec  | 100000 |*#965#* |_#318.44#_ | *#787#* | _#173.71#_
+| jdk | 100000 | 1021.5 |320.61 | 874 | 235.03
+| ec  | 1000000 |*#8657#*|_#1588.88_# | *#6423#* | _#1377.09#_
+| jdk | 1000000 | 9173 |1658.42 | 6872 |1564.56
+|=========================================================
+
+_Timing measured as a median over 50 iterations_
+
+_Memory measured as the max heap size found on Visual VM_
+
+_lower the numbers the better_
+link:./00_toc.adoc[TOC] /
+link:./32_comparison_code_compare_maps_jdk.adoc[JDK Maps Comparison]
+

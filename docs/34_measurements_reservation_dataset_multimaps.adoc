@@ -1,0 +1,31 @@
+:icons: font
+
+=== Measurements
+==== Reservation Dataset: Multimap based Comparison
+
+[width="80%",cols="2,>2,>6,>5,>6,>5",options="header"]
+|=========================================================
+|Library |Size |Median Time (ms) JDK-8 |Memory (Mb) JDK-8| Median Time (ms) JDK-11 | Memory (Mb) JDK-11
+
+| ec  | 10 | 184 | 35.25 | *#122#* | 30.54
+| jdk | 10 | *#169#* | _#30.47#_ | 123 | _#25.60#_
+| ec  |100  | 185 | 33.49 | *#122.5#* | 30.53
+| jdk | 100 | *#164.5#* | _#30.50#_ | 131 | _#25.58#_
+| ec  | 1000 | 200 | _#26.52#_ | *#135#* | 36.57
+| jdk | 1000 | *#184#* | 36.47 | 138 | _#31.59#_
+| ec  | 10000 | 385 | 75.32 | 270 | _#46.80#_
+| jdk | 10000 | *#354#* | _#73.62#_ | *#269.5#* | 51.37
+| ec  | 100000 | 2241.5 | 405.61 | 2083.5 | 350.09
+| jdk | 100000 | *#2167#* | _#384.00#_ | *#1890#* | _#340.22#_
+| ec  | 1000000 | 24775 | _#3386.52#_ | 19859.5 | _#2915.69#_
+| jdk | 1000000 | *#22162#* | 3457.03 | *#17566#* | 3139.17
+|=========================================================
+
+_Timing measured as a median over 50 iterations_
+
+_Memory measured as the max heap size found on Visual VM_
+
+_lower the numbers the better_
+link:./00_toc.adoc[TOC] /
+link:./33_measurements_person_dataset_multimaps.adoc[Person Dataset: Multimaps]
+

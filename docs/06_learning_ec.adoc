@@ -3,10 +3,10 @@
 == Learning Eclipse Collections
 
 * Eclipse Collections Katas
-** https://github.com/eclipse/eclipse-collections-kata/tree/master/company-kata[Company kata] (largest API coverage)
-** https://github.com/eclipse/eclipse-collections-kata/tree/master/pet-kata[Pet kata] (good API coverage)
-** https://github.com/eclipse/eclipse-collections-kata/tree/master/candy-kata[Candy kata] (example of Bag)
-** https://github.com/eclipse/eclipse-collections-kata/tree/master/converter-method-kata[Converter Method Kata] (covers all to(Type), toImmutable(Type) methods)
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/company-kata[Company kata] - largest API coverage
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/pet-kata[Pet kata] - good API coverage
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/candy-kata[Candy kata] - example of Bag
+** https://github.com/eclipse/eclipse-collections-kata/tree/master/converter-method-kata[Converter Method Kata] - covers all to(Type), toImmutable(Type) methods
 ** https://github.com/eclipse/eclipse-collections-kata/tree/master/top-methods-kata[Top Methods Kata] - Covers 25 of favorite methods
 * https://github.com/eclipse/eclipse-collections/blob/master/docs/guide.md[Reference Guide]
 * https://github.com/eclipse/eclipse-collections/blob/master/docs/jackson.md[Jackson Support]

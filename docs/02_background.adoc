@@ -13,9 +13,9 @@
 ** #You can invest in Eclipse Collections and add the features you need#
 * Design goals of Eclipse Collections
 ** Rich API for collections
+** Add missing data structures
 ** Memory savings
 ** Performance
-** Add missing data structures
 
 ---
 

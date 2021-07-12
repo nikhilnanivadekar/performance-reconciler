@@ -21,16 +21,16 @@ public class HashingStrategySetTest
         Assertions.assertTrue(jdkSet.add(new Customer("Mickey", "Mouse", "T")));
         Assertions.assertTrue(jdkSet.add(new Customer("Donald", "A", "Duck")));
 
-        MutableSet<Customer> setByName = HashingStrategySets.mutable.with(
+        MutableSet<Customer> setByLastAndFirstName = HashingStrategySets.mutable.with(
                 HashingStrategies.chain(
                         HashingStrategies.fromFunction(Customer::getLastName),
-                        HashingStrategies.fromFunction(Customer::getFirstName),
-                        HashingStrategies.fromFunction(Customer::getMiddleInitial)));
+                        HashingStrategies.fromFunction(Customer::getFirstName)));
 
-        Assertions.assertTrue(setByName.add(new Customer("Donald", "A", "Duck")));
-        Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
-        Assertions.assertTrue(setByName.add(new Customer("Mickey", "Mouse", "T")));
-        Assertions.assertFalse(setByName.add(new Customer("Donald", "A", "Duck")));
+        Assertions.assertTrue(setByLastAndFirstName.add(new Customer("Donald", "A", "Duck")));
+        Assertions.assertFalse(setByLastAndFirstName.add(new Customer("Donald", "A", "Duck")));
+        Assertions.assertFalse(setByLastAndFirstName.add(new Customer("Donald", "B", "Duck")));
+        Assertions.assertTrue(setByLastAndFirstName.add(new Customer("Daffy", "A", "Duck")));
+        Assertions.assertTrue(setByLastAndFirstName.add(new Customer("Mickey", "T", "Mouse")));
     }
 
     @Test

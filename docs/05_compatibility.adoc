@@ -13,9 +13,9 @@
 * Major Releases
 ** Roughly every two years now
 *** 11.0 - ETA Oct. 2021
-*** 10.0 - Jul. 2019
-*** 9.0 - Sep. 2017
-*** 8.0 - Sep. 2016
+*** https://github.com/eclipse/eclipse-collections/releases/tag/10.0.0[10.0] - Jul. 2019
+*** https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0[9.0] - Sep. 2017
+*** https://github.com/eclipse/eclipse-collections/releases/tag/8.0.0[8.0] - Sep. 2016
 ** Add new methods to interfaces with or without default implementation
 ** Remove deprecated methods/classes previously targeted to version
 

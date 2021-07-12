@@ -5,7 +5,7 @@
 * HashingStrategy is an interface with two methods to implement
 * `int computeHashCode(E object)`
 * `boolean equals(E object1, E object2)`
-* Useful for creating hash based data structures without requiring dedicated keys
+* Useful for creating hash based data structures without requiring dedicated key objects
 * Types
 * `UnifiedSetWithHashingStrategy`
 * `UnifiedMapWithHashingStrategy`

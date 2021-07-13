@@ -1,0 +1,9 @@
+:icons: font
+
+=== Observations
+* TO BE COMPLETED
+
+link:./00_toc.adoc[TOC] /
+link:./36_measurements_reservation_dataset_sets_maps.adoc[Measurements: Reservation Dataset - Sets/Maps] /
+link:./38_take-aways.adoc[Take Aways]
+

@@ -35,4 +35,5 @@ catch (IOException e) {
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./30_comparison_code_set_based_processing.adoc[Set/Map Construction]
+link:./30_comparison_code_set_based_processing.adoc[Sets/Maps Construction] /
+link:./32_comparison_code_compare_maps_jdk.adoc[Compare Maps: JDK]

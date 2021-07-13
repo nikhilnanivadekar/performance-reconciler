@@ -48,4 +48,5 @@ public enum PaymentType {
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./25_reconciler_domain_person.adoc[Person Definition]
+link:./25_reconciler_domain_person.adoc[Person Definition] /
+link:./27_comparison_code_multimap_based_processing.adoc[Create Multimaps]

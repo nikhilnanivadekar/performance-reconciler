@@ -24,4 +24,5 @@ Assertions.assertEquals(zip, list1.zipWithIndex());
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./22_chunk.adoc[Chunk]
+link:./22_chunk.adoc[Chunk] /
+link:./24_metrics_overview.adoc[Metrics Overview]

@@ -27,5 +27,6 @@ _Memory measured as the max heap size found on Visual VM_
 
 _lower the numbers the better_
 link:./00_toc.adoc[TOC] /
-link:./34_measurements_reservation_dataset_multimaps.adoc[Reservation Dataset: Multimaps]
+link:./34_measurements_reservation_dataset_multimaps.adoc[Measurements: Reservation Dataset - Multimaps] /
+link:./36_measurements_reservation_dataset_sets_maps.adoc[Measurements: Reservation Dataset - Sets/Maps]
 

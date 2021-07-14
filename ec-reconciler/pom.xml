@@ -85,7 +85,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <eclipse-collections.version>10.4.0</eclipse-collections.version>
+        <eclipse-collections.version>11.0.0.M3</eclipse-collections.version>
     </properties>
 
     <build>

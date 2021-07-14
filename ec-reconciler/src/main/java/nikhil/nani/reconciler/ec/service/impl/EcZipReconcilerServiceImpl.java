@@ -149,37 +149,40 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        multimapLhs.forEachKeyMultiValues(
-                (id, reconRecordIterable) ->
+        multimapLhs.forEachKeyMutableList((id, listLhs) ->
+        {
+            MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
+
+            if (listRhs.notEmpty())
+            {
+                listLhs.asLazy()
+                        .zip(listRhs)
+                        .reject(pair -> pair.getOne().equals(pair.getTwo()))
+                        .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
+                        .each(breaks::addToBreaks);
+
+                if (listRhs.size() < listLhs.size())
                 {
-                    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
-                    MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
+                    listLhs.forEachWithIndex(
+                            listRhs.size(),
+                            listLhs.size() - 1,
+                            (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
+                }
+                if (listRhs.size() > listLhs.size())
+                {
+                    listRhs.forEachWithIndex(
+                            listLhs.size(),
+                            listRhs.size() - 1,
+                            (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
+                }
+            }
+            else
+            {
+                breaks.addAllToPresentInLhsNotInRhs(listLhs);
+            }
+        });
 
-                    if (listRhs.notEmpty())
-                    {
-                        listLhs.asLazy()
-                                .zip(listRhs)
-                                .reject(pair -> pair.getOne().equals(pair.getTwo()))
-                                .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
-                                .each(breaks::addToBreaks);
-
-                        if (listRhs.size() < listLhs.size())
-                        {
-                            listLhs.forEachWithIndex(listRhs.size(), listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
-                        }
-                        if (listRhs.size() > listLhs.size())
-                        {
-                            listRhs.forEachWithIndex(listLhs.size(), listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
-                        }
-                    }
-                    else
-                    {
-                        breaks.addAllToPresentInLhsNotInRhs(listLhs);
-                    }
-                });
-
-        multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
-                breaks.addAllToPresentInRhsNotInLhs((MutableList<ReconRecord>) rhsIterable));
+        multimapRhs.forEachKeyMutableList((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
 
         return breaks;
     }

@@ -150,39 +150,42 @@ public class EcForEachInBothReconcilerServiceImpl implements ReconcilerService
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        multimapLhs.forEachKeyMultiValues(
-                (id, reconRecordIterable) ->
-                {
-                    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
-                    MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
+        multimapLhs.forEachKeyMutableList((id, listLhs) ->
+        {
+            MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
 
-                    if (listRhs.notEmpty())
+            if (listRhs.notEmpty())
+            {
+                int minSize = Math.min(listLhs.size(), listRhs.size());
+                listLhs.subList(0, minSize).forEachInBoth(listRhs.subList(0, minSize), (left, right) ->
+                {
+                    if (left.notEquals(right))
                     {
-                        int minSize = Math.min(listLhs.size(), listRhs.size());
-                        listLhs.subList(0, minSize).forEachInBoth(listRhs.subList(0, minSize), (left, right) ->
-                        {
-                            if (left.notEquals(right))
-                            {
-                                breaks.addToBreaks(Lists.fixedSize.with(left, right));
-                            }
-                        });
-                        if (listRhs.size() < listLhs.size())
-                        {
-                            listLhs.forEachWithIndex(minSize, listLhs.size() - 1, (each, i) -> breaks.addToPresentInLhsNotInRhs(each));
-                        }
-                        else if (listRhs.size() > listLhs.size())
-                        {
-                            listRhs.forEachWithIndex(minSize, listRhs.size() - 1, (each, i) -> breaks.addToPresentInRhsNotInLhs(each));
-                        }
-                    }
-                    else
-                    {
-                        breaks.addAllToPresentInLhsNotInRhs(listLhs);
+                        breaks.addToBreaks(Lists.fixedSize.with(left, right));
                     }
                 });
+                if (listRhs.size() < listLhs.size())
+                {
+                    listLhs.forEachWithIndex(
+                            minSize,
+                            listLhs.size() - 1,
+                            (each, i) -> breaks.addToPresentInLhsNotInRhs(each));
+                }
+                else if (listRhs.size() > listLhs.size())
+                {
+                    listRhs.forEachWithIndex(
+                            minSize,
+                            listRhs.size() - 1,
+                            (each, i) -> breaks.addToPresentInRhsNotInLhs(each));
+                }
+            }
+            else
+            {
+                breaks.addAllToPresentInLhsNotInRhs(listLhs);
+            }
+        });
 
-        multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
-                breaks.addAllToPresentInRhsNotInLhs((MutableList<ReconRecord>) rhsIterable));
+        multimapRhs.forEachKeyMutableList((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
 
         return breaks;
     }

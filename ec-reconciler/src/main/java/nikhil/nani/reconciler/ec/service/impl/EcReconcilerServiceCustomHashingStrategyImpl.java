@@ -103,7 +103,8 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
         if (request.isIgnoreDuplicates())
         {
             // Impl on the left as only Impl implements Pool.
-            UnifiedSetWithHashingStrategy<ReconRecord> set1 = UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
+            UnifiedSetWithHashingStrategy<ReconRecord> set1 =
+                    UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
             FileParserUtil.readFile(request.getPathFile1(), set1, request.getRequestType());
 
             return this.compareWithDuplicatesIgnored(set1, request.getPathFile2(), request.getRequestType());
@@ -135,7 +136,9 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
         return personList.groupBy(ReconRecord::getId);
     }
 
-    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(String path, RequestType requestType)
+    private MutableListMultimap<ReservationKey, ReconRecord> getReservationRecordMultimap(
+            String path,
+            RequestType requestType)
     {
         MutableList<ReconRecord> reservationList = Lists.mutable.empty();
         FileParserUtil.readFile(path, reservationList, requestType);
@@ -149,40 +152,43 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
     {
         Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
 
-        multimapLhs.forEachKeyMultiValues(
-                (id, reconRecordIterable) ->
-                {
-                    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
-                    MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
+        multimapLhs.forEachKeyMutableList((id, listLhs) ->
+        {
+            MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
 
-                    if (listRhs.notEmpty())
+            if (listRhs.notEmpty())
+            {
+                int minSize = Math.min(listLhs.size(), listRhs.size());
+                listLhs.forEachWithIndex(0, minSize - 1, (left, index) ->
+                {
+                    ReconRecord right = listRhs.get(index);
+                    if (left.notEquals(right))
                     {
-                        int minSize = Math.min(listLhs.size(), listRhs.size());
-                        listLhs.forEachWithIndex(0, minSize - 1, (left, index) ->
-                        {
-                            ReconRecord right = listRhs.get(index);
-                            if (left.notEquals(right))
-                            {
-                                breaks.addToBreaks(Lists.fixedSize.with(left, right));
-                            }
-                        });
-                        if (listRhs.size() < listLhs.size())
-                        {
-                            listLhs.forEachWithIndex(minSize, listLhs.size() - 1, (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
-                        }
-                        else if (listRhs.size() > listLhs.size())
-                        {
-                            listRhs.forEachWithIndex(minSize, listRhs.size() - 1, (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
-                        }
-                    }
-                    else
-                    {
-                        breaks.addAllToPresentInLhsNotInRhs(listLhs);
+                        breaks.addToBreaks(Lists.fixedSize.with(left, right));
                     }
                 });
+                if (listRhs.size() < listLhs.size())
+                {
+                    listLhs.forEachWithIndex(
+                            minSize,
+                            listLhs.size() - 1,
+                            (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
+                }
+                else if (listRhs.size() > listLhs.size())
+                {
+                    listRhs.forEachWithIndex(
+                            minSize,
+                            listRhs.size() - 1,
+                            (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
+                }
+            }
+            else
+            {
+                breaks.addAllToPresentInLhsNotInRhs(listLhs);
+            }
+        });
 
-        multimapRhs.forEachKeyMultiValues((id, rhsIterable) ->
-                breaks.addAllToPresentInRhsNotInLhs((MutableList<ReconRecord>) rhsIterable));
+        multimapRhs.forEachKeyMutableList((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
 
         return breaks;
     }

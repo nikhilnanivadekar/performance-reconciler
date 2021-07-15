@@ -22,10 +22,12 @@ import nikhil.nani.data.util.FileParserUtil;
 import org.eclipse.collections.api.block.HashingStrategy;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
+import org.eclipse.collections.api.tuple.Pair;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
 import org.eclipse.collections.impl.block.factory.Procedures;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.set.strategy.mutable.UnifiedSetWithHashingStrategy;
+import org.eclipse.collections.impl.tuple.Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -157,8 +159,8 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
             {
                 listLhs.asLazy()
                         .zip(listRhs)
-                        .reject(pair -> pair.getOne().equals(pair.getTwo()))
-                        .collect(pair -> Lists.fixedSize.with(pair.getOne(), pair.getTwo()))
+                        .reject(Pair::isEqual)
+                        .collect(Tuples::pairToFixedSizeList)
                         .each(breaks::addToBreaks);
 
                 if (listRhs.size() < listLhs.size())

@@ -29,5 +29,5 @@ Blog: https://dzone.com/articles/preposition-preference[Preposition Preference]
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./17_filter_symmetry.adoc[Filter Symmetry] /
-link:./19_by_patterns.adoc[+By Patterns]
+link:./30_filter_symmetry.adoc[Filter Symmetry] /
+link:./32_by_patterns.adoc[+By Patterns]

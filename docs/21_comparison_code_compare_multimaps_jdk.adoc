@@ -42,5 +42,5 @@ multimapRhs.forEach((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhs
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./28_comparison_code_compare_multimaps_ec.adoc[Compare Multimaps: EC] /
-link:./30_comparison_code_set_based_processing.adoc[Set/Map Creation]
+link:./20_comparison_code_compare_multimaps_ec.adoc[Compare Multimaps: EC] /
+link:./22_comparison_code_set_map_construction.adoc[Set/Map Construction]

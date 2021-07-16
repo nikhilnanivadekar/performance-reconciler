@@ -19,5 +19,5 @@ String city;
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./24_metrics_overview.adoc[Metric Overview] /
-link:./26_reconciler_domain_reservation.adoc[Reconciler Domain: Reservation]
+link:./16_metrics_overview.adoc[Metrics Overview] /
+link:./18_reconciler_domain_reservation.adoc[Reconciler Domain: Reservation]

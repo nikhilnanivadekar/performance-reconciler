@@ -25,5 +25,5 @@ Assertions.assertEquals(Lists.mutable.with(4.0f), floats);
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./19_by_patterns.adoc[+By Patterns] /
-link:./21_set_operations.adoc[Set Operations]
+link:./32_by_patterns.adoc[+By Patterns] /
+link:./34_set_operations.adoc[Set Operations]

@@ -9,25 +9,28 @@
 --
 [source,java,linenums]
 ----
-multimapLhs.forEachKeyMultiValues((id, reconRecordIterable) -> {
-    MutableList<ReconRecord> listLhs = (MutableList<ReconRecord>) reconRecordIterable;
+multimapLhs.forEachKeyMutableList((id, listLhs) -> {
     MutableList<ReconRecord> listRhs = multimapRhs.removeAll(id);
 
     if (listRhs.notEmpty()) {
         int minSize = Math.min(listLhs.size(), listRhs.size());
-        listLhs.forEachWithIndex(0, minSize - 1,
-                (left, index) -> {
-                    ReconRecord right = listRhs.get(index);
-                    if (left.notEquals(right)) {
-                        breaks.addToBreaks(Lists.fixedSize.with(left, right));
-                    }
-                });
+
+        listLhs.forEachWithIndex(0, minSize - 1, (left, index) -> {
+            ReconRecord right = listRhs.get(index);
+            if (left.notEquals(right)) {
+                breaks.addToBreaks(Lists.fixedSize.with(left, right));
+            }
+        });
         if (listRhs.size() < listLhs.size()) {
-            listLhs.forEachWithIndex(minSize, listLhs.size() - 1,
+            listLhs.forEachWithIndex(
+                    minSize,
+                    listLhs.size() - 1,
                     (each, index) -> breaks.addToPresentInLhsNotInRhs(each));
         }
         else if (listRhs.size() > listLhs.size()) {
-            listRhs.forEachWithIndex(minSize, listRhs.size() - 1,
+            listRhs.forEachWithIndex(
+                    minSize,
+                    listRhs.size() - 1,
                     (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
         }
     } else {

@@ -1,9 +1,0 @@
-:icons: font
-
-=== Observations
-* TO BE COMPLETED
-
-link:./00_toc.adoc[TOC] /
-link:./36_zip.adoc[Zip] /
-link:./38_take-aways.adoc[Take Aways]
-

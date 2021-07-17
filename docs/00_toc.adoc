@@ -42,5 +42,4 @@
 ** link:34_set_operations.adoc[Set Operations]
 ** link:35_chunk.adoc[Chunk]
 ** link:36_zip.adoc[Zip]
-* link:37_observations.adoc[Observations]
-* link:38_take-aways.adoc[Take Aways]
+* link:37_take-aways.adoc[Take Aways]

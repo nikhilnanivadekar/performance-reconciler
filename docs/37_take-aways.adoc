@@ -1,7 +1,18 @@
 :icons: font
 
 === Take Aways
-* TO BE COMPLETED
+* Collections are a fundamental part of every modern programming language
+* Invest in your Java Collections
+** Learn and use Eclipse Collections
+*** Reuse Eclipse Collections in other OSS libraries
+** Share your knowledge of Eclipse Collections
+*** Blogs, articles, talks and tweets
+*** Build and open source Code Katas
+** Contribute to Eclipse Collections
+*** Bug Fixes
+*** Features
+*** Documentation
+** Extend Eclipse Collections with your own custom collections
 
 link:./00_toc.adoc[TOC] /
 link:./36_zip.adoc[ZIP]

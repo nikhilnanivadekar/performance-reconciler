@@ -1,18 +1,14 @@
 :icons: font
 
 === Take Aways
-* Collections are a fundamental part of every modern programming language
-* Invest in your Java Collections
-** Learn and use Eclipse Collections
-** Share your knowledge of Eclipse Collections
-** Contribute to Eclipse Collections
-** Extend Eclipse Collections with your own custom collections
 * Upgrade from Java 8 to Java 11
 ** Save memory
 ** Improve performance
-* Upgrade to Eclipse Collections from JDK Collections
-** Small scale - Similar performance/memory usage, improved productivity
-** Large scale - Improved performance/memory usage, improved productivity
+* Benchmark your actual use cases
+* Augment JDK Collections with Eclipse Collections
+** Small scale - Similar performance/memory usage, improved productivity, readability
+** Large scale - Improved performance/memory usage, improved productivity, readability
+* Invest in your Java Collections
 
 link:./00_toc.adoc[TOC] /
 link:./40_zip.adoc[ZIP]

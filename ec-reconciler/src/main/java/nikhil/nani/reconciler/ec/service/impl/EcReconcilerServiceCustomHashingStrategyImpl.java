@@ -188,7 +188,7 @@ public class EcReconcilerServiceCustomHashingStrategyImpl implements ReconcilerS
             }
         });
 
-        multimapRhs.forEachKeyMutableList((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
+        multimapRhs.forEachKeyMutableList((id, rhsList) -> breaks.addAllToPresentInRhsNotInLhs(rhsList));
 
         return breaks;
     }

@@ -184,7 +184,7 @@ public class EcZipReconcilerServiceImpl implements ReconcilerService
             }
         });
 
-        multimapRhs.forEachKeyMutableList((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
+        multimapRhs.forEachKeyMutableList((id, rhsList) -> breaks.addAllToPresentInRhsNotInLhs(rhsList));
 
         return breaks;
     }

@@ -9,7 +9,7 @@
 ** Extend Eclipse Collections with your own custom collections
 * Upgrade from Java 8 to Java 11
 ** Save memory
-** Save time
+** Improve performance
 * Upgrade to Eclipse Collections from JDK Collections
 ** Small scale - Similar performance/memory usage, improved productivity
 ** Large scale - Improved performance/memory usage, improved productivity

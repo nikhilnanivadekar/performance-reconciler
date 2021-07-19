@@ -4,18 +4,15 @@
 * Collections are a fundamental part of every modern programming language
 * Invest in your Java Collections
 ** Learn and use Eclipse Collections
-*** Reuse Eclipse Collections in other OSS libraries
 ** Share your knowledge of Eclipse Collections
-*** Blogs, articles, talks and tweets
-*** Build and open source Code Katas
 ** Contribute to Eclipse Collections
-*** Bug Fixes
-*** Features
-*** Documentation
 ** Extend Eclipse Collections with your own custom collections
 * Upgrade from Java 8 to Java 11
 ** Save memory
 ** Save time
+* Upgrade to Eclipse Collections from JDK Collections
+** Small scale - Similar performance/memory usage, improved productivity
+** Large scale - Improved performance/memory usage, improved productivity
 
 link:./00_toc.adoc[TOC] /
 link:./40_zip.adoc[ZIP]

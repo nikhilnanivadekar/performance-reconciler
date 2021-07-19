@@ -34,7 +34,8 @@ multimapLhs.forEach((id, listLhs) ->
     }
 });
 
-multimapRhs.forEach((id, rhsIterable) -> breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
+multimapRhs.forEach((id, rhsIterable) ->
+        breaks.addAllToPresentInRhsNotInLhs(rhsIterable));
 
 ----
 --

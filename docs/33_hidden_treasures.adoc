@@ -13,5 +13,5 @@
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./15_primitive_math.adoc[Primitive Math] /
-link:./17_filter_symmetry.adoc[Filter Symmetry]
+link:./32_measurements_reservation_dataset_sets_maps_jdk11.adoc[Measurements: Reservation Dataset: Sets/Maps (JDK-11)] /
+link:./34_filter_symmetry.adoc[Filter Symmetry]

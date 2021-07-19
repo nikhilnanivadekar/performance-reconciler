@@ -1,0 +1,21 @@
+:icons: font
+
+=== Reservation Dataset: Sets/Maps based Comparison (JDK-8)
+
+[#img-reservation-sets-maps-10-100_000-jdk8]
+.Reservation Dataset: Sets/Maps based Comparison 10 to 100,000 elements (JDK-8)
+image::img-reservation-sets-maps-10-100_000-jdk8.png[img-reservation-sets-maps-10-100_000-jdk8,6210,2082]
+
+[#img-reservation-sets-maps-1_000_000-jdk8]
+.Reservation Dataset: Sets/Maps based Comparison 1,000,000 elements (JDK-8)
+image::img-reservation-sets-maps-1_000_000-jdk8.png[reservation-sets-maps-1_000_000-jdk8,6210,2082]
+
+_Timing measured as a median over 50 iterations_
+
+_Memory measured as the max heap size found on Visual VM_
+
+_lower the numbers the better_
+link:./00_toc.adoc[TOC] /
+link:./30_measurements_person_dataset_sets_maps_jdk11.adoc[Measurements: Person Dataset - Sets/Maps (JDK-11)] /
+link:./32_measurements_reservation_dataset_sets_maps_jdk11.adoc[Measurements: Reservation Dataset - Sets/Maps (JDK-11)]
+

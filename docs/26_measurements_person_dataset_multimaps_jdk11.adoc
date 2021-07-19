@@ -1,0 +1,21 @@
+:icons: font
+
+=== Person Dataset: Multimap based Comparison (JDK-11)
+
+[#img-person-multimap-10-100_000-jdk11]
+.Person Dataset: Multimap based Comparison 10 to 100,000 elements (JDK-11)
+image::img-person-multimap-10-100_000-jdk11.png[img-person-multimap-10-100_000-jdk11,6210,2082]
+
+[#img-person-multimap-1_000_000-jdk11]
+.Person Dataset: Multimap based Comparison 1,000,000 elements (JDK-11)
+image::img-person-multimap-1_000_000-jdk11.png[person-multimap-1_000_000-jdk11,6210,2082]
+
+_Timing measured as a median over 50 iterations_
+
+_Memory measured as the max heap size found on Visual VM_
+
+_lower the numbers the better_
+link:./00_toc.adoc[TOC] /
+link:./25_measurements_person_dataset_multimaps_jdk8.adoc[Measurements: Person Dataset - Multimaps (JDK-8)] /
+link:./27_measurements_reservation_dataset_multimaps_jdk8.adoc[Measurements: Reservation Dataset - Multimaps (JDK-8)]
+

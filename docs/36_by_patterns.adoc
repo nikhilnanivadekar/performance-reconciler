@@ -15,5 +15,5 @@ Blog: https://medium.com/javarevisited/by-yourself-some-time-e16c0f488847?source
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./31_with_patterns.adoc[+With Patterns] /
-link:./33_selectinstancesof.adoc[SelectInstancesOf]
+link:./35_with_patterns.adoc[+With Patterns] /
+link:./37_selectinstancesof.adoc[SelectInstancesOf]

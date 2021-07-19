@@ -16,5 +16,5 @@
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./36_zip.adoc[Zip] /
+link:./15_primitive_math.adoc[Primitive Math] /
 link:./17_reconciler_domain_person.adoc[Reconciler Domain: Person]

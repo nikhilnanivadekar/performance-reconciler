@@ -14,6 +14,7 @@ _Timing measured as a median over 50 iterations_
 _Memory measured as the max heap size found on Visual VM_
 
 _lower the numbers the better_
+
 link:./00_toc.adoc[TOC] /
 link:./29_measurements_person_dataset_sets_maps_jdk8.adoc[Measurements: Person Dataset - Sets/Maps (JDK-8)] /
 link:./31_measurements_reservation_dataset_sets_maps_jdk8.adoc[Measurements: Reservation Dataset - Sets/Maps (JDK-8)]

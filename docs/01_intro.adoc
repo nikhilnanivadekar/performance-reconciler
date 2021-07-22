@@ -2,11 +2,11 @@
 
 == Invest in your Java Collections
 
-* Donald Raab
-** Creator, Project Lead, Eclipse Collections
-** Java Champion
 * Nikhil Nanivadekar
 ** Active Project Lead, Eclipse Collections
+** Java Champion
+* Donald Raab
+** Creator, Project Lead, Eclipse Collections
 ** Java Champion
 
 ---

@@ -2,7 +2,7 @@
 
 == Primitive Data Structures
 * List, Set, Bag, Stack, Map
-** Support for all primitive types
+** Support for all primitive types - Code generated
 ** Readable, Mutable and Immutable types
 ** Lazy support
 ** Stream support for Int/Double/LongList

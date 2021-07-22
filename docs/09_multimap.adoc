@@ -3,7 +3,7 @@
 === Multimap
 
 * Map-like data structure that allows multiple values per key
-* Similar to `Map&lt;K, Collection&lt;V&gt;`
+* Similar to `Map&lt;K, Collection&lt;V&gt;&gt;`
 * Useful for grouping things by a function (`groupBy`)
 
 [example]

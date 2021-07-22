@@ -5,7 +5,7 @@
 * You can use `Set` based comparison when using Eclipse Collections, however, that translates to `Map` based comparison for JDK
 * This is useful when the dataset will not have duplicates for the same key
 
-* Eclipse Collections - `UnifiedSetWithHashingStrategy`
+* Eclipse Collections - `Set`
 
 [example]
 --

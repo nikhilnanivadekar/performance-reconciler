@@ -6,7 +6,7 @@
 * We can use Multimap based comparison
 
 * Create Multimaps
-* EC
+* Eclipse Collections
 
 [example]
 --
@@ -17,7 +17,7 @@ MutableListMultimap<Integer, ReconRecord> personMultimap =
 ----
 --
 
-** JDK
+* JDK
 
 [example]
 --

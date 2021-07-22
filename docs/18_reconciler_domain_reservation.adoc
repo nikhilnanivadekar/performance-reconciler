@@ -4,8 +4,6 @@
 
 * `Reservation` - an object with 14 fields and a composite Primary Key
 
-`Reservation`
-
 [example]
 --
 [source,java,linenums]

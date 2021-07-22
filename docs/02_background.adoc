@@ -4,6 +4,7 @@
 
 * An alternative to JDK Collections
 ** Compatible with Java Collection Interfaces
+*** Iterable, Iterator, Collection, Map, List, Set, Stream
 * Created inside Goldman Sachs in 2004
 ** Originally called Caramel
 * Open sourced as GS Collections in 2012

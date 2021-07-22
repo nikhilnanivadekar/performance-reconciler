@@ -4,13 +4,13 @@
 
 * An alternative to JDK Collections
 ** Compatible with Java Collection Interfaces
-* Created in 2004 in Goldman Sachs
+* Created inside Goldman Sachs in 2004
 ** Originally called Caramel
 * Open sourced as GS Collections in 2012
 ** Free as in beer - Goldman only contributors
 * Moved to Eclipse Foundation at end of 2015
 ** Free as in speech - anyone can contribute after they sign ECA
-** #You can invest in Eclipse Collections and add the features you need#
+** You can invest in Eclipse Collections and add the features you need
 * Design goals of Eclipse Collections
 ** Rich API for collections
 ** Add missing data structures

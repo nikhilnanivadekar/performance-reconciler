@@ -14,6 +14,7 @@ multimapLhs.forEach((id, listLhs) ->
 
     if (listRhs != null && !listRhs.isEmpty()) {
         int minSize = Math.min(listLhs.size(), listRhs.size());
+
         IntStream.range(0, minSize)
                 .filter(i -> listLhs.get(i).notEquals(listRhs.get(i)))
                 .mapToObj(i -> Arrays.asList(listLhs.get(i), listRhs.get(i)))
@@ -27,6 +28,7 @@ multimapLhs.forEach((id, listLhs) ->
             listRhs.subList(minSize, listRhs.size())
                    .forEach(breaks::addToPresentInRhsNotInLhs);
         }
+
     }
     else {
         breaks.addAllToPresentInLhsNotInRhs(listLhs);

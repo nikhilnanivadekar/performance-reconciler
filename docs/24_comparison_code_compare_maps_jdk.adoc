@@ -8,27 +8,39 @@
 --
 [source,java,linenums]
 ----
-try (Stream<String> stream = Files.lines(Paths.get(pathFile2))) {
-    stream.forEach(currentLine ->
-    {
-        String[] split = currentLine.split(COMMA_DELIMITER);
-        ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-        ReconRecord lhs = mapLhs.remove(rhs.getKey());
+private <K> Breaks<ReconRecord> compareWithDuplicatesIgnored(
+        Map<K, ReconRecord> mapLhs,
+        String pathFile2,
+        RequestType requestType) {
 
-        if (Objects.nonNull(lhs)) {
-            if (lhs.notEquals(rhs)) {
-                breaks.addToBreaks(Arrays.asList(lhs, rhs));
+    Breaks<ReconRecord> breaks = new Breaks<>(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
+    try (Stream<String> stream = Files.lines(Paths.get(pathFile2))) {
+        stream.forEach(currentLine ->
+        {
+            String[] split = currentLine.split(COMMA_DELIMITER);
+            ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
+            ReconRecord lhs = mapLhs.remove(rhs.getKey());
+
+            if (Objects.nonNull(lhs)) {
+                if (lhs.notEquals(rhs)) {
+                    breaks.addToBreaks(Arrays.asList(lhs, rhs));
+                }
             }
-        }
-        else {
-            breaks.addToPresentInRhsNotInLhs(rhs);
-        }
-    });
-    mapLhs.forEach((id, reconRecord) -> breaks.addToPresentInLhsNotInRhs(reconRecord));
+            else {
+                breaks.addToPresentInRhsNotInLhs(rhs);
+            }
+        });
+        mapLhs.forEach(
+                (id, reconRecord) -> break.addToPresentInLhsNotInRhs(reconRecord));
+    }
+    catch (IOException e) {
+        LOGGER.error("Some went wrong while reading file: {}", pathFile2, e);
+    }
+
+    return breaks;
 }
-catch (IOException e) {
-    LOGGER.error("Some went wrong while reading file: {}", pathFile2, e);
-}
+
 ----
 --
 ---

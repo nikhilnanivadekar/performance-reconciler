@@ -20,6 +20,7 @@ multimapLhs.forEachKeyMutableList((id, listLhs) -> {
                 breaks.addToBreaks(Lists.fixedSize.with(left, right));
             }
         });
+
         if (listRhs.size() < listLhs.size()) {
             listLhs.forEachWithIndex(
                     minSize,
@@ -32,6 +33,7 @@ multimapLhs.forEachKeyMutableList((id, listLhs) -> {
                     listRhs.size() - 1,
                     (each, index) -> breaks.addToPresentInRhsNotInLhs(each));
         }
+
     } else {
         breaks.addAllToPresentInLhsNotInRhs(listLhs);
     }

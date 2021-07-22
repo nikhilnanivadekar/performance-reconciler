@@ -2,7 +2,7 @@
 
 === Reconciler Domain
 
-* `Reservation` - an object with with 14 fields and a composite Primary Key
+* `Reservation` - an object with 14 fields and a composite Primary Key
 
 `Reservation`
 

@@ -20,6 +20,23 @@ UnifiedSetWithHashingStrategy<ReconRecord> set1 =
 --
 [source,java,linenums]
 ----
+private static class PersonHashingStrategy implements HashingStrategy<ReconRecord> {
+    @Override
+    public int computeHashCode(ReconRecord object) {
+        return object.getId();
+    }
+
+    @Override
+    public boolean equals(ReconRecord object1, ReconRecord object2) {
+        return object1.getId() == object2.getId();
+    }
+}
+----
+--
+[example]
+--
+[source,java,linenums]
+----
 UnifiedSetWithHashingStrategy<ReconRecord> set1 =
     UnifiedSetWithHashingStrategy.newSet(RESERVATION_HASHING_STRATEGY);
 // Add each object to the Set

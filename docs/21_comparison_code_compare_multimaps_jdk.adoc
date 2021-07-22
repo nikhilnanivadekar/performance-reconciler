@@ -2,8 +2,7 @@
 
 === Comparison Code
 
-* Compare Multimaps
-** JDK
+* Compare Multimaps - JDK
 
 [example]
 --

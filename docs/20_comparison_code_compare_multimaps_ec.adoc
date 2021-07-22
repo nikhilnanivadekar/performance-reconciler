@@ -2,8 +2,7 @@
 
 === Comparison Code
 
-* Compare Multimaps
-** EC
+* Compare Multimaps - Eclipse Collections
 
 [example]
 --

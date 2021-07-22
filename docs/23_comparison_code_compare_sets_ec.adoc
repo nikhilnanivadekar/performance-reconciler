@@ -2,8 +2,7 @@
 
 === Comparison Code
 
-* Compare Sets
-** EC
+* Compare Sets - Eclipse Collections
 
 [example]
 --

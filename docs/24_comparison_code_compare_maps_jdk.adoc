@@ -2,8 +2,7 @@
 
 === Comparison Code
 
-* Compare Maps
-** JDK
+* Compare Maps - JDK
 
 [example]
 --

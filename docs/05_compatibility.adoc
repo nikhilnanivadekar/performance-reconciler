@@ -9,12 +9,13 @@
 *** https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0[9.0] - Sep. 2017
 *** https://github.com/eclipse/eclipse-collections/releases/tag/8.0.0[8.0] - Sep. 2016
 ** Add new methods to interfaces with or without default implementation
-** Remove deprecated methods/classes previously targeted to version
+** Remove deprecated methods/classes previously targeted for removal
 * Minor releases
 ** Based on demand (roughly 3-9 months)
 ** Before Java 8: New methods require major version
 ** After Java 8: Add methods to interfaces as default methods
-** Deprecate methods/classes, but do not remove without advance documented warning for named major release
+** Deprecate methods/classes
+** Tag classes for removal in named major release, after next major release
 * Bug Fixes
 ** Released immediately
 ** Backported based on severity or demand

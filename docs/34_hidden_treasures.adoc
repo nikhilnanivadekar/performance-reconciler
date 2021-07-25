@@ -32,10 +32,37 @@ ImmutableList<Customer> notSmiths =
 boolean hasSmith = this.customers.containsBy(Customer::getLastName, "Smith");
 ----
 --
-
-* selectInstancesOf
-* chunk
-* zip
+* link:./38_selectinstancesof.adoc[selectInstancesOf]
+[example]
+--
+[source,java,linenums,highlight=2..5]
+----
+MutableList<Number> numbers = Lists.mutable.with(1, 2L, 3.0, 4.0f);
+MutableList<Integer> integers = numbers.selectInstancesOf(Integer.class);
+MutableList<Long> longs = numbers.selectInstancesOf(Long.class);
+MutableList<Double> doubles = numbers.selectInstancesOf(Double.class);
+MutableList<Float> floats = numbers.selectInstancesOf(Float.class);
+----
+--
+* link:./39_chunk.adoc[chunk]
+[example]
+--
+[source,java,linenums,highlight=2]
+----
+IntInterval ints = IntInterval.oneTo(10);
+RichIterable<IntIterable> chunks = ints.chunk(3);
+----
+--
+* link:./40_zip.adoc[zip]
+[example]
+--
+[source,java,linenums,highlight=3]
+----
+MutableList<Integer> list1 = Lists.mutable.with(1, 2, 3);
+MutableList<Integer> list2 = Lists.mutable.with(0, 1, 2, 0);
+MutableList<Pair<Integer, Integer>> zip = list1.zip(list2);
+----
+--
 
 ---
 

@@ -5,9 +5,11 @@
 * Nikhil Nanivadekar
 ** Active Project Lead, Eclipse Collections
 ** Java Champion
+** Twitter: link:https://twitter.com/NikhilNanivade[NikhilNavevade]
 * Donald Raab
 ** Creator, Project Lead, Eclipse Collections
 ** Java Champion
+** Twitter: link:https://twitter.com/TheDonRaab[TheDonRaab]
 
 ---
 

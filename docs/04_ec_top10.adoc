@@ -12,6 +12,8 @@
 * Mutable and Immutable Collection Factories
 * Lazy and Parallel Lazy API (multi-use)
 
+Blog: https://donraab.medium.com/ec-by-example-filtering-4f14b906f718?source=friends_link&sk=1594797d204bcb37f59f70cf5b2454ef[EC by Example: Filtering]
+
 ---
 
 link:./00_toc.adoc[TOC] /

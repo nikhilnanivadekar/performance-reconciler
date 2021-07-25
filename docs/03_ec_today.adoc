@@ -7,11 +7,10 @@
 ** link:https://github.com/eclipse/eclipse-collections/graphs/contributors[80+ Contributors]
 ** Monthly Downloads:
 ** image:img-ec-downloads.png[D]
-* OpenJDK
-** Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
+* Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
 *** Mentioned in link:https://blogs.oracle.com/java-platform-group/the-arrival-of-java-16[Arrival of Java 16]
 *** Mentioned in link:https://blogs.oracle.com/java-platform-group/the-arrival-of-java-14[Arrival of Java 14]
-** Reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]
+*** Reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]
 * Links:
 ** link:https://www.eclipse.org/collections/[Website] - Translated to 11 languages by contributors
 ** link:https://blogs.oracle.com/javamagazine/the-top-25-greatest-java-apps-ever-written[Java Magazine: The 25 greatest Java apps ever written]

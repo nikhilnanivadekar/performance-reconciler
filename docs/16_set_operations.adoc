@@ -24,6 +24,11 @@ Assertions.assertEquals(IntSets.mutable.with(1, 2, 5, 6), symmetricDifference);
 ----
 --
 
+Blogs:
+
+* link:https://pratha-sirisha.medium.com/primitive-set-operations-in-eclipse-collections-b126c9121d15[Primitive Set Operations - Part 1]
+* link:https://pratha-sirisha.medium.com/primitive-set-operations-in-eclipse-collections-part-2-97cb8e8e5fc7[Primitive Set Operations - Part 2]
+
 ---
 
 link:./00_toc.adoc[TOC] /

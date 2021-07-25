@@ -2,14 +2,18 @@
 
 == Invest in your Java Collections
 
-* Nikhil Nanivadekar
-** Active Project Lead, Eclipse Collections
-** Java Champion
-** Twitter: link:https://twitter.com/NikhilNanivade[NikhilNanivade]
-* Donald Raab
-** Creator, Project Lead, Eclipse Collections
-** Java Champion
-** Twitter: link:https://twitter.com/TheDonRaab[TheDonRaab]
+* Introductions
+** Nikhil Nanivadekar
+*** Active Project Lead, Eclipse Collections
+*** Java Champion
+*** Twitter: link:https://twitter.com/NikhilNanivade[NikhilNanivade]
+*** Medium: link:https://medium.com/@nikhilnanivadekar[medium.com/@nikhilnanivadekar]
+** Donald Raab
+*** Creator, Project Lead, Eclipse Collections
+*** Java Champion
+*** Member of the JSR 335 Expert Group (Lambdas/Streams)
+*** Twitter: link:https://twitter.com/TheDonRaab[TheDonRaab]
+*** Medium: link:https://donraab.medium.com[donraab.medium.com]
 
 ---
 

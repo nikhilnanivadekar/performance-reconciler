@@ -8,8 +8,8 @@
 * Created inside Goldman Sachs in 2004
 ** Originally called Caramel
 * Open sourced as GS Collections in 2012
-** Free as in beer - Goldman only contributors
-* Moved to Eclipse Foundation at end of 2015
+** Free as in beer - Goldman Sachs only contributors
+* link:https://www.infoq.com/news/2016/01/GS-Collections-Eclipse-Foundn/[Moved to Eclipse Foundation at end of 2015]
 ** Free as in speech - anyone can contribute after they sign ECA
 ** You can invest in Eclipse Collections and add the features you need
 * Design goals of Eclipse Collections

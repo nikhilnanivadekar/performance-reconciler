@@ -2,36 +2,37 @@
 
 === Comparison Code
 
-* Compare Sets - Eclipse Collections
+* Compare Maps - JDK
 
 [example]
 --
 [source,java,linenums]
 ----
-private Breaks<ReconRecord> compareWithDuplicatesIgnored(
-        UnifiedSetWithHashingStrategy<ReconRecord> setLhs,
+private <K> Breaks<ReconRecord> compareWithDuplicatesIgnored(
+        Map<K, ReconRecord> mapLhs,
         String pathFile2,
         RequestType requestType) {
 
-    Breaks<ReconRecord> breaks = new Breaks<>(Lists.mutable.empty(), Lists.mutable.empty(), Lists.mutable.empty());
-
+    Breaks<ReconRecord> breaks = new Breaks<>(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
     try (Stream<String> stream = Files.lines(Paths.get(pathFile2))) {
         stream.forEach(currentLine ->
         {
             String[] split = currentLine.split(COMMA_DELIMITER);
             ReconRecord rhs = FileParserUtil.getSingleParsedRecord(split, requestType);
-            ReconRecord lhs = setLhs.removeFromPool(rhs);
+            ReconRecord lhs = mapLhs.remove(rhs.getKey());
 
             if (Objects.nonNull(lhs)) {
                 if (lhs.notEquals(rhs)) {
-                    breaks.addToBreaks(Lists.fixedSize.with(lhs, rhs));
+                    breaks.addToBreaks(Arrays.asList(lhs, rhs));
                 }
-            } else {
+            }
+            else {
                 breaks.addToPresentInRhsNotInLhs(rhs);
             }
         });
-        setLhs.each(breaks::addToPresentInLhsNotInRhs);
+        mapLhs.forEach(
+                (id, reconRecord) -> break.addToPresentInLhsNotInRhs(reconRecord));
     }
     catch (IOException e) {
         LOGGER.error("Some went wrong while reading file: {}", pathFile2, e);
@@ -45,5 +46,5 @@ private Breaks<ReconRecord> compareWithDuplicatesIgnored(
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./22_comparison_code_set_map_construction.adoc[Set/Map Construction] /
-link:./24_comparison_code_compare_maps_jdk.adoc[Compare Maps: JDK]
+link:./24_comparison_code_compare_sets_ec.adoc[Compare Sets: EC] /
+link:./26_measurements_person_dataset_multimaps_jdk8.adoc[Measurements: Person Dataset - Multimaps (JDK-8)]

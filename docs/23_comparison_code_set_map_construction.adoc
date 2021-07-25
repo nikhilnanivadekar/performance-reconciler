@@ -66,5 +66,5 @@ reservationList.forEach(reconRecord -> reservationMap.put(reconRecord.getKey(), 
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./21_comparison_code_compare_multimaps_jdk.adoc[Compare Multimaps: JDK] /
-link:./23_comparison_code_compare_sets_ec.adoc[Compare Sets: EC]
+link:./22_comparison_code_compare_multimaps_jdk.adoc[Compare Multimaps: JDK] /
+link:./24_comparison_code_compare_sets_ec.adoc[Compare Sets: EC]

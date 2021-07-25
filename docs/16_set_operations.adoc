@@ -27,5 +27,5 @@ Assertions.assertEquals(IntSets.mutable.with(1, 2, 5, 6), symmetricDifference);
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./37_selectinstancesof.adoc[SelectInstancesOf] /
-link:./39_chunk.adoc[Chunk]
+link:./15_primitive_math.adoc[Primitive Math] /
+link:./17_metrics_overview.adoc[Metrics Overview]

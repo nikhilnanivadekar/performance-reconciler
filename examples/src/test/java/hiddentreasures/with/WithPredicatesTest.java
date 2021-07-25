@@ -16,18 +16,26 @@ public class WithPredicatesTest
     );
 
     @Test
-    public void selectWith()
+    public void selectWithRejectWith()
     {
         ImmutableList<Customer> smiths =
                 this.customers.select(customer -> customer.lastNameMatches("Smith"));
+        ImmutableList<Customer> notSmiths =
+                this.customers.reject(customer -> customer.lastNameMatches("Smith"));
 
         ImmutableList<Customer> withSmiths =
                 this.customers.selectWith(Customer::lastNameMatches, "Smith");
+        ImmutableList<Customer> notWithSmiths =
+                this.customers.rejectWith(Customer::lastNameMatches, "Smith");
 
         Assertions.assertTrue(
                 smiths.allSatisfy(customer -> customer.lastNameMatches("Smith")));
         Assertions.assertTrue(
+                notSmiths.noneSatisfy(customer -> customer.lastNameMatches("Smith")));
+        Assertions.assertTrue(
                 withSmiths.allSatisfyWith(Customer::lastNameMatches, "Smith"));
+        Assertions.assertTrue(
+                notWithSmiths.noneSatisfyWith(Customer::lastNameMatches, "Smith"));
     }
 
     @Test

@@ -1,0 +1,44 @@
+:icons: font
+
+== Hidden Treasures
+
+* Filter Symmetry
+[example]
+--
+[source,java,linenums]
+----
+ImmutableList<Customer> smiths =
+        this.customers.select(customer -> customer.lastNameMatches("Smith"));
+ImmutableList<Customer> notSmiths =
+        this.customers.reject(customer -> customer.lastNameMatches("Smith"));
+----
+--
+* +With patterns
+[example]
+--
+[source,java,linenums]
+----
+ImmutableList<Customer> smiths =
+        this.customers.selectWith(Customer::lastNameMatches, "Smith");
+ImmutableList<Customer> notSmiths =
+        this.customers.rejectWith(Customer::lastNameMatches, "Smith");
+----
+--
+* +By patterns
+[example]
+--
+[source,java,linenums]
+----
+boolean hasSmith = this.customers.containsBy(Customer::getLastName, "Smith");
+----
+--
+
+* selectInstancesOf
+* chunk
+* zip
+
+---
+
+link:./00_toc.adoc[TOC] /
+link:./33_measurements_reservation_dataset_sets_maps_jdk11.adoc[Measurements: Reservation Dataset: Sets/Maps (JDK-11)] /
+link:./35_filter_symmetry.adoc[Filter Symmetry]

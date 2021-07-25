@@ -29,4 +29,4 @@ Assertions.assertEquals(5, stats.getCount());
 
 link:./00_toc.adoc[TOC] /
 link:./14_primitive_datastructures.adoc[Primitive Data Structures] /
-link:./16_metrics_overview.adoc[Metrics Overview]
+link:./16_set_operations.adoc[Set Operations]

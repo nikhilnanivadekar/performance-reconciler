@@ -23,6 +23,6 @@ Assertions.assertEquals(IntInterval.fromTo(10, 10), lazy.drop(3).getFirst());
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./38_set_operations.adoc[Set Operations] /
+link:./38_selectinstancesof.adoc[SelectInstancesOf] /
 link:./40_zip.adoc[Zip]
 

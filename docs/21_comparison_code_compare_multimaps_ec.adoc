@@ -46,5 +46,5 @@ multimapRhs.forEachKeyMutableList((id, rhsList) ->
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./19_comparison_code_multimap_construction.adoc[Multimap Construction] /
-link:./21_comparison_code_compare_multimaps_jdk.adoc[Compare Multimaps: JDK]
+link:./20_comparison_code_multimap_construction.adoc[Multimap Construction] /
+link:./22_comparison_code_compare_multimaps_jdk.adoc[Compare Multimaps: JDK]

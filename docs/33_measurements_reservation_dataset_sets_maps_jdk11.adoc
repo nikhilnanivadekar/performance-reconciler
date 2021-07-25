@@ -16,6 +16,6 @@ _Memory measured as the max heap size found on Visual VM_
 _lower the numbers the better_
 
 link:./00_toc.adoc[TOC] /
-link:./31_measurements_reservation_dataset_sets_maps_jdk8.adoc[Measurements: Reservation Dataset - Sets/Maps (JDK-8)] /
-link:./33_hidden_treasures.adoc[Hidden Treasures]
+link:./32_measurements_reservation_dataset_sets_maps_jdk8.adoc[Measurements: Reservation Dataset - Sets/Maps (JDK-8)] /
+link:./34_hidden_treasures.adoc[Hidden Treasures]
 

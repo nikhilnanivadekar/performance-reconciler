@@ -12,7 +12,7 @@
 * link:https://www.infoq.com/news/2016/01/GS-Collections-Eclipse-Foundn/[Moved to Eclipse Foundation at end of 2015]
 ** Free as in speech - anyone can contribute after they sign ECA
 ** You can invest in Eclipse Collections and add the features you need
-* Design goals of Eclipse Collections
+* Design goals of link:https://github.com/eclipse/eclipse-collections[Eclipse Collections]
 ** Rich API for collections
 ** Add missing data structures
 ** Memory savings

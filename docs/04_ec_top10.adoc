@@ -12,7 +12,7 @@
 * Mutable and Immutable Collection Factories
 * Lazy and Parallel Lazy API (multi-use)
 
-Blog: https://donraab.medium.com/ec-by-example-filtering-4f14b906f718?source=friends_link&sk=1594797d204bcb37f59f70cf5b2454ef[EC by Example: Filtering]
+Blog: https://medium.com/javarevisited/my-25-favorite-eclipse-collections-apis-a51589ee5c4a?source=friends_link&sk=4376b5fd10ccefe47c4f56905cc89846[My 25 favorite methods from the Eclipse Collections API]
 
 ---
 

@@ -7,12 +7,14 @@
 * Stats
 ** link:https://projects.eclipse.org/projects/technology.collections/who[2 Project Leads, 6 Committers]
 ** link:https://github.com/eclipse/eclipse-collections/graphs/contributors[80+ Contributors]
+** Monthly Downloads:
 ** image:img-ec-downloads.png[D]
 * OpenJDK
 ** Member of https://wiki.openjdk.java.net/display/quality/Quality+Outreach[OpenJDK Quality Outreach program]
 ** Found/reported issue in https://stuartmarks.wordpress.com/2020/09/22/incompatibilities-with-jdk-15-charsequence-isempty/[JDK 15 with CharSequence]
-* Current Release: https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0[10.4]
-* Planned Release: 11.0 release soon after JDK 17 released (October 2021)
+* Releases
+** Current Release: https://github.com/eclipse/eclipse-collections/releases/tag/10.4.0[10.4]
+** Planned Major Release: 11.0 release soon after JDK 17 released (October 2021)
 
 ---
 

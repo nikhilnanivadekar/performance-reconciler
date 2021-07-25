@@ -64,6 +64,13 @@ MutableList<Pair<Integer, Integer>> zip = list1.zip(list2);
 ----
 --
 
+Blogs:
+
+* https://dzone.com/articles/jvm-calendar-hidden-treasures-of-eclipse-collectio[Hidden Treasures - Part 1]
+* https://dzone.com/articles/jvm-advent-calendar-hidden-treasures-of-eclipse-co[Hidden Treasures - Part 2]
+* https://www.javaadvent.com/2020/12/hidden-treasures-of-eclipse-collections-2020-edition.html[Hidden Treasures - Part 3]
+
+
 ---
 
 link:./00_toc.adoc[TOC] /

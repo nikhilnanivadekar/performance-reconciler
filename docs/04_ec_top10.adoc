@@ -10,7 +10,7 @@
 * Hashing Strategy data structures
 * Multi-reader data structures
 * Mutable and Immutable Collection Factories
-* Lazy and Parallel Lazy API (multi-use)
+* Serial Lazy and Parallel Lazy APIs
 
 Blog: https://medium.com/javarevisited/my-25-favorite-eclipse-collections-apis-a51589ee5c4a?source=friends_link&sk=4376b5fd10ccefe47c4f56905cc89846[My 25 favorite methods from the Eclipse Collections API]
 

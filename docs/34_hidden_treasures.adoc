@@ -2,7 +2,7 @@
 
 == Hidden Treasures
 
-* Filter Symmetry
+* link:./35_filter_symmetry.adoc[Filter Symmetry]
 [example]
 --
 [source,java,linenums]
@@ -13,7 +13,7 @@ ImmutableList<Customer> notSmiths =
         this.customers.reject(customer -> customer.lastNameMatches("Smith"));
 ----
 --
-* +With patterns
+* link:./36_with_patterns.adoc[+With patterns]
 [example]
 --
 [source,java,linenums]
@@ -24,7 +24,7 @@ ImmutableList<Customer> notSmiths =
         this.customers.rejectWith(Customer::lastNameMatches, "Smith");
 ----
 --
-* +By patterns
+* link:./37_by_patterns.adoc[+By patterns]
 [example]
 --
 [source,java,linenums]
@@ -41,4 +41,4 @@ boolean hasSmith = this.customers.containsBy(Customer::getLastName, "Smith");
 
 link:./00_toc.adoc[TOC] /
 link:./33_measurements_reservation_dataset_sets_maps_jdk11.adoc[Measurements: Reservation Dataset: Sets/Maps (JDK-11)] /
-link:./35_filter_symmetry.adoc[Filter Symmetry]
+link:./41_take-aways.adoc[Take Aways]

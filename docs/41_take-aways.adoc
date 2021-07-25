@@ -9,6 +9,7 @@
 ** Small scale - Similar performance/memory usage, improved productivity, readability
 ** Large scale - Improved performance/memory usage, improved productivity, readability
 * Invest in your Java Collections
+** Eclipse Collections has over 17 years of investment in engineering and micro-optimizations
 
 link:./00_toc.adoc[TOC] /
 link:./40_zip.adoc[ZIP]

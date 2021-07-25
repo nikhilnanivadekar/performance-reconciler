@@ -30,5 +30,4 @@ Assertions.assertEquals(expectedEvens, partition.getRejected());
 ---
 
 link:./00_toc.adoc[TOC] /
-link:./34_hidden_treasures.adoc[Hidden Treasures] /
-link:./36_with_patterns.adoc[+With Patterns]
+link:./34_hidden_treasures.adoc[Hidden Treasures]

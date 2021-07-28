@@ -13,6 +13,18 @@
 ** Requires 2 datasets
 ** Needs to perform computations for comparison
 
+* Specifications:
+** Timing measured as a median over 50 iterations
+** Memory measured as the max heap size found on Visual VM
+** Lower the numbers the better
+** Your mileage may vary
+
+* Eclipse Collections Data Structures: Under the Hood
+** https://medium.com/oracledevs/unifiedmap-how-it-works-48af0b80cb37?source=friends_link&sk=176a61cbd459edbb62f768b038ea1747[Unified Map: How it works?]
+** https://medium.com/oracledevs/unifiedset-the-memory-saver-25b830745959?source=friends_link&sk=b5fdad823231c271a2d289603db13039[Unified Set - The Memory Saver]
+** https://medium.com/oracledevs/multimap-how-it-works-a3430f549d35?source=friends_link&sk=74550e0b559f54aba47eb37809b1e3d1[Multimap -How it works]
+** https://medium.com/oracledevs/bag-the-counter-2689e901aadb?source=friends_link&sk=f1d4b10bfed6e6e6e15a919a39e31169[Bag - The Counter]
+
 ---
 
 link:./00_toc.adoc[TOC] /

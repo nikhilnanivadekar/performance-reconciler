@@ -7,14 +7,34 @@ import customer.Customer;
 import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.impl.block.factory.HashingStrategies;
 import org.eclipse.collections.impl.factory.HashingStrategySets;
+import org.eclipse.collections.impl.set.strategy.mutable.UnifiedSetWithHashingStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class HashingStrategySetTest
-{
+public class HashingStrategySetTest {
     @Test
-    public void customerByName()
-    {
+    public void caseInsensitivePool() {
+        UnifiedSetWithHashingStrategy<String> caseInsensitivePool =
+                UnifiedSetWithHashingStrategy.newSet(HashingStrategies.fromFunction(String::toLowerCase));
+
+        Assertions.assertTrue(caseInsensitivePool.add("one"));
+        Assertions.assertTrue(caseInsensitivePool.add("two"));
+        Assertions.assertTrue(caseInsensitivePool.add("three"));
+        Assertions.assertFalse(caseInsensitivePool.add("oNe"));
+        Assertions.assertFalse(caseInsensitivePool.add("TWO"));
+        Assertions.assertFalse(caseInsensitivePool.add("ThReE"));
+
+        Assertions.assertEquals("one", caseInsensitivePool.get("ONE"));
+        Assertions.assertEquals("two", caseInsensitivePool.get("TWO"));
+        Assertions.assertEquals("three", caseInsensitivePool.get("THREE"));
+
+        Assertions.assertEquals("one", caseInsensitivePool.get("oNe"));
+        Assertions.assertEquals("two", caseInsensitivePool.get("TwO"));
+        Assertions.assertEquals("three", caseInsensitivePool.get("ThReE"));
+    }
+
+    @Test
+    public void customerByName() {
         Set<Customer> jdkSet = new HashSet<>();
 
         Assertions.assertTrue(jdkSet.add(new Customer("Donald", "A", "Duck")));

@@ -19,6 +19,31 @@ Assertions.assertTrue(setByLastAndFirstName.add(new Customer("Mickey", "T", "Mou
 ----
 --
 
+[example]
+--
+[source,java,linenums,highlight=1..5]
+----
+UnifiedSetWithHashingStrategy<String> caseInsensitivePool =
+    UnifiedSetWithHashingStrategy.newSet(
+            HashingStrategies.fromFunction(String::toLowerCase));
+
+Assertions.assertTrue(caseInsensitivePool.add("one"));
+Assertions.assertTrue(caseInsensitivePool.add("two"));
+Assertions.assertTrue(caseInsensitivePool.add("three"));
+Assertions.assertFalse(caseInsensitivePool.add("oNe"));
+Assertions.assertFalse(caseInsensitivePool.add("TWO"));
+Assertions.assertFalse(caseInsensitivePool.add("ThReE"));
+
+Assertions.assertEquals("one", caseInsensitivePool.get("ONE"));
+Assertions.assertEquals("two", caseInsensitivePool.get("TWO"));
+Assertions.assertEquals("three", caseInsensitivePool.get("THREE"));
+
+Assertions.assertEquals("one", caseInsensitivePool.get("oNe"));
+Assertions.assertEquals("two", caseInsensitivePool.get("TwO"));
+Assertions.assertEquals("three", caseInsensitivePool.get("ThReE"));
+----
+--
+
 ---
 
 link:./00_toc.adoc[TOC] /

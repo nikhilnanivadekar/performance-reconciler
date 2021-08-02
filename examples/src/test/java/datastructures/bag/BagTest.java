@@ -7,8 +7,6 @@ import org.eclipse.collections.api.bag.Bag;
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.bag.primitive.CharBag;
 import org.eclipse.collections.api.factory.Bags;
-import org.eclipse.collections.api.factory.Lists;
-import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.collector.Collectors2;
 import org.eclipse.collections.impl.factory.Strings;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 public class BagTest
 {
-
     @Test
     void wordCounter1()
     {
